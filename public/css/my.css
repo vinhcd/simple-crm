@@ -1,0 +1,143 @@
+.required {
+	color:#FF0000;
+}
+
+.btn-info {
+    background-color: #00c0ef;
+    border-color: #00acd6;
+    padding: 0px 5px;
+    margin-right: 5px;
+	margin-left:0px;
+	margin-bottom:1px;
+	margin-top:1px;
+}
+
+.btn-info2 {
+    background-color: #00c0ef;
+    border-color: #00acd6;
+    padding: 6px 25px;
+    margin-right: 5px;
+	margin-left:0px;
+	margin-bottom:1px;
+	margin-top:1px;
+	color:#FFFFFF;
+}
+
+
+.btn-danger {
+    background-color: #dd4b39;
+    border-color: #d73925;
+	padding: 0px 5px;
+		margin-bottom:1px;
+	margin-top:1px;
+}
+
+.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+    border: 1px solid #f4f4f4;
+	padding:0px;
+}
+
+
+.table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+    border-top: 1px solid #f4f4f4;
+}
+
+
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+    border: 1px solid #ddd;
+}
+
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 0px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+table#data_table {
+    border: 1px #E3E3E3 solid;
+    border-collapse: collapse;
+    border-spacing: 0;
+	font-size:14px;
+}
+
+table#data_table th {
+    padding: 2px;
+    border: #E3E3E3 solid;
+    border-width: 0 0 1px 1px;
+    background: #F5F5F5;
+    font-weight: bold;
+    line-height: 120%;
+}
+table#data_table td {
+    padding: 2px;
+    border: 1px #E3E3E3 solid;
+    border-width: 0 0 1px 1px;
+}
+
+
+table#table-01 {
+    border: 1px #E3E3E3 solid;
+    border-collapse: collapse;
+    border-spacing: 0;
+	font-size:12px;
+}
+
+table#table-01 th {
+    padding: 3px;
+    border: #E3E3E3 solid;
+    border-width: 0 0 1px 1px;
+    background: #F5F5F5;
+    font-weight: bold;
+    line-height: 120%;
+}
+table#table-01 td {
+    padding: 3px;
+    border: 1px #E3E3E3 solid;
+    border-width: 0 0 1px 1px;
+}
+
+.sample_01{
+width: 100%;
+border-collapse: collapse;
+}
+.sample_01 th{
+padding: 2px;
+text-align: center;
+vertical-align: top;
+color: #333;
+background-color: #eee;
+border: 1px solid #b9b9b9;
+}
+.sample_01 td{
+padding: 2px;
+background-color: #fff;
+border: 1px solid #b9b9b9;
+}
+
+
+.hoverTable{
+	width:100%; 
+	border-collapse:collapse; 
+}
+
+.hoverTable th{
+text-align: center;
+vertical-align: top;
+color: #333;
+background-color: #FFCC00;
+padding:3px; border:#4e95f4 1px solid;
+}
+
+.hoverTable td{ 
+	padding:2px; border:#4e95f4 1px solid;
+}
+/* Define the default color for all the table rows */
+.hoverTable tr{
+	background: #b8d1f3;
+}
+/* Define the hover highlight color for the table row */
+.hoverTable tr:hover {
+	  background-color: #ffff99;
+}
