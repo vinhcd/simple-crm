@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Neos Timesheet Project</title>
+    <title>Neos Organization Manager</title>
 
     @include('head')
     @yield('custom-head')
@@ -14,7 +14,7 @@
 
         @include('nav')
 
-        @include('sidebar')
+        @include('admin.sidebar')
 
         <div class="content-wrapper">
             @include('header')
