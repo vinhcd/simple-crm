@@ -24,6 +24,7 @@
         @include('footer')
         @include('control-sidebar')
     </div>
+    @yield('scripts')
     @include('scripts')
 </body>
 </html>
