@@ -11,6 +11,14 @@ class UserServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        parent::register();
+        $this->addMiddleWares();
+    }
+
+    /**
+     * @return void
+     */
+    private function addMiddleWares()
+    {
+        $this->app['router']->middleware('user.auth', \App\Module\User\Middleware\Auth::class);
     }
 }

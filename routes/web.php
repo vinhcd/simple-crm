@@ -21,10 +21,18 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::prefix('admin')->namespace('Admin')->group(function () {
-    Route::match(['get', 'post'], 'login', 'AuthController@login')->name('admin_login');
-    Route::get('/logout', 'AuthController@logout')->name('admin_logout');
-    Route::match(['get', 'post'], '/create', 'AuthController@create')->name('admin_create');
+// Admin routes
+Route::match(['get', 'post'], 'admin/login', 'Admin\AuthController@login')->name('admin_login');
+Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function () {
     Route::get('/', 'DashboardController@index')->name('admin_dashboard');
-    Route::get('/users', 'AuthController@list')->name('admin_list_user');
+    Route::get('/logout', 'AuthController@logout')->name('admin_logout');
+
+    Route::get('/user', 'AuthController@list')->name('admin_user_list');
+    Route::match(['get', 'post'], '/user/create', 'AuthController@create')->name('admin_user_create');
+
+    Route::get('/plan', 'PlanController@index')->name('admin_plan_list');
+    Route::match(['get', 'post'], '/plan/create', 'PlanController@create')->name('admin_plan_create');
+
+    Route::get('/organization', 'OrganizationController@index')->name('admin_organization_list');
+    Route::match(['get', 'post'], '/organization/create', 'OrganizationController@create')->name('admin_organization_create');
 });

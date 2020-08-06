@@ -14,29 +14,33 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">User list</h3>
+                            <h3 class="card-title">{{__('Plan list')}}</h3>
                         </div>
                         <div class="card-body">
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th class="w-25">Username</th>
-                                    <th class="w-25">Email</th>
-                                    <th>Role</th>
-                                    <th class="w-25">Comment</th>
-                                    <th>Remove?</th>
+                                    <th style="width: 3%">ID</th>
+                                    <th>Plan name</th>
+                                    <th>Price</th>
+                                    <th>Max staffs</th>
+                                    <th>Trial days</th>
+                                    <th style="width: 5%">Edit</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($users as $user)
+                                <?php /* @var \App\Module\Admin\Api\Data\PlanInterface $plan*/ ?>
+                                @foreach ($plans as $plan)
                                 <tr>
-                                    <td>{{$user->id}}</td>
-                                    <td>{{$user->name}}</td>
-                                    <td>{{$user->email}}</td>
-                                    <td>{{$user->role_id}}</td>
-                                    <td>{{$user->comment}}</td>
-                                    <td><i class="fa fa-trash-alt"></i></td>
+                                    <td>{{$plan->id}}</td>
+                                    <td>{{$plan->name}}</td>
+                                    <td>{{$plan->price}}</td>
+                                    <td>{{$plan->max_staff}}</td>
+                                    <td>{{$plan->days_of_trial}}</td>
+                                    <td>
+                                        <i class="fa fa-edit"></i>&nbsp;&nbsp;
+                                        <i class="fa fa-trash-alt"></i>
+                                    </td>
                                 </tr>
                                 </tbody>
                                 @endforeach
@@ -47,11 +51,17 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <a href="{{route('admin_create')}}">
-                        <button class="btn btn-dark">Create a new user</button>
+                    <a href="{{route('admin_plan_create')}}">
+                        <button class="btn btn-dark">{{__('Create plan')}}</button>
                     </a>
                 </div>
             </div>
         </div>
     </section>
+@stop
+
+@section('custom-scripts')
+    <script>
+        $('#nav-plan').addClass('active')
+    </script>
 @stop

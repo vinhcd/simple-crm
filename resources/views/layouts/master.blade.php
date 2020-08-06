@@ -6,26 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Neos Timesheet Project</title>
 
-    @include('head')
+    @include('includes.head')
     @yield('custom-head')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
-        @include('nav')
+        @include('includes.nav')
 
         @include('sidebar')
 
         <div class="content-wrapper">
-            @include('header')
+            @include('includes.header')
 
             @yield('content')
         </div>
 
-        @include('footer')
-        @include('control-sidebar')
+        @include('includes.footer')
+        @include('includes.control-sidebar')
     </div>
+    @include('includes.scripts')
     @yield('custom-scripts')
-    @include('scripts')
 </body>
 </html>

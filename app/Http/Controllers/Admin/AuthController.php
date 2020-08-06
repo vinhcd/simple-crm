@@ -17,12 +17,12 @@ class AuthController extends \App\Http\Controllers\Controller
 {
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended('/admin');
+        if ($request->post()) {
+            $credentials = $request->only('email', 'password');
+            if (Auth::attempt($credentials)) {
+                return redirect()->intended('/admin');
+            }
         }
-
         return view('admin.login');
     }
 
@@ -37,7 +37,7 @@ class AuthController extends \App\Http\Controllers\Controller
     {
         $users = User::all();
 
-        return view('admin.list_user', ['users' => $users, 'username' => Auth::user()->name]);
+        return view('admin.user_list', ['users' => $users]);
     }
 
     public function create(Request $request)
@@ -53,7 +53,7 @@ class AuthController extends \App\Http\Controllers\Controller
             return redirect()->intended('/admin');
         }
 
-        return view('admin.create_user');
+        return view('admin.user_create');
     }
 
     public function changePwd(Request $request)

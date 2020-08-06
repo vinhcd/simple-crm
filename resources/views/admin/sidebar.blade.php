@@ -14,7 +14,7 @@
                 <img src="{{url('dist/img/hungnt.jpg')}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{$username}}</a>
+                <a href="#" class="d-block">{{auth()->user()->name}}</a>
             </div>
         </div>
 
@@ -22,9 +22,21 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="{{route('admin_list_user')}}" class="nav-link">
+                    <a href="{{route('admin_plan_list')}}" class="nav-link" id="nav-plan">
+                        <i class="nav-icon fa fa-usd"></i>
+                        <p>{{__('Plans')}}</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('admin_organization_list')}}" class="nav-link" id="nav-organization">
+                        <i class="nav-icon fas fa-building"></i>
+                        <p>{{__('Organizations')}}</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('admin_user_list')}}" class="nav-link" id="nav-user">
                         <i class="nav-icon fas fa-user"></i>
-                        <p>Users</p>
+                        <p>{{__('Admin users')}}</p>
                     </a>
                 </li>
             </ul>
