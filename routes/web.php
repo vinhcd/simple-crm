@@ -17,7 +17,7 @@ Route::match(['get', 'post'], 'login', 'UserController@login')->name('login');
 
 Route::middleware('auth')->group(function () {
     Route::get('/', function () {
-        return view('test');
+        return redirect('/admin');
     });
 });
 

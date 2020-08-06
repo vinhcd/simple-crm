@@ -23,6 +23,8 @@ class PlanController extends Controller
     public function __construct(PlanRepositoryInterface $repository)
     {
         $this->repository = $repository;
+
+        parent::__construct();
     }
 
     /**

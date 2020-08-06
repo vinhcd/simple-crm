@@ -39,5 +39,17 @@ class AdminServiceProvider extends ServiceProvider
             \App\Module\Admin\Api\PlanRepositoryInterface::class,
             \App\Module\Admin\Models\PlanRepository::class
         );
+        $this->app->bind(
+            \App\Module\Admin\Api\Data\DatabaseInterface::class,
+            \App\Module\Admin\Models\Data\Database::class
+        );
+        $this->app->bind(
+            \App\Module\Admin\Api\Data\OrganizationInterface::class,
+            \App\Module\Admin\Models\Data\Organization::class
+        );
+        $this->app->bind(
+            \App\Module\Admin\Api\OrganizationRepositoryInterface::class,
+            \App\Module\Admin\Models\OrganizationRepository::class
+        );
     }
 }

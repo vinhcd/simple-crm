@@ -16,15 +16,18 @@ class CreateOrganizationTable extends Migration
         Schema::create('organization', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('uuid')->unique();
             $table->string('phone_number', 50)->nullable();
             $table->string('tax_number', 50)->nullable();
             $table->string('address', 500)->nullable();
             $table->date('register_date');
             $table->unsignedInteger('plan_id');
+            $table->unsignedInteger('database_id');
             $table->text('comment')->nullable();
             $table->timestamps();
 
             $table->index('plan_id');
+            $table->index('database_id');
         });
     }
 

@@ -20,6 +20,8 @@ class OrganizationController extends Controller
     public function __construct()
     {
         $this->repository = new OrganizationRepository();
+
+        parent::__construct();
     }
 
     /**

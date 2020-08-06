@@ -15,9 +15,12 @@ class CreateOrganizationDbTable extends Migration
     {
         Schema::create('organization_db', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('dbname');
             $table->string('host')->nullable();
             $table->unsignedInteger('port')->nullable();
+            $table->string('username')->nullable();
+            $table->string('password')->nullable();
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }
