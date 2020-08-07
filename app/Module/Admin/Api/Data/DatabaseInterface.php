@@ -14,12 +14,6 @@ namespace App\Module\Admin\Api\Data;
 interface DatabaseInterface
 {
     /**
-     * @param integer $id
-     * @return $this
-     */
-    public function getById($id);
-
-    /**
      * @return array
      */
     public function getOrganizationDBConnection();

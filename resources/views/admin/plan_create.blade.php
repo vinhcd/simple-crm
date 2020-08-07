@@ -10,24 +10,26 @@
                         <div class="card-header">
                             <h3 class="card-title">{{__('Creating plan')}}</h3>
                         </div>
-                        <form action="{{route('admin_plan_create')}}" method="post">
+                        <?php /* @var \App\Module\Admin\Api\Data\PlanInterface $plan */ ?>
+                        <form action="{{route('admin_plan_create_update', $plan->id)}}" method="post">
                             @csrf
+                            <input type="hidden" name="id" value="{{ $plan->id }}">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">{{__('Plan name')}}</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter name">
+                                    <input type="text" class="form-control" name="name" id="name" value="{{ $plan->name }}" placeholder="Enter name">
                                 </div>
                                 <div class="form-group">
                                     <label for="price">{{__('Price')}}</label>
-                                    <input type="text" class="form-control" name="price" id="price" placeholder="Enter price">
+                                    <input type="text" class="form-control" name="price" id="price" value="{{ $plan->price }}" placeholder="Enter price">
                                 </div>
                                 <div class="form-group">
                                     <label for="max_staff">{{__('Max staff')}}</label>
-                                    <input type="text" class="form-control" name="max_staff" id="max_staff" placeholder="Enter maximum staff">
+                                    <input type="text" class="form-control" name="max_staff" id="max_staff" value="{{ $plan->max_staff }}" placeholder="Enter maximum staff">
                                 </div>
                                 <div class="form-group">
                                     <label for="trial_days">{{__('Trial days')}}</label>
-                                    <input type="text" class="form-control" name="trial_days" id="trial_days" placeholder="Enter trial days">
+                                    <input type="text" class="form-control" name="trial_days" id="trial_days" value="{{ $plan->days_of_trial }}" placeholder="Enter trial days">
                                 </div>
                             </div>
                             <div class="card-footer">

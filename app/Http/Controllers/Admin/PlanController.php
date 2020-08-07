@@ -23,8 +23,6 @@ class PlanController extends Controller
     public function __construct(PlanRepositoryInterface $repository)
     {
         $this->repository = $repository;
-
-        parent::__construct();
     }
 
     /**
@@ -39,12 +37,17 @@ class PlanController extends Controller
 
     /**
      * @param Request $request
+     * @param string $id
      * @return RedirectResponse|View
      */
-    public function create(Request $request)
+    public function createOrUpdate(Request $request, $id = '')
     {
-        if ($posts = $request->post()) {
+        if ($id) {
+            $plan = $this->repository->getById($id);
+        } else {
             $plan = $this->repository->create();
+        }
+        if ($posts = $request->post()) {
             $plan->name = $posts['name'];
             $plan->price = $posts['price'];
             $plan->max_staff = $posts['max_staff'];
@@ -53,7 +56,7 @@ class PlanController extends Controller
 
             return redirect()->route('admin_plan_list');
         }
-        return view('admin.plan_create');
+        return view('admin.plan_create', ['plan' => $plan]);
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Module\Admin\Api;
 
 use App\Module\Admin\Api\Data\OrganizationInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 interface OrganizationRepositoryInterface
 {
@@ -15,8 +16,15 @@ interface OrganizationRepositoryInterface
     /**
      * @param integer $id
      * @return OrganizationInterface
+     * @throws ModelNotFoundException
      */
     public function getById($id);
+
+    /**
+     * @param string $uuid
+     * @return OrganizationInterface
+     */
+    public function getByUuid($uuid);
 
     /**
      * @return Collection

@@ -19,6 +19,7 @@ class UserServiceProvider extends ServiceProvider
      */
     private function addMiddleWares()
     {
-        $this->app['router']->middleware('user.auth', \App\Module\User\Middleware\Auth::class);
+        $this->app['router']->aliasMiddleware('user.db', \App\Module\User\Middleware\Db::class);
+        $this->app['router']->aliasMiddleware('user.auth', \App\Module\User\Middleware\Auth::class);
     }
 }

@@ -11,4 +11,12 @@ class Organization extends AbstractModel implements OrganizationInterface
      * @var string
      */
     protected $table = 'organization';
+
+    /**
+     * @inheritDoc
+     */
+    public function getDatabase()
+    {
+        return Database::where(['dbname' => $this->uuid])->first();
+    }
 }

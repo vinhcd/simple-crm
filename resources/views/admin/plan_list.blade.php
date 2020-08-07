@@ -38,8 +38,8 @@
                                     <td>{{$plan->max_staff}}</td>
                                     <td>{{$plan->days_of_trial}}</td>
                                     <td>
-                                        <i class="fa fa-edit"></i>&nbsp;&nbsp;
-                                        <i class="fa fa-trash-alt"></i>
+                                        <a href="{{ route('admin_plan_create_update', $plan->id) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                                        <a href="{{ route('admin_plan_delete', $plan->id) }}"><i class="fa fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -51,7 +51,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <a href="{{route('admin_plan_create')}}">
+                    <a href="{{route('admin_plan_create_update')}}">
                         <button class="btn btn-dark">{{__('Create plan')}}</button>
                     </a>
                 </div>

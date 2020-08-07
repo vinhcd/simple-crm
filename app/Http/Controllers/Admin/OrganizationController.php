@@ -23,8 +23,6 @@ class OrganizationController extends Controller
     public function __construct(OrganizationRepositoryInterface $repository)
     {
         $this->repository = $repository;
-
-        parent::__construct();
     }
 
     /**
@@ -38,13 +36,19 @@ class OrganizationController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param string $id
      * @return RedirectResponse|View
+     * @throws \Exception
      */
-    public function create(Request $request)
+    public function createOrUpdate(Request $request, $id = '')
     {
-        if ($posts = $request->post()) {
-            \StaticLogger::log($posts);
+        if ($id) {
+            $org = $this->repository->getById($id);
+        } else {
             $org = $this->repository->create();
+        }
+        if ($posts = $request->post()) {
             $org->name = $posts['name'];
             $org->phone_number = $posts['phone_number'];
             $org->tax_number = $posts['tax_number'];
@@ -57,6 +61,18 @@ class OrganizationController extends Controller
 
             return redirect()->route('admin_organization_list');
         }
-        return view('admin.organization_create');
+        return view('admin.organization_create', ['org' => $org]);
+    }
+
+    /**
+     * @param integer $id
+     * @return RedirectResponse
+     * @throws \Exception
+     */
+    public function delete($id)
+    {
+        $this->repository->delete($this->repository->getById($id));
+
+        return redirect()->route('admin_organization_create_update');
     }
 }

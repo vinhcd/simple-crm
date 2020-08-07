@@ -23,7 +23,16 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->addMiddleWares();
         $this->bindImplementations();
+    }
+
+    /**
+     * @return void
+     */
+    private function addMiddleWares()
+    {
+        $this->app['router']->aliasMiddleware('admin.db', \App\Module\Admin\Middleware\Db::class);
     }
 
     /**
@@ -42,6 +51,10 @@ class AdminServiceProvider extends ServiceProvider
         $this->app->bind(
             \App\Module\Admin\Api\Data\DatabaseInterface::class,
             \App\Module\Admin\Models\Data\Database::class
+        );
+        $this->app->bind(
+            \App\Module\Admin\Api\DatabaseRepositoryInterface::class,
+            \App\Module\Admin\Models\DatabaseRepository::class
         );
         $this->app->bind(
             \App\Module\Admin\Api\Data\OrganizationInterface::class,

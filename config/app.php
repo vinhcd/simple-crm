@@ -179,6 +179,7 @@ return [
          * Modules
          */
         \App\Module\Admin\AdminServiceProvider::class,
+        \App\Module\User\UserServiceProvider::class,
     ],
 
     /*

@@ -33,6 +33,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <?php /* @var \App\Module\Admin\Api\Data\OrganizationInterface $organization */ ?>
                                 @foreach ($organizations as $organization)
                                 <tr>
                                     <td>{{$organization->id}}</td>
@@ -45,8 +46,8 @@
                                     <td>{{$organization->plan_id}}</td>
                                     <td>{{$organization->comment}}</td>
                                     <td>
-                                        <i class="fa fa-edit"></i>&nbsp;&nbsp;
-                                        <i class="fa fa-trash-alt"></i>
+                                        <a href="{{ route('admin_organization_create_update', $organization->id) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                                        <a href="{{ route('admin_organization_delete', $organization->id) }}"><i class="fa fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -58,7 +59,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <a href="{{route('admin_organization_create')}}">
+                    <a href="{{route('admin_organization_create_update')}}">
                         <button class="btn btn-dark">{{__('Create organization')}}</button>
                     </a>
                 </div>

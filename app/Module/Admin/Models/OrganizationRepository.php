@@ -21,7 +21,15 @@ class OrganizationRepository implements OrganizationRepositoryInterface
      */
     public function getById($id)
     {
-        return Organization::find($id);
+        return Organization::findOrFail($id);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getByUuid($uuid)
+    {
+        return Organization::where(['uuid' => $uuid])->first();
     }
 
     /**
@@ -47,7 +55,6 @@ class OrganizationRepository implements OrganizationRepositoryInterface
 
         try {
             $db->save();
-            $organization->database_id = $db->getId();
             $organization->save();
         } catch (\Exception $e) {
             $db->delete();

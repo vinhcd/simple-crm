@@ -14,4 +14,10 @@ namespace App\Module\Admin\Api\Data;
  * @property integer database_id
  * @property string comment
  */
-interface OrganizationInterface{}
+interface OrganizationInterface
+{
+    /**
+     * @return DatabaseInterface
+     */
+    public function getDatabase();
+}

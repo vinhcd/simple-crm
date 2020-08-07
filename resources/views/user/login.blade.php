@@ -14,10 +14,10 @@
         <div class="card-body login-card-body">
             <p class="login-box-msg">Sign in to start your session</p>
 
-            <form action="/login" method="post">
+            <form action="{{ route('login') }}" method="post">
                 @csrf
                 <div class="input-group mb-3">
-                    <input type="text" name="organization_id" class="form-control" placeholder="Organization ID">
+                    <input type="text" name="organization_uuid" class="form-control" placeholder="Organization ID">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-id-card"></span>
