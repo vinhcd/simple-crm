@@ -2,9 +2,10 @@
 
 namespace App\Module\Admin\Models\Data;
 
-use Illuminate\Database\Eloquent\Model;
+use App\AbstractModel;
+use App\Module\Admin\Api\Data\OrganizationInterface;
 
-class Organization extends Model
+class Organization extends AbstractModel implements OrganizationInterface
 {
     /**
      * @var string

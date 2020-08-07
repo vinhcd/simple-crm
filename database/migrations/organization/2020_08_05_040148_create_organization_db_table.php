@@ -15,7 +15,7 @@ class CreateOrganizationDbTable extends Migration
     {
         Schema::create('organization_db', function (Blueprint $table) {
             $table->id();
-            $table->string('dbname');
+            $table->string('dbname')->unique()->comment('organization uuid');
             $table->string('host')->nullable();
             $table->unsignedInteger('port')->nullable();
             $table->string('username')->nullable();

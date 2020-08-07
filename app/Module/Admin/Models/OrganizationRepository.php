@@ -3,25 +3,75 @@
 namespace App\Module\Admin\Models;
 
 use App\Module\Admin\Api\OrganizationRepositoryInterface;
+use App\Module\Admin\Models\Data\Database;
 use App\Module\Admin\Models\Data\Organization;
 
 class OrganizationRepository implements OrganizationRepositoryInterface
 {
+    /**
+     * @return Organization
+     */
     public function create()
     {
         return new Organization();
     }
 
     /**
-     * @return Organization[]
+     * @inheritDoc
+     */
+    public function getById($id)
+    {
+        return Organization::find($id);
+    }
+
+    /**
+     * @inheritDoc
      */
     public function getAll()
     {
         return Organization::all();
     }
 
+    /**
+     * @param Organization $organization
+     * @return Organization|void
+     * @throws \Exception
+     */
     public function save($organization)
     {
-        // TODO: Implement save() method.
+        $uuid = $this->generateUuid();
+        $db = new Database();
+
+        $db->dbname = $uuid;
+        $organization->uuid = $uuid;
+
+        try {
+            $db->save();
+            $organization->database_id = $db->getId();
+            $organization->save();
+        } catch (\Exception $e) {
+            $db->delete();
+            $this->delete($organization);
+            throw new \Exception($e->getMessage());
+        }
+        return $organization;
+    }
+
+    /**
+     * @param Organization $organization
+     * @return bool|null
+     * @throws \Exception
+     */
+    public function delete($organization)
+    {
+        return $organization->delete();
+    }
+
+    /**
+     * @return string
+     */
+    private function generateUuid()
+    {
+        return strtoupper(uniqid());
     }
 }

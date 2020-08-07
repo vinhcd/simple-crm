@@ -13,6 +13,12 @@ interface OrganizationRepositoryInterface
     public function create();
 
     /**
+     * @param integer $id
+     * @return OrganizationInterface
+     */
+    public function getById($id);
+
+    /**
      * @return Collection
      */
     public function getAll();
@@ -20,6 +26,14 @@ interface OrganizationRepositoryInterface
     /**
      * @param OrganizationInterface $organization
      * @return OrganizationInterface
+     * @throws \Exception
      */
     public function save($organization);
+
+    /**
+     * @param OrganizationInterface $organization
+     * @return bool
+     * @throws \Exception
+     */
+    public function delete($organization);
 }

@@ -45,14 +45,26 @@ class PlanController extends Controller
     {
         if ($posts = $request->post()) {
             $plan = $this->repository->create();
-            $plan->setName($posts['name']);
-            $plan->setPrice($posts['price']);
-            $plan->setMaxStaff($posts['max_staff']);
-            $plan->setDaysOfTrial($posts['trial_days']);
+            $plan->name = $posts['name'];
+            $plan->price = $posts['price'];
+            $plan->max_staff = $posts['max_staff'];
+            $plan->days_of_trial = $posts['trial_days'];
             $this->repository->save($plan);
 
             return redirect()->route('admin_plan_list');
         }
         return view('admin.plan_create');
+    }
+
+    /**
+     * @param integer $id
+     * @return RedirectResponse
+     * @throws \Exception
+     */
+    public function delete($id)
+    {
+        $this->repository->delete($this->repository->getById($id));
+
+        return redirect()->route('admin_plan_list');
     }
 }

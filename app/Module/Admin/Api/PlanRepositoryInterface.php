@@ -13,13 +13,26 @@ interface PlanRepositoryInterface
     public function create();
 
     /**
+     * @param integer $id
+     * @return PlanInterface
+     */
+    public function getById($id);
+
+    /**
      * @return Collection
      */
     public function getAll();
 
     /**
      * @param PlanInterface $plan
-     * @return PlanInterface
+     * @return bool
      */
     public function save($plan);
+
+    /**
+     * @param PlanInterface $plan
+     * @return bool
+     * @throws \Exception
+     */
+    public function delete($plan);
 }

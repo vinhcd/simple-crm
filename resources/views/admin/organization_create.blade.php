@@ -35,11 +35,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="plan_id">{{__('Plan')}}</label>
-                                    <input type="text" class="form-control" name="plan_id" id="plan_id" placeholder="Enter register date">
-                                </div>
-                                <div class="form-group">
-                                    <label for="database_id">{{__('Database')}}</label>
-                                    <input type="number" class="form-control" name="database_id" id="database_id" placeholder="Enter DB">
+                                    <input type="text" class="form-control" name="plan_id" id="plan_id" placeholder="Enter plan">
                                 </div>
                                 <div class="form-group">
                                     <label for="comment">{{__('Comment')}}</label>

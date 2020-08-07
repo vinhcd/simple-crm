@@ -22,6 +22,7 @@
                                 <tr>
                                     <th style="width: 3%">ID</th>
                                     <th>Organization name</th>
+                                    <th>UUID</th>
                                     <th>Phone#</th>
                                     <th>Tax#</th>
                                     <th>Address</th>
@@ -36,6 +37,7 @@
                                 <tr>
                                     <td>{{$organization->id}}</td>
                                     <td>{{$organization->name}}</td>
+                                    <td>{{$organization->uuid}}</td>
                                     <td>{{$organization->phone_number}}</td>
                                     <td>{{$organization->tax_number}}</td>
                                     <td>{{$organization->address}}</td>

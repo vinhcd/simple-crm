@@ -22,12 +22,10 @@ class CreateOrganizationTable extends Migration
             $table->string('address', 500)->nullable();
             $table->date('register_date');
             $table->unsignedInteger('plan_id');
-            $table->unsignedInteger('database_id');
             $table->text('comment')->nullable();
             $table->timestamps();
 
             $table->index('plan_id');
-            $table->index('database_id');
         });
     }
 
