@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlanTable extends Migration
+class CreateUserGroupTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,10 @@ class CreatePlanTable extends Migration
      */
     public function up()
     {
-        Schema::create('plan', function (Blueprint $table) {
+        Schema::create('user_group', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->decimal('price');
-            $table->integer('max_staff');
-            $table->unsignedInteger('trial_days')->default(0);
-            $table->text('description')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('group_id');
 
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
@@ -34,6 +31,6 @@ class CreatePlanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plan');
+        Schema::dropIfExists('user_group');
     }
 }

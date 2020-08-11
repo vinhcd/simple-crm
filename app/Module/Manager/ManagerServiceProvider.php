@@ -2,24 +2,19 @@
 
 namespace App\Module\Manager;
 
-use Illuminate\Support\Facades\Route;
+use App\Module\Manager\Providers\RouteServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class ManagerServiceProvider extends ServiceProvider
 {
     /**
-     * @var string
-     */
-    protected $controllerNamespace = '\App\Module\Manager\Controllers';
-
-    /**
      * @return void
      */
     public function boot()
     {
-        $this->loadRoutes();
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
-        $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'manager');
+        $this->loadFactoriesFrom(__DIR__ . '/database/factories');
+        $this->loadJsonTranslationsFrom(__DIR__ . '/resources/lang');
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'manager');
 
         $this->publishes([
@@ -28,28 +23,13 @@ class ManagerServiceProvider extends ServiceProvider
     }
 
     /**
-     * @return void
-     */
-    public function loadRoutes()
-    {
-        Route::middleware('web')
-            ->namespace($this->controllerNamespace)
-            ->group(__DIR__ . '/routes/web.php');
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function register()
     {
-        $this->addMiddleWares();
+        $this->app->register(RouteServiceProvider::class);
         $this->bindImplementations();
     }
-
-    /**
-     * @return void
-     */
-    private function addMiddleWares(){}
 
     /**
      * @return void

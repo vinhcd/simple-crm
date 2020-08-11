@@ -22,6 +22,9 @@ class CreateOrganizationTable extends Migration
             $table->string('tax_number', 50)->nullable();
             $table->text('address')->nullable();
             $table->text('description')->nullable();
+
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
         });
     }

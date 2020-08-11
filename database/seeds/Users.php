@@ -13,16 +13,22 @@ class Users extends Seeder
      */
     public function run()
     {
-        DB::table('role')->insert([
+        DB::beginTransaction();
+
+        DB::table('group')->insert([
             'name' => 'superadmin',
             'priority' => 1
         ]);
-
         DB::table('users')->insert([
             'name' => 'neos',
             'email' => 'neos@neoscorp.vn',
             'password' => Hash::make('neos'),
-            'role_id' => 1,
         ]);
+        DB::table('user_group')->insert([
+            'user_id' => 1,
+            'group_id' => 1
+        ]);
+
+        DB::commit();
     }
 }

@@ -19,6 +19,9 @@ class CreateOrganizationPlanTable extends Migration
             $table->integer('plan_id');
             $table->date('start');
             $table->date('end');
+
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
 
             $table->index('organization_id');

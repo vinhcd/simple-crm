@@ -14,7 +14,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">User list</h3>
+                            <h3 class="card-title">{{ __('User list') }}</h3>
                         </div>
                         <div class="card-body">
                             <table id="example2" class="table table-bordered table-hover">
@@ -51,7 +51,7 @@
             <div class="row">
                 <div class="col-12">
                     <a href="{{route('user_create_update')}}">
-                        <button class="btn btn-dark">Create user</button>
+                        <button class="btn btn-dark">{{ __('Create user') }}</button>
                     </a>
                 </div>
             </div>
