@@ -14,7 +14,7 @@
         <div class="card-body login-card-body">
             <p class="login-box-msg">Create a new user</p>
 
-            <form action="{{route('admin_user_create')}}" method="post">
+            <form action="{{route('user_create_update')}}" method="post">
                 @csrf
                 <div class="input-group mb-3">
                     <input type="text" name="name" class="form-control" placeholder="Username">

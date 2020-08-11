@@ -36,7 +36,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a title="Logout" class="nav-link" href="{{url('admin/logout')}}" role="button">
+            <a title="Logout" class="nav-link" href="{{ route('user_logout') }}" role="button">
                 <i class="fa fa-sign-out-alt"></i>
             </a>
         </li>

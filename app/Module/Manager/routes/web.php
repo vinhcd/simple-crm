@@ -2,11 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::namespace('\App\Module\Manager\Controllers')->prefix('manager')->middleware('auth')->group(function () {
-    Route::get('/', 'DashboardController@index')->name('manager_dashboard');
-
-    Route::get('/user', 'AuthController@list')->name('manager_user_list');
-    Route::match(['get', 'post'], '/user/create', 'AuthController@create')->name('manager_user_create');
+Route::prefix('manager')->middleware('auth')->group(function () {
 
     Route::get('/plan', 'PlanController@index')->name('manager_plan_list');
     Route::get('/plan/delete/{id}', 'PlanController@delete')->name('manager_plan_delete');

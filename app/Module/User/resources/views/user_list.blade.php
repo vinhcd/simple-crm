@@ -50,7 +50,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <a href="{{route('admin_user_create')}}">
+                    <a href="{{route('user_create_update')}}">
                         <button class="btn btn-dark">Create user</button>
                     </a>
                 </div>

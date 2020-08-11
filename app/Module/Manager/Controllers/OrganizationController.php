@@ -2,13 +2,15 @@
 
 namespace App\Module\Manager\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Module\Manager\Api\OrganizationRepositoryInterface;
+
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\View\View;
 
-class OrganizationController
+class OrganizationController extends Controller
 {
     /**
      * @var OrganizationRepositoryInterface

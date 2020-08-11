@@ -34,7 +34,7 @@ class AuthController extends \App\Http\Controllers\Controller
         return view('user::user_list', ['users' => $users]);
     }
 
-    public function create(Request $request)
+    public function createOrUpdate(Request $request)
     {
         if ($posts = $request->post()) {
             $user = new User();
@@ -44,7 +44,7 @@ class AuthController extends \App\Http\Controllers\Controller
             $user->role_id = 1;
             $user->save();
 
-            return redirect()->route('user::user_list');
+            return redirect()->route('user_list');
         }
 
         return view('user::user_create');

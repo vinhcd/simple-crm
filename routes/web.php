@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', 'DashboardController@index')->middleware('auth')->name('home');
+
 Route::get('/test', function () {
     if (auth()->check()) {
         echo auth()->user()->name;
