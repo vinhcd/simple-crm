@@ -12,6 +12,7 @@ class ManagerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->mergeConfigFrom(__DIR__ . '/config/acl.php', 'acl');
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
         $this->loadFactoriesFrom(__DIR__ . '/database/factories');
         $this->loadJsonTranslationsFrom(__DIR__ . '/resources/lang');

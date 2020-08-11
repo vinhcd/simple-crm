@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserGroupTable extends Migration
+class CreateRoleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,15 @@ class CreateUserGroupTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_group', function (Blueprint $table) {
+        Schema::create('role', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('group_id');
+            $table->string('name');
+            $table->unsignedTinyInteger('active')->default(1);
+            $table->text('description');
 
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')
-                ->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreign('group_id')->references('id')->on('group')
-                ->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
@@ -36,6 +32,6 @@ class CreateUserGroupTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_group');
+        Schema::dropIfExists('role');
     }
 }

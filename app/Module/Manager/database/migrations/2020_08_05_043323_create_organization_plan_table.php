@@ -15,8 +15,8 @@ class CreateOrganizationPlanTable extends Migration
     {
         Schema::create('organization_plan', function (Blueprint $table) {
             $table->id();
-            $table->integer('organization_id');
-            $table->integer('plan_id');
+            $table->unsignedBigInteger('organization_id');
+            $table->unsignedBigInteger('plan_id');
             $table->date('start');
             $table->date('end');
 
@@ -24,8 +24,10 @@ class CreateOrganizationPlanTable extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
 
-            $table->index('organization_id');
-            $table->index('plan_id');
+            $table->foreign('organization_id')->references('id')->on('organization')
+                ->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('plan_id')->references('id')->on('plan')
+                ->cascadeOnUpdate()->cascadeOnDelete();
         });
     }
 
