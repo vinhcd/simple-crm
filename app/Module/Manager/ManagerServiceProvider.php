@@ -2,6 +2,7 @@
 
 namespace App\Module\Manager;
 
+use App\Helper\InjectionHelper;
 use App\Module\Manager\Providers\RouteServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,29 +30,17 @@ class ManagerServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
-        $this->bindImplementations();
+
+        $this->bindInjection();
     }
 
     /**
      * @return void
      */
-    private function bindImplementations()
+    private function bindInjection()
     {
-        $this->app->bind(
-            \App\Module\Manager\Api\Data\PlanInterface::class,
-            \App\Module\Manager\Models\Data\Plan::class
-        );
-        $this->app->bind(
-            \App\Module\Manager\Api\PlanRepositoryInterface::class,
-            \App\Module\Manager\Models\PlanRepository::class
-        );
-        $this->app->bind(
-            \App\Module\Manager\Api\Data\OrganizationInterface::class,
-            \App\Module\Manager\Models\Data\Organization::class
-        );
-        $this->app->bind(
-            \App\Module\Manager\Api\OrganizationRepositoryInterface::class,
-            \App\Module\Manager\Models\OrganizationRepository::class
-        );
+        $this->mergeConfigFrom(__DIR__ . '/config/injection.php', InjectionHelper::KEY);
+
+        InjectionHelper::bind('manager');
     }
 }

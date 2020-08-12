@@ -14,4 +14,7 @@ namespace App\Module\Manager\Api\Data;
  * @property integer database_id
  * @property string comment
  */
-interface OrganizationInterface{}
+interface OrganizationInterface
+{
+    const RESOURCE_ID = 'organization';
+}

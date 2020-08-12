@@ -1,0 +1,24 @@
+
+- App:
+    - Helper: application wide helper classes
+    - Module:
+        - {$module_name}
+            - Api: module APIs which can be called from other modules or controllers
+            - config: module configs merged into app
+                - acl.php: list resource for ACL
+                - injection.php: bind module APIs to concrete classes
+            - Controllers: module controllers
+            - database:
+                - factories: module factory files
+                - migrations: module migration files
+            - Middleware
+            - Models: all models which implement interfaces from Api folder
+            - Providers: module providers
+            - resources:
+                - css: module css files
+                - js: module js files
+                - lang: json language
+                - views: template (blade)
+            - routes:
+                - web.php: web routes
+                - api.php: api routes

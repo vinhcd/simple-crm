@@ -17,6 +17,7 @@ class CreateRolePermissionTable extends Migration
             $table->id();
             $table->unsignedBigInteger('role_id');
             $table->string('resource_id');
+            $table->unsignedBigInteger('condition_id')->nullable();
             $table->string('permission');
 
             $table->unsignedBigInteger('created_by')->nullable();
