@@ -19,7 +19,6 @@ class InjectionHelper
 
         if (isset($injections[$module])) {
             foreach ($injections[$module] as $interface => $implementation) {
-                /* @var \Illuminate\Contracts\Foundation\Application App */
                 App::bind($interface, $implementation);
             }
         }

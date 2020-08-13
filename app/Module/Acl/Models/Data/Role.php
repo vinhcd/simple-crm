@@ -2,7 +2,7 @@
 
 namespace App\Module\Acl\Models\Data;
 
-use App\AbstractModel;
+use App\Models\AbstractModel;
 use App\Module\Acl\Api\Data\RoleInterface;
 use Illuminate\Database\Eloquent\Collection;
 

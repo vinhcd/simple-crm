@@ -23,19 +23,20 @@
                                     <th style="width: 3%">ID</th>
                                     <th>Username</th>
                                     <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Comment</th>
+                                    <th>Full name</th>
+                                    <th>Description</th>
                                     <th style="width: 5%">Edit</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <?php /* @var \App\Module\User\Api\Data\UserInterface $user */ ?>
                                 @foreach ($users as $user)
                                 <tr>
-                                    <td>{{$user->id}}</td>
-                                    <td>{{$user->name}}</td>
-                                    <td>{{$user->email}}</td>
-                                    <td>{{$user->role_id}}</td>
-                                    <td>{{$user->comment}}</td>
+                                    <td>{{$user->getId()}}</td>
+                                    <td>{{$user->getName()}}</td>
+                                    <td>{{$user->getEmail()}}</td>
+                                    <td>{{$user->getFirstName()}} {{$user->getLastName()}}</td>
+                                    <td>{{$user->getDescription()}}</td>
                                     <td>
                                         <i class="fa fa-edit"></i>&nbsp;&nbsp;
                                         <i class="fa fa-trash-alt"></i>

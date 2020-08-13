@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use App\Models\Traits\AccessorMutatorGenerator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,6 +14,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 abstract class AbstractModel extends Model
 {
+    use AccessorMutatorGenerator;
+
+    /**
+     * The attributes which can be generated for get/set automatically
+     *
+     * @var array
+     */
+    protected $properties = [];
+
     /**
      * @return integer
      */

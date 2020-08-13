@@ -1,6 +1,7 @@
 
-- App:
+- app:
     - Helper: application wide helper classes
+    - Models: application wide model classes
     - Module:
         - {$module_name}
             - Api: module APIs which can be called from other modules or controllers

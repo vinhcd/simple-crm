@@ -3,7 +3,7 @@
 namespace App\Module\User\Controllers;
 
 use App\Http\Controllers\Controller;
-use \App\Module\User\Models\User;
+use App\Module\User\Api\UserRepositoryInterface;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +11,20 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    /**
+     * @var UserRepositoryInterface
+     */
+    private $repository;
+
+    /**
+     * AuthController constructor.
+     * @param UserRepositoryInterface $repository
+     */
+    public function __construct(UserRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function login(Request $request)
     {
         if ($request->post()) {
@@ -31,7 +45,7 @@ class AuthController extends Controller
 
     public function list()
     {
-        $users = User::all();
+        $users = $this->repository->getAll();
 
         return view('user::user_list', ['users' => $users]);
     }
@@ -39,12 +53,11 @@ class AuthController extends Controller
     public function createOrUpdate(Request $request)
     {
         if ($posts = $request->post()) {
-            $user = new User();
-            $user->name = $posts['name'];
-            $user->email = $posts['email'];
-            $user->password = Hash::make($posts['password']);
-            $user->role_id = 1;
-            $user->save();
+            $user = $this->repository->create();
+            $user->setName($posts['name']);
+            $user->setEmail($posts['email']);
+            $user->setPassword(Hash::make($posts['password']));
+            $this->repository->save($user);
 
             return redirect()->route('user_list');
         }
