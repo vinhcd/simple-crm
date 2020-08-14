@@ -2,7 +2,7 @@
 
 namespace App\Module\Acl;
 
-use App\Helper\InjectionHelper;
+use App\Support\Injection;
 use Illuminate\Support\ServiceProvider;
 
 class AclServiceProvider extends ServiceProvider
@@ -30,8 +30,8 @@ class AclServiceProvider extends ServiceProvider
      */
     private function bindInjection()
     {
-        $this->mergeConfigFrom(__DIR__ . '/config/injection.php', InjectionHelper::KEY);
+        $this->mergeConfigFrom(__DIR__ . '/config/injection.php', Injection::KEY);
 
-        InjectionHelper::bind('acl');
+        Injection::bind('acl');
     }
 }

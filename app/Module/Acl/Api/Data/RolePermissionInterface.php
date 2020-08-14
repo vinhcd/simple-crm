@@ -3,9 +3,18 @@
 namespace App\Module\Acl\Api\Data;
 
 /**
- * @property integer id
- * @property integer role_id
- * @property string resource_id
- * @property string permission
+ * @method integer getId()
+ * @method integer getRoleId()
+ * @method $this setRoleId(int $value)
+ * @method string getResourceId()
+ * @method $this setResourceId(string $value)
+ * @method string getPermission()
+ * @method $this setPermission(string $value)
  */
-interface RolePermissionInterface{}
+interface RolePermissionInterface
+{
+    const READ = 'read';
+
+    const WRITE = 'write';
+
+}

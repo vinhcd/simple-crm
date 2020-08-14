@@ -2,7 +2,7 @@
 
 namespace App\Module\User;
 
-use App\Helper\InjectionHelper;
+use App\Support\Injection;
 use App\Module\User\Providers\EventServiceProvider;
 use App\Module\User\Providers\RouteServiceProvider;
 use Illuminate\Support\ServiceProvider;
@@ -41,8 +41,8 @@ class UserServiceProvider extends ServiceProvider
      */
     private function bindInjection()
     {
-        $this->mergeConfigFrom(__DIR__ . '/config/injection.php', InjectionHelper::KEY);
+        $this->mergeConfigFrom(__DIR__ . '/config/injection.php', Injection::KEY);
 
-        InjectionHelper::bind('user');
+        Injection::bind('user');
     }
 }

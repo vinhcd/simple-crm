@@ -2,35 +2,33 @@
 
 namespace App\Module\User\Models;
 
-use App\Module\User\Api\UserRepositoryInterface;
-use App\Module\User\Models\Data\User;
+use App\Module\User\Api\GroupRepositoryInterface;
+use App\Module\User\Models\Data\Group;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class UserRepository implements UserRepositoryInterface
+class GroupRepository implements GroupRepositoryInterface
 {
     /**
-     * @return User
+     * @return Group
      */
     public function create()
     {
-        return new User();
+        return new Group();
     }
-
     /**
-     * @param int $id
-     * @return User
+     * @return Group
      * @throws ModelNotFoundException
      */
     public function getById($id)
     {
-        return User::findOrFail($id);
+        return Group::findOrFail($id);
     }
 
     /**
      * @param int[] $ids
-     * @return User[]|Collection
+     * @return Group[]|Collection
      */
     public function getByIds($ids)
     {
@@ -42,33 +40,33 @@ class UserRepository implements UserRepositoryInterface
      */
     public function getBuilder()
     {
-        return User::query();
+        return Group::query();
     }
 
     /**
-     * @return User[]|Collection
+     * @return Group[]|Collection
      */
     public function getAll()
     {
-        return User::all();
+        return Group::all();
     }
 
     /**
-     * @param User $user
+     * @param Group $group
      * @return bool
      */
-    public function save($user)
+    public function save($group)
     {
-        return $user->save();
+        return $group->save();
     }
 
     /**
-     * @param User $user
+     * @param Group $group
      * @return bool
      * @throws \Exception
      */
-    public function delete($user)
+    public function delete($group)
     {
-        return $user->delete();
+        return $group->delete();
     }
 }

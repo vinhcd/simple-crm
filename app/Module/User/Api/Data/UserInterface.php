@@ -2,6 +2,8 @@
 
 namespace App\Module\User\Api\Data;
 
+use Illuminate\Database\Eloquent\Collection;
+
 /**
  * @method integer getId()
  * @method string getName()
@@ -20,4 +22,14 @@ namespace App\Module\User\Api\Data;
 interface UserInterface
 {
     const RESOURCE_ID = 'user';
+
+    /**
+     * @return GroupInterface[] | Collection
+     */
+    public function getGroups();
+
+    /**
+     * @return bool
+     */
+    public function isSuperAdmin();
 }

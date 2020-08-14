@@ -16,6 +16,7 @@ class CreateGroupTable extends Migration
         Schema::create('group', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('display_name');
             $table->integer('priority')->default(100);
             $table->text('description')->nullable();
 

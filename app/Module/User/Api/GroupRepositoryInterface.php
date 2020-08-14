@@ -2,28 +2,29 @@
 
 namespace App\Module\User\Api;
 
+use App\Module\User\Api\Data\GroupInterface;
 use App\Module\User\Api\Data\UserInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-interface UserRepositoryInterface
+interface GroupRepositoryInterface
 {
     /**
-     * @return UserInterface
+     * @return GroupInterface
      */
     public function create();
 
     /**
-     * @param integer $id
-     * @return UserInterface
+     * @param int $id
+     * @return GroupInterface
      * @throws ModelNotFoundException
      */
     public function getById($id);
 
     /**
      * @param int[] $ids
-     * @return UserInterface[] | Collection
+     * @return GroupInterface[] | Collection
      */
     public function getByIds($ids);
 
@@ -38,16 +39,15 @@ interface UserRepositoryInterface
     public function getAll();
 
     /**
-     * @param UserInterface $user
+     * @param GroupInterface $group
      * @return bool
-     * @throws \Exception
      */
-    public function save($user);
+    public function save($group);
 
     /**
-     * @param UserInterface $user
+     * @param GroupInterface $group
      * @return bool
      * @throws \Exception
      */
-    public function delete($user);
+    public function delete($group);
 }

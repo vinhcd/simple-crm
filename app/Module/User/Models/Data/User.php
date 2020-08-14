@@ -5,7 +5,9 @@ namespace App\Module\User\Models\Data;
 use App\Models\Traits\AccessorMutatorGenerator;
 use App\Module\User\Api\Data\UserInterface;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -67,10 +69,45 @@ class User extends Authenticatable implements UserInterface
     ];
 
     /**
+     * @var Collection
+     */
+    protected $groups;
+
+    /**
      * @return int
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return Group[] | Collection
+     */
+    public function getGroups()
+    {
+        if (!$this->groups) {
+            $this->groups = $this->groups()->get();
+        }
+        return $this->groups;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSuperAdmin()
+    {
+        foreach ($this->getGroups() as $group) {
+            if ($group->getName() == Group::SUPER_ADMIN) return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'user_group');
     }
 }

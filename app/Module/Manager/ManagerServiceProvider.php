@@ -2,7 +2,7 @@
 
 namespace App\Module\Manager;
 
-use App\Helper\InjectionHelper;
+use App\Support\Injection;
 use App\Module\Manager\Providers\RouteServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
@@ -39,8 +39,8 @@ class ManagerServiceProvider extends ServiceProvider
      */
     private function bindInjection()
     {
-        $this->mergeConfigFrom(__DIR__ . '/config/injection.php', InjectionHelper::KEY);
+        $this->mergeConfigFrom(__DIR__ . '/config/injection.php', Injection::KEY);
 
-        InjectionHelper::bind('manager');
+        Injection::bind('manager');
     }
 }

@@ -1,6 +1,6 @@
 
 - app:
-    - Helper: application wide helper classes
+    - Support: application wide support classes
     - Models: application wide model classes
     - Module:
         - {$module_name}
@@ -23,3 +23,4 @@
             - routes:
                 - web.php: web routes
                 - api.php: api routes
+            - {$module_name}ServiceProvider.php: register module to application

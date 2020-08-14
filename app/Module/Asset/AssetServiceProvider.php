@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Module\Resource;
+namespace App\Module\Asset;
 
 use Illuminate\Support\ServiceProvider;
 
-class ResourceServiceProvider extends ServiceProvider
+class AssetServiceProvider extends ServiceProvider
 {
     /**
      * {@inheritDoc}
