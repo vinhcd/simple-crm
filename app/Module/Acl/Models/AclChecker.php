@@ -6,8 +6,6 @@ use App\Module\Acl\Api\AclCheckerInterface;
 use App\Module\Acl\Models\Data\RolePermission;
 use App\Module\User\Models\Data\User;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Facades\DB;
 
 class AclChecker implements AclCheckerInterface
 {
@@ -55,7 +53,7 @@ class AclChecker implements AclCheckerInterface
     }
 
     /**
-     * @param array $resources
+     * @param string[] $resources
      * @return $this
      */
     public function setResources($resources)
@@ -72,36 +70,9 @@ class AclChecker implements AclCheckerInterface
     {
         if ($this->user->isSuperAdmin()) return true;
 
-        $groupIds = [];
-        foreach ($this->user->getGroups() as $group) {
-            $groupIds[] = $group->getId();
-        }
-        /* @var RolePermission[]|Collection $rolePermissions */
-        $rolePermissions = RolePermission::query()
-            ->join('role', 'role_permission.role_id', '=', 'role.id')
-            ->join('role_item', 'role_permission.role_id', '=', 'role_item.role_id')
-            ->where('role.active', '=', 1)
-            ->whereIn('role_permission.resource_id', $this->resources)
-            ->where(function ($query) use ($groupIds) {
-                /* @var Builder $query */
-                $query->where(function ($subQuery) use ($groupIds) {
-                    /* @var Builder $subQuery */
-                    $subQuery->whereNotNull('role_item.user_id')
-                        ->where('role_item.user_id', '=', $this->user->getId());
-                })
-                ->orWhere(function ($subQuery) use ($groupIds) {
-                    /* @var Builder $subQuery */
-                    $subQuery->whereNotNull('role_item.group_id')
-                        ->whereIn('role_item.group_id', $groupIds);
-                });
-            })
-            ->get();
+        if ($this->checkUserPermission()) return true;
 
-        $allowedResources = [];
-        foreach ($rolePermissions as $permission) {
-            $allowedResources[] = $permission->getResourceId();
-        }
-        if (count(array_diff($this->resources, $allowedResources)) == 0) return true;
+        if ($this->checkGroupPermission()) return true;
 
         return false;
     }
@@ -113,23 +84,57 @@ class AclChecker implements AclCheckerInterface
     {
         if ($this->user->isSuperAdmin()) return true;
 
+        if ($this->checkUserPermission(RolePermission::WRITE)) return true;
+
+        if ($this->checkGroupPermission(RolePermission::WRITE)) return true;
+
+        return false;
+    }
+
+    /**
+     * @param string $permissionCheck
+     * @return bool
+     */
+    private function checkUserPermission($permissionCheck = RolePermission::READ)
+    {
+        /* @var RolePermission[]|Collection $rolePermissions */
+        $rolePermissions = RolePermission::query()
+            ->join('role', 'role_permission.role_id', '=', 'role.id')
+            ->join('role_user', 'role_permission.role_id', '=', 'role_user.role_id')
+            ->where('role.active', '=', 1)
+            ->where('role_permission.permission', '=', $permissionCheck)
+            ->where('role_user.user_id', '=', $this->user->getId())
+            ->whereIn('role_permission.resource_id', $this->resources)
+            ->get('resource_id');
+
+        $allowedResources = [];
+        foreach ($rolePermissions as $permission) {
+            $allowedResources[] = $permission->getResourceId();
+        }
+        if (count(array_diff($this->resources, $allowedResources)) == 0) return true;
+
+        return false;
+    }
+
+    /**
+     * @param string $permissionCheck
+     * @return bool
+     */
+    private function checkGroupPermission($permissionCheck = RolePermission::READ)
+    {
         $groupIds = [];
         foreach ($this->user->getGroups() as $group) {
             $groupIds[] = $group->getId();
         }
-        /* @var RolePermission[] $rolePermissions */
-        $rolePermissions = DB::table('role_permission')
+        /* @var RolePermission[]|Collection $rolePermissions */
+        $rolePermissions = RolePermission::query()
             ->join('role', 'role_permission.role_id', '=', 'role.id')
-            ->join('role_item', 'role_permission.role_id', '=', 'role_item.role_id')
+            ->join('role_group', 'role_permission.role_id', '=', 'role_group.role_id')
             ->where('role.active', '=', 1)
-            ->where('role_permission.resource_id', 'in', implode(',', $this->resources))
-            ->where('role_permission.permission', '=', RolePermission::WRITE)
-            ->where(function ($query) use ($groupIds) {
-                /* @var Builder $query */
-                $query->where('role_item.user_id', '=', $this->user->getId())
-                    ->orWhere('role_item.group_id', 'in', implode(',', $groupIds));
-            })
-            ->get();
+            ->where('role_permission.permission', '=', $permissionCheck)
+            ->whereIn('role_group.group_id', $groupIds)
+            ->whereIn('role_permission.resource_id', $this->resources)
+            ->get('resource_id');
 
         $allowedResources = [];
         foreach ($rolePermissions as $permission) {

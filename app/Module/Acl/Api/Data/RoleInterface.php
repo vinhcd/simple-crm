@@ -4,7 +4,6 @@ namespace App\Module\Acl\Api\Data;
 
 use App\Module\User\Api\Data\GroupInterface;
 use App\Module\User\Api\Data\UserInterface;
-use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @method integer getId()
@@ -18,53 +17,17 @@ use Illuminate\Database\Eloquent\Collection;
 interface RoleInterface
 {
     /**
-     * @return UserInterface[] | Collection
+     * @return UserInterface[]
      */
     public function getUsers();
 
     /**
-     * @param UserInterface $user
-     * @return $this
-     */
-    public function addUsers($user);
-
-    /**
-     * @param UserInterface[] $users
-     * @return $this
-     */
-    public function setUsers($users);
-
-    /**
-     * @return GroupInterface[] | Collection
+     * @return GroupInterface[]
      */
     public function getGroups();
 
     /**
-     * @param GroupInterface $group
-     * @return $this
-     */
-    public function addGroup($group);
-
-    /**
-     * @param GroupInterface[] $groups
-     * @return $this
-     */
-    public function setGroups($groups);
-
-    /**
-     * @return RolePermissionInterface[] | Collection
+     * @return RolePermissionInterface[]
      */
     public function getPermissions();
-
-    /**
-     * @param RolePermissionInterface $permission
-     * @return $this
-     */
-    public function addPermission($permission);
-
-    /**
-     * @param RolePermissionInterface[] $permissions
-     * @return $this
-     */
-    public function setPermissions($permissions);
 }

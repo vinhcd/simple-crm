@@ -9,7 +9,7 @@ use App\Module\User\Api\Data\GroupInterface;
 use App\Module\User\Api\Data\UserInterface;
 use App\Module\User\Api\GroupRepositoryInterface;
 use App\Module\User\Api\UserRepositoryInterface;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method integer getId()
@@ -83,7 +83,7 @@ class Role extends AbstractModel implements RoleInterface
     public function getUsers()
     {
         if (!$this->users) {
-            $roleUsers = $this->hasMany(RoleUser::class)->get();
+            $roleUsers = $this->users()->get();
             $ids = [];
             /* @var RoleUser $roleUser */
             foreach ($roleUsers as $roleUser) {
@@ -95,23 +95,12 @@ class Role extends AbstractModel implements RoleInterface
     }
 
     /**
-     * @param UserInterface[] $users
-     * @return $this
-     */
-    public function setUsers($users)
-    {
-        $this->users = $users;
-
-        return $this;
-    }
-
-    /**
      * @return RoleGroup[]
      */
     public function getGroups()
     {
         if (!$this->groups) {
-            $roleGroups = $this->hasMany(RoleGroup::class)->get();
+            $roleGroups = $this->groups()->get();
             $ids = [];
             /* @var RoleGroup $roleGroup */
             foreach ($roleGroups as $roleGroup) {
@@ -123,35 +112,37 @@ class Role extends AbstractModel implements RoleInterface
     }
 
     /**
-     * @param GroupInterface[] $groups
-     * @return $this
-     */
-    public function setGroups($groups)
-    {
-        $this->groups = $groups;
-
-        return $this;
-    }
-
-    /**
      * @return RolePermissionInterface[]
      */
     public function getPermissions()
     {
         if (!$this->permissions) {
-            $this->permissions = $this->hasMany(RolePermission::class)->get()->toArray();
+            $this->permissions = $this->permissions()->get()->toArray();
         }
         return $this->permissions;
     }
 
     /**
-     * @param RolePermissionInterface[] $permissions
-     * @return $this
+     * @return HasMany
      */
-    public function setPermissions($permissions)
+    public function users()
     {
-        $this->permissions = $permissions;
+        return $this->hasMany(RoleUser::class);
+    }
 
-        return $this;
+    /**
+     * @return HasMany
+     */
+    public function groups()
+    {
+        return $this->hasMany(RoleGroup::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function permissions()
+    {
+        return $this->hasMany(RolePermission::class);
     }
 }

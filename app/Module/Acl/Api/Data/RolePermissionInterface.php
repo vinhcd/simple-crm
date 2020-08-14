@@ -16,5 +16,4 @@ interface RolePermissionInterface
     const READ = 'read';
 
     const WRITE = 'write';
-
 }
