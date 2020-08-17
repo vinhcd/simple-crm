@@ -27,7 +27,7 @@ class CreateUserGroupTable extends Migration
             $table->foreign('group_id')->references('id')->on('group')
                 ->cascadeOnUpdate()->cascadeOnDelete();
 
-            $table->unique(['group_id', 'user_id']);
+            $table->unique(['user_id', 'group_id']);
         });
     }
 

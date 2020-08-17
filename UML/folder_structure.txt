@@ -24,3 +24,8 @@
                 - web.php: web routes
                 - api.php: api routes
             - {$module_name}ServiceProvider.php: register module to application
+    - UML:
+        - *.svg: general UML
+        - {$module_name}
+            - *.svg: module UML / diagrams
+            - *.uml: module UML / diagrams can be imported to UML reader
