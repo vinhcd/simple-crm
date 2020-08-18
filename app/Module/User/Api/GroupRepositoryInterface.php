@@ -3,7 +3,6 @@
 namespace App\Module\User\Api;
 
 use App\Module\User\Api\Data\GroupInterface;
-use App\Module\User\Api\Data\UserInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;

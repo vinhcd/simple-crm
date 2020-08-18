@@ -6,6 +6,7 @@ use App\Module\User\Models\Data\Group;
 
 $factory->define(Group::class, function () {
     return [
+        'id' => 1,
         'name' => 'superadmin',
         'display_name' => 'Super Administrator',
         'priority' => 1,

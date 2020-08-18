@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 
 $factory->define(User::class, function () {
     return [
+        'id' => 1,
         'name' => 'neos',
         'email' => 'neos@neoscorp.vn',
         'email_verified_at' => now(),

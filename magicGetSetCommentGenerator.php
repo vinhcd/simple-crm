@@ -1,6 +1,6 @@
 <?php
 
-$properties = ['user_id', 'group_id'];
+$properties = ['user_id', 'birthday', 'address', 'phone', 'description'];
 
 $properties = array_map(function ($property) {
     return preg_replace_callback('/(_[a-z])/', function ($matches) {
@@ -9,7 +9,7 @@ $properties = array_map(function ($property) {
 }, $properties);
 
 $result = '/**' . PHP_EOL;
-$result .= ' * @method integer getId()' . PHP_EOL;
+$result .= ' * @method int getId()' . PHP_EOL;
 
 foreach ($properties as $property) {
     $result .= ' * @method string get' . ucfirst($property) . '()' . PHP_EOL;

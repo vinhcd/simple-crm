@@ -22,6 +22,11 @@ class CreateUserDepartmentTable extends Migration
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->timestamps();
 
+            $table->foreign('user_id')->references('id')->on('users')
+                ->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreign('department_id')->references('id')->on('department')
+                ->cascadeOnUpdate()->cascadeOnDelete();
+
             $table->unique(['user_id', 'department_id']);
         });
     }

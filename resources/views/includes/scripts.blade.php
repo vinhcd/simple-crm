@@ -9,9 +9,7 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{url('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<!-- daterangepicker -->
 <script src="{{url('plugins/moment/moment.min.js')}}"></script>
-<script src="{{url('plugins/daterangepicker/daterangepicker.js')}}"></script>
 <!-- overlayScrollbars -->
 <script src="{{url('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
 <!-- AdminLTE App -->

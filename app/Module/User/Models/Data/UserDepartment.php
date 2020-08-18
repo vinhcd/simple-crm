@@ -10,15 +10,15 @@ use App\Models\AbstractModel;
  * @method int getGroupId()
  * @method $this setGroupId(int $value)
  */
-class UserGroup extends AbstractModel
+class UserDepartment extends AbstractModel
 {
     /**
      * @var string
      */
-    protected $table = 'user_group';
+    protected $table = 'user_department';
 
     /**
-     * @var string[]
+     * @var array
      */
-    protected $properties = ['user_id', 'group_id'];
+    protected $properties = ['user_id', 'department_id'];
 }

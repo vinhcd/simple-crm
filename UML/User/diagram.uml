@@ -12,22 +12,22 @@
   </nodes>
   <notes />
   <edges>
-    <edge source="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_info" target="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.users">
-      <point x="0.0" y="-118.0" />
-      <point x="0.0" y="151.0" />
-    </edge>
-    <edge source="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_group" target="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.group">
-      <point x="55.75" y="-96.0" />
-      <point x="0.0" y="118.0" />
-    </edge>
     <edge source="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_group" target="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.users">
       <point x="-55.75" y="-96.0" />
       <point x="611.75" y="327.0" />
       <point x="498.8333333333333" y="327.0" />
       <point x="74.33333333333337" y="151.0" />
     </edge>
+    <edge source="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_info" target="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.users">
+      <point x="0.0" y="-118.0" />
+      <point x="0.0" y="151.0" />
+    </edge>
     <edge source="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_department" target="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.department">
       <point x="-60.5" y="-96.0" />
+      <point x="0.0" y="118.0" />
+    </edge>
+    <edge source="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_group" target="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.group">
+      <point x="55.75" y="-96.0" />
       <point x="0.0" y="118.0" />
     </edge>
     <edge source="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_department" target="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.users">
@@ -37,7 +37,7 @@
       <point x="-74.33333333333331" y="151.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="417.5" y="294.0" />
+  <settings layout="Hierarchic Group" zoom="1.0" x="417.5" y="305.0" />
   <SelectedNodes>
     <node>12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.users</node>
   </SelectedNodes>

@@ -8,27 +8,28 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
  * @method string getName()
- * @method string setName(string $value)
+ * @method $this setName(string $value)
  * @method string getEmail()
- * @method string setEmail(string $value)
+ * @method $this setEmail(string $value)
  * @method string getPassword()
- * @method string setPassword(string $value)
+ * @method $this setPassword(string $value)
  * @method string getFirstName()
- * @method string setFirstName(string $value)
+ * @method $this setFirstName(string $value)
  * @method string getLastName()
- * @method string setLastName(string $value)
- * @method string getDescription()
- * @method string setDescription(string $value)
+ * @method $this setLastName(string $value)
+ * @method int getDeleted()
+ * @method $this setDeleted(int $value)
  *
  * @method static Model find($id)
  * @method static Model findOrFail($id)
  * @method static Model firstOrCreate(array $data)
- * @method static Builder where($mixed)
+ * @method static Builder where($column, $operator = null, $value = null, $boolean = 'and')
  */
 class User extends Authenticatable implements UserInterface
 {
@@ -39,7 +40,7 @@ class User extends Authenticatable implements UserInterface
      *
      * @var string[]
      */
-    protected $properties = ['name', 'email', 'password', 'first_name', 'last_name', 'description'];
+    protected $properties = ['name', 'email', 'password', 'first_name', 'last_name', 'description', 'deleted'];
 
     /**
      * The attributes that are mass assignable.
@@ -74,6 +75,11 @@ class User extends Authenticatable implements UserInterface
     protected $groups;
 
     /**
+     * @var Collection
+     */
+    protected $departments;
+
+    /**
      * @return int
      */
     public function getId()
@@ -93,6 +99,29 @@ class User extends Authenticatable implements UserInterface
     }
 
     /**
+     * @return Department[] | Collection
+     */
+    public function getDepartments()
+    {
+        if (!$this->departments) {
+            $this->departments = $this->departments()->get();
+        }
+        return $this->departments;
+    }
+
+    /**
+     * @return UserInfo
+     */
+    public function getInfo()
+    {
+        $info = $this->info()->first();
+
+        if (!$info) $info = new UserInfo();
+
+        return $info;
+    }
+
+    /**
      * @return bool
      */
     public function isSuperAdmin()
@@ -104,10 +133,26 @@ class User extends Authenticatable implements UserInterface
     }
 
     /**
+     * @return HasOne
+     */
+    public function info()
+    {
+        return $this->hasOne(UserInfo::class);
+    }
+
+    /**
      * @return BelongsToMany
      */
     public function groups()
     {
         return $this->belongsToMany(Group::class, 'user_group');
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function departments()
+    {
+        return $this->belongsToMany(Department::class, 'user_department');
     }
 }

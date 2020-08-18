@@ -2,35 +2,35 @@
 
 namespace App\Module\User\Models;
 
-use App\Module\User\Api\UserRepositoryInterface;
-use App\Module\User\Models\Data\User;
+use App\Module\User\Api\DepartmentRepositoryInterface;
+use App\Module\User\Models\Data\Department;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class UserRepository implements UserRepositoryInterface
+class DepartmentRepository implements DepartmentRepositoryInterface
 {
     /**
-     * @return User
+     * @return Department
      */
     public function create()
     {
-        return new User();
+        return new Department();
     }
 
     /**
      * @param int $id
-     * @return User
+     * @return Department
      * @throws ModelNotFoundException
      */
     public function getById($id)
     {
-        return User::findOrFail($id);
+        return Department::findOrFail($id);
     }
 
     /**
      * @param int[] $ids
-     * @return User[]|Collection
+     * @return Department[]|Collection
      */
     public function getByIds($ids)
     {
@@ -42,45 +42,34 @@ class UserRepository implements UserRepositoryInterface
      */
     public function getBuilder()
     {
-        return User::query();
+        return Department::query();
     }
 
     /**
-     * @return User[]|Collection
+     * @return Department[]|Collection
      */
     public function getAll()
     {
-        return User::all();
+        return Department::all();
     }
 
     /**
-     * @param User $user
-     * @return bool
-     */
-    public function save($user)
-    {
-        return $user->save();
-    }
-
-    /**
-     * @param User $user
+     * @param Department $department
      * @return bool
      * @throws \Exception
      */
-    public function delete($user)
+    public function save($department)
     {
-        $user->setDeleted(1);
-
-        return $user->save();
+        return $department->save();
     }
 
     /**
-     * @param User $user
+     * @param Department $department
      * @return bool
      * @throws \Exception
      */
-    public function hardDelete($user)
+    public function delete($department)
     {
-        return $user->delete();
+        return $department->delete();
     }
 }
