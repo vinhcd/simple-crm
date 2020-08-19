@@ -52,6 +52,14 @@ interface UserRepositoryInterface
     public function delete($user);
 
     /**
+     * @param int $id
+     * @return UserInterface
+     * @throws ModelNotFoundException
+     * @throws \Exception
+     */
+    public function recover($id);
+
+    /**
      * @param UserInterface $user
      * @return bool
      * @throws \Exception

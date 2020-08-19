@@ -50,7 +50,7 @@ class UserRepository implements UserRepositoryInterface
      */
     public function getAll()
     {
-        return User::all();
+        return User::where('deleted', 0)->get();
     }
 
     /**
@@ -72,6 +72,21 @@ class UserRepository implements UserRepositoryInterface
         $user->setDeleted(1);
 
         return $user->save();
+    }
+
+    /**
+     * @param int $id
+     * @return User
+     * @throws ModelNotFoundException
+     * @throws \Exception
+     */
+    public function recover($id)
+    {
+        $user = $this->getById($id);
+        $user->setDeleted(0);
+        $this->save($user);
+
+        return $user;
     }
 
     /**

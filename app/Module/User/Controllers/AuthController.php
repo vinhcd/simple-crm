@@ -4,21 +4,18 @@ namespace App\Module\User\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Module\User\Api\UserRepositoryInterface;
-
-use App\Module\User\Models\Data\User;
-use App\Module\User\Models\Data\UserInfo;
-use App\Module\User\Models\UserRepository;
+use App\Module\User\Block\UserEdit;
+use App\Module\User\Block\UserList;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class AuthController extends Controller
 {
     /**
-     * @var UserRepositoryInterface|UserRepository
+     * @var UserRepositoryInterface
      */
     private $repository;
 
@@ -31,12 +28,18 @@ class AuthController extends Controller
         $this->repository = $repository;
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse|View
+     */
     public function login(Request $request)
     {
         if ($request->post()) {
             $credentials = $request->only('email', 'password');
             if (Auth::attempt($credentials)) {
                 return redirect()->intended('/');
+            } else {
+                return redirect()->route('login')->withErrors(__('Invalid email or password!'));
             }
         }
         return view('user::login');
@@ -62,24 +65,11 @@ class AuthController extends Controller
             ->with('info')
             ->with('groups')
             ->with('departments')
+            ->where('deleted', 0)
             ->get();
-        $userData = [];
-        /* @var User $user */
-        foreach ($users as $user) {
-            $userData[$user->getId()] = [
-                'id' => $user->getId(),
-                'full_name' => $user->getFirstName() . ' ' . $user->getLastName(),
-                'email' => $user->getEmail(),
-                'phone' => $user->info ? $user->info->getPhone() : '',
-                'groups' => implode(',', array_map(function ($group) {
-                    return $group['display_name'];
-                }, $user->groups->toArray())),
-                'departments' => implode(',', array_map(function ($department) {
-                    return $department['display_name'];
-                }, $user->departments->toArray())),
-            ];
-        }
-        return view('user::user_list', ['users' => $userData]);
+        $userListBlock = new UserList($users);
+
+        return view('user::user_list', ['userListBlock' => $userListBlock]);
     }
 
     /**
@@ -91,50 +81,56 @@ class AuthController extends Controller
     public function createOrUpdate(Request $request, $id = '')
     {
         $user = $id ? $this->repository->getById($id) : $this->repository->create();
-        $userData['id'] = $user->getId();
-        $userData['name'] = $user->getName();
-        $userData['email'] = $user->getEmail();
-        $userData['first_name'] = $user->getFirstName();
-        $userData['last_name'] = $user->getLastName();
-        /* @var UserInfo $info */
-        $info = $user->getInfo();
-        $userData['phone'] = $info->getPhone();
-        $userData['birthday'] = $info->getBirthday();
-        $userData['address'] = $info->getAddress();
-        $userData['description'] = $info->getDescription();
-
+        $userEditBlock = new UserEdit($user);
         if ($posts = $request->post()) {
             $validator = Validator::make($posts, [
                 'name' => 'required|max:255',
                 'email' => 'required|email',
             ]);
             if ($validator->fails()) {
-                return redirect()->route('user_create_update', ['id' => $userData['id']])->withErrors($validator);
-            }
-            $user->setName($posts['name']);
-            $user->setFirstName($posts['first_name']);
-            $user->setLastName($posts['last_name']);
-            $user->setEmail($posts['email']);
-            if (empty($user->getId())) {
-                $user->setPassword(
-                    Hash::make(substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(10/strlen($x)) )),1,10))
-                );
+                return redirect()->route('user_create_update', ['id' => $id])->withErrors($validator);
             }
             try {
-                $this->repository->save($user);
+                $userEditBlock->updateUser();
             } catch (\Exception $e) {
-                return redirect()->route('user_create_update', ['id' => $userData['id']])->withErrors($e->getMessage());
+                return redirect()->route('user_create_update', ['id' => $id])->withErrors($e->getMessage());
             }
-            $info->setUserId($user->getId());
-            $info->setPhone($posts['phone']);
-            $info->setBirthday($posts['birthday']);
-            $info->setAddress($posts['address']);
-            $info->setDescription($posts['description']);
-            $info->save();
-
             $request->session()->flash('success', __('User has been updated!'));
+
             return redirect()->route('user_list');
         }
-        return view('user::user_create', ['user' => $userData]);
+        return view('user::user_create', ['userEditBlock' => $userEditBlock]);
+    }
+
+    /**
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function delete($id)
+    {
+        $user = $this->repository->getById($id);
+        try {
+            $this->repository->delete($user);
+        } catch (\Exception $e) {
+            return redirect()->route('user_list')->withErrors($e->getMessage());
+        }
+        session()->flash('success', __('User has been removed!'));
+
+        return redirect()->route('user_list');
+    }
+
+    /**
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function recover($id)
+    {
+        try {
+            $this->repository->recover($id);
+        } catch (\Exception $e) {
+            return redirect()->intended('user_list')->withErrors($e->getMessage());
+        }
+        session()->flash('success', __('User has been recovered!'));
+        return redirect()->route('user_list');
     }
 }

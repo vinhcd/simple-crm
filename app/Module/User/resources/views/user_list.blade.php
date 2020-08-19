@@ -1,3 +1,5 @@
+<?php /* @var \App\Module\User\Block\UserList $userListBlock */ ?>
+
 @extends('layouts.master')
 
 @section('custom-head')
@@ -31,7 +33,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($users as $user)
+                                @foreach ($userListBlock->getTransformedData() as $user)
                                 <tr>
                                     <td>{{$user['id']}}</td>
                                     <td>{{$user['full_name']}}</td>

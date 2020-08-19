@@ -5,6 +5,7 @@
     - Module:
         - {$module_name}
             - Api: module APIs which can be called from other modules or controllers
+            - Block: module blocks which transforming data between Model and View
             - config: module configs merged into app
                 - acl.php: list resource for ACL
                 - injection.php: bind module APIs to concrete classes

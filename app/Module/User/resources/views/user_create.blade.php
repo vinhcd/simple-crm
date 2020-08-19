@@ -1,3 +1,9 @@
+<?php
+/* @var \App\Module\User\Block\UserEdit $userEditBlock */
+
+$user = $userEditBlock->getUserData();
+?>
+
 @extends('layouts.master')
 
 @section('title')
