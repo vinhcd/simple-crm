@@ -47,7 +47,6 @@ class UserEdit extends AbstractBlock
 
     /**
      * @return void
-     * @throws \Exception
      */
     public function updateUser()
     {

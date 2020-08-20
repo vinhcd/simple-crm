@@ -106,10 +106,10 @@ class AuthController extends Controller
     /**
      * @param Request $request
      * @param string $id
+     * @param string $back
      * @return RedirectResponse|View
-     * @throws \Exception
      */
-    public function createOrUpdate(Request $request, $id = '')
+    public function createOrUpdate(Request $request, $id = '', $back = '')
     {
         $user = $id ? $this->repository->getById($id) : $this->repository->create();
 
@@ -121,7 +121,7 @@ class AuthController extends Controller
                 'birthday' => 'date:Y-m-d|nullable',
             ]);
             if ($validator->fails()) {
-                return redirect()->route('user_create_update', ['id' => $id])->withErrors($validator);
+                return redirect()->route('user_create_update', ['id' => $id, 'back' => $back])->withErrors($validator);
             }
             $userEditBlock->updateUser();
             try {
@@ -130,13 +130,15 @@ class AuthController extends Controller
                 $user->getInfo()->setUserId($user->getId())->save();
                 DB::commit();
             } catch (\Exception $e) {
-                return redirect()->route('user_create_update', ['id' => $id])->withErrors($e->getMessage());
+                return redirect()->route('user_create_update', ['id' => $id, 'back' => $back])->withErrors($e->getMessage());
             }
             $request->session()->flash('success', __('User :user has been updated!', ['user' => $user->getFullName()]));
 
-            return redirect()->route('user_list');
+            return $back == 'user_profile' ? redirect()->route('user_profile') : redirect()->route('user_list');
         }
-        return view('user::user_create', ['userEditBlock' => $userEditBlock]);
+        return view('user::user_create',
+            ['userEditBlock' => $userEditBlock, 'backUrl' => $back == 'user_profile' ? 'user_profile' : 'user_list']
+        );
     }
 
     /**

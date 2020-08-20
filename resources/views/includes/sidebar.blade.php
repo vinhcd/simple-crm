@@ -14,7 +14,7 @@
                 <img src="{{url('dist/img/hungnt.jpg')}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{auth()->user()->name}}</a>
+                <a href="{{route('user_profile')}}" class="d-block">{{auth()->user()->name}}</a>
             </div>
         </div>
 

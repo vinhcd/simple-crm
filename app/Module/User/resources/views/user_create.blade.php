@@ -24,7 +24,7 @@ $user = $userEditBlock->getUserData();
                         <div class="card-header">
                             <h3 class="card-title">{{__('Create/edit user')}}</h3>
                         </div>
-                        <form id="form-user" action="{{route('user_create_update', $user['id'])}}" method="post">
+                        <form id="form-user" action="{{route('user_create_update', ['id' => $user['id'], 'back' => $backUrl])}}" method="post">
                             @csrf
                             <input type="hidden" name="id" value="{{ $user['id'] }}">
                             <div class="card-body">
@@ -45,7 +45,7 @@ $user = $userEditBlock->getUserData();
                                     <input type="text" class="form-control" name="last_name" id="last_name" value="{{ $user['last_name'] }}" placeholder="{{__('Enter lastname')}}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="birthday">Date:</label>
+                                    <label for="birthday">{{__('Birthday')}}</label>
                                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
                                         <input type="text" name="birthday" id="birthday" value="{{ $user['birthday'] }}" class="form-control datetimepicker-input" data-target="#reservationdate"/>
                                         <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
@@ -68,7 +68,7 @@ $user = $userEditBlock->getUserData();
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
-                                <a href="{{ route('user_list') }}" class="btn btn-secondary">{{__('Cancel')}}</a>
+                                <a href="{{ route($backUrl) }}" class="btn btn-secondary">{{__('Cancel')}}</a>
                             </div>
                         </form>
                     </div>

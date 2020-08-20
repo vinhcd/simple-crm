@@ -5,7 +5,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Neos Corp | {{__('Reset password')}}
+    Neos Corp | {{__('Change password')}}
 @stop
 
 @section('content')
@@ -16,12 +16,15 @@
                 <div class="col-6">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">{{__('Reset password')}}</h3>
+                            <h3 class="card-title">{{__('Change password')}}</h3>
                         </div>
-                        <form id="form-password" action="{{route('user_reset_pwd', $user->getId())}}" method="post">
+                        <form id="form-password" action="{{route('user_change_pwd')}}" method="post">
                             @csrf
-                            <input type="hidden" name="id" value="{{ $user->getId() }}">
                             <div class="card-body">
+                                <div class="form-group">
+                                    <label for="current_password">{{__('Current password')}}*</label>
+                                    <input type="password" class="form-control" name="current_password" id="current_password" placeholder="{{__('Enter current password')}}">
+                                </div>
                                 <div class="form-group">
                                     <label for="password">{{__('New password')}}*</label>
                                     <input type="password" class="form-control" name="password" id="password" placeholder="{{__('Enter password')}}">
@@ -33,7 +36,7 @@
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
-                                <a href="{{ route('user_list') }}" class="btn btn-secondary">{{__('Cancel')}}</a>
+                                <a href="{{ route('user_profile') }}" class="btn btn-secondary">{{__('Cancel')}}</a>
                             </div>
                         </form>
                     </div>
@@ -51,6 +54,11 @@
         $('#nav-user-user').addClass('active');
         $('#form-password').validate({
             rules: {
+                current_password: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 255
+                },
                 password: {
                     required: true,
                     minlength: 3,
