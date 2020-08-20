@@ -35,10 +35,10 @@ class UserList extends AbstractBlock
                 'full_name' => $user->getFirstName() . ' ' . $user->getLastName(),
                 'email' => $user->getEmail(),
                 'phone' => $user->info ? $user->info->getPhone() : '',
-                'groups' => implode(',', array_map(function ($group) {
+                'groups' => implode(', ', array_map(function ($group) {
                     return $group['display_name'];
                 }, $user->groups->toArray())),
-                'departments' => implode(',', array_map(function ($department) {
+                'departments' => implode(', ', array_map(function ($department) {
                     return $department['display_name'];
                 }, $user->departments->toArray())),
             ];

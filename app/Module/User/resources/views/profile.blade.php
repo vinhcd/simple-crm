@@ -51,7 +51,7 @@
                                 </li>
                             </ul>
 
-                            <a href="{{route('user_create_update', ['id' => $user->getId(), 'back' => 'user_profile'])}}" class="btn btn-primary btn-block"><b>{{__('Update profile')}}</b></a>
+                            <a href="{{route('user_create_update', ['id' => $user->getId()])}}" class="btn btn-primary btn-block"><b>{{__('Update profile')}}</b></a>
                             <a href="{{route('user_change_pwd')}}" class="btn btn-primary btn-block"><b>{{__('Change password')}}</b></a>
                         </div>
                     </div>

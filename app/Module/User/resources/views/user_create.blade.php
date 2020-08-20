@@ -24,7 +24,7 @@ $user = $userEditBlock->getUserData();
                         <div class="card-header">
                             <h3 class="card-title">{{__('Create/edit user')}}</h3>
                         </div>
-                        <form id="form-user" action="{{route('user_create_update', ['id' => $user['id'], 'back' => $backUrl])}}" method="post">
+                        <form id="form-user" action="{{route('user_create_update', ['id' => $user['id']])}}" method="post">
                             @csrf
                             <input type="hidden" name="id" value="{{ $user['id'] }}">
                             <div class="card-body">

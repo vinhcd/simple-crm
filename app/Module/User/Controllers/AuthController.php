@@ -3,6 +3,7 @@
 namespace App\Module\User\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Module\User\Api\Data\UserInterface;
 use App\Module\User\Api\UserRepositoryInterface;
 use App\Module\User\Block\UserEdit;
 use App\Module\User\Block\UserList;
@@ -106,12 +107,13 @@ class AuthController extends Controller
     /**
      * @param Request $request
      * @param string $id
-     * @param string $back
      * @return RedirectResponse|View
      */
-    public function createOrUpdate(Request $request, $id = '', $back = '')
+    public function createOrUpdate(Request $request, $id = '')
     {
         $user = $id ? $this->repository->getById($id) : $this->repository->create();
+
+        $routeBack = Auth::id() == $id ? 'user_profile' : 'user_list';
 
         $userEditBlock = new UserEdit($user);
         if ($posts = $request->post()) {
@@ -121,24 +123,26 @@ class AuthController extends Controller
                 'birthday' => 'date:Y-m-d|nullable',
             ]);
             if ($validator->fails()) {
-                return redirect()->route('user_create_update', ['id' => $id, 'back' => $back])->withErrors($validator);
+                return redirect()->back()->withErrors($validator);
             }
             $userEditBlock->updateUser();
+            if ($this->isDuplicate($user)) {
+                return redirect()->back()->withErrors(__('User already exist'));
+            }
             try {
                 DB::beginTransaction();
                 $this->repository->save($user);
                 $user->getInfo()->setUserId($user->getId())->save();
                 DB::commit();
             } catch (\Exception $e) {
-                return redirect()->route('user_create_update', ['id' => $id, 'back' => $back])->withErrors($e->getMessage());
+                return redirect()->back()->withErrors($e->getMessage());
             }
             $request->session()->flash('success', __('User :user has been updated!', ['user' => $user->getFullName()]));
+            $request->session()->remove('back_url');
 
-            return $back == 'user_profile' ? redirect()->route('user_profile') : redirect()->route('user_list');
+            return  redirect()->route($routeBack);
         }
-        return view('user::user_create',
-            ['userEditBlock' => $userEditBlock, 'backUrl' => $back == 'user_profile' ? 'user_profile' : 'user_list']
-        );
+        return view('user::user_create', ['userEditBlock' => $userEditBlock, 'backUrl' => $routeBack]);
     }
 
     /**
@@ -173,5 +177,21 @@ class AuthController extends Controller
         session()->flash('success', __('User has been recovered!'));
 
         return redirect()->route('user_list');
+    }
+
+    /**
+     * @param UserInterface $user
+     * @return bool
+     */
+    private function isDuplicate($user)
+    {
+        /* @var UserInterface $exist */
+        $exist = $this->repository->getBuilder()
+            ->where('name', $user->getName())
+            ->orWhere('email', $user->getEmail())
+            ->get()->first();
+        if ($exist && ($exist->getId() != $user->getId())) return true;
+
+        return false;
     }
 }

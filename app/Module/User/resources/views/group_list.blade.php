@@ -9,7 +9,6 @@
 @show
 
 @section('content')
-    <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -18,7 +17,6 @@
                         <div class="card-header">
                             <h3 class="card-title">{{__('List of groups')}}</h3>
                         </div>
-                        <!-- /.card-header -->
                         <div class="card-body">
                             <table id="group-list" class="table table-bordered table-hover">
                                 <thead>
@@ -40,28 +38,25 @@
                                     <td>{{$group->getPriority()}}</td>
                                     <td>{{$group->getDescription()}}</td>
                                     <td>
-                                        <a href="{{ route('user_group_create_update', $group->getId()) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-                                        <a href="{{ route('user_group_delete', $group->getId()) }}"><i class="fa fa-trash-alt"></i></a>
+                                        <a href="{{ route('user_group_create_update', $group->getId()) }}" title="{{__('Edit')}}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                                        <a href="{{ route('user_group_delete', $group->getId()) }}" title="{{__('Delete')}}" onclick="return confirm('Are you sure?')">
+                                            <i class="fa fa-trash-alt"></i>
+                                        </a>
                                     </td>
                                 </tr>
                                 @endforeach
                                 </tbody>
                             </table>
                         </div>
-                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
                 </div>
                 <div class="col-12">
                     <a href="{{route('user_group_create_update')}}">
                         <button class="btn btn-dark">{{ __('Create group') }}</button>
                     </a>
                 </div>
-                <!-- /.col -->
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
     </section>
 @stop
 
