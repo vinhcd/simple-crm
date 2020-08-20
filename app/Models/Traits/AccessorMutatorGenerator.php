@@ -18,7 +18,8 @@ trait AccessorMutatorGenerator
                     return $this->$property;
                 }
             } elseif (str_starts_with($method, 'set')) {
-                if (in_array($property, $this->properties) && isset($parameters[0])) {
+                if (in_array($property, $this->properties)) {
+                    $parameters[0] = isset($parameters[0]) ? $parameters[0] : '';
                     $this->$property = $parameters[0];
                     return $this;
                 }

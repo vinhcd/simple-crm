@@ -14,7 +14,7 @@
 
         @include('includes.nav')
 
-        @include('sidebar')
+        @include('includes.sidebar')
 
         <div class="content-wrapper">
             @include('includes.header')

@@ -79,11 +79,12 @@ $user = $userEditBlock->getUserData();
 @stop
 
 @section('custom-scripts')
+    @include('user::includes.sidebar_script')
     <script src="{{url('plugins/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{url('plugins/jquery-validation/additional-methods.min.js')}}"></script>
     <script src="{{url('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
     <script>
-        $('#nav-user').addClass('active');
+        $('#nav-user-user').addClass('active');
         $('#form-user').validate({
             rules: {
                 email: {
@@ -95,16 +96,7 @@ $user = $userEditBlock->getUserData();
                     maxlength: 255
                 },
             },
-            messages: {
-                email: {
-                    required: "Please enter a email address",
-                    email: "Please enter a valid email address"
-                },
-                name: {
-                    required: "Please enter a username",
-                    maxlength: "Your name must not over 255 characters long"
-                },
-            },
+            messages: {},
             errorElement: 'span',
             errorPlacement: function (error, element) {
                 error.addClass('invalid-feedback');

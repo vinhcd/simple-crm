@@ -5,8 +5,7 @@ namespace App\Module\User\Block;
 use App\Block\AbstractBlock;
 use App\Module\User\Api\Data\UserInterface;
 use App\Module\User\Models\Data\User;
-use App\Module\User\Models\UserRepository;
-use Illuminate\Support\Facades\Hash;
+use App\Module\User\Support\PasswordGenerator;
 use Illuminate\Support\Facades\Request;
 
 class UserEdit extends AbstractBlock
@@ -56,23 +55,16 @@ class UserEdit extends AbstractBlock
 
         $user = $this->user;
         $user->setName($posts['name']);
-        $user->setFirstName($posts['first_name']);
-        $user->setLastName($posts['last_name']);
         $user->setEmail($posts['email']);
+        if ($posts['first_name']) $user->setFirstName($posts['first_name']);
+        if ($posts['last_name']) $user->setLastName($posts['last_name']);
         if (empty($user->getId())) {
-            $user->setPassword(
-                Hash::make(substr(str_shuffle(str_repeat($x='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(10/strlen($x)) )),1,10))
-            );
+            $user->setPassword(PasswordGenerator::generate());
         }
         $info = $user->getInfo();
-        $info->setPhone($posts['phone']);
-        $info->setBirthday($posts['birthday']);
-        $info->setAddress($posts['address']);
-        $info->setDescription($posts['description']);
-
-        $userRepository = new UserRepository();
-        $userRepository->save($user);
-        $info->setUserId($user->getId());
-        $info->save();
+        if ($posts['phone']) $info->setPhone($posts['phone']);
+        if ($posts['birthday']) $info->setBirthday($posts['birthday']);
+        if ($posts['address']) $info->setAddress($posts['address']);
+        if ($posts['description']) $info->setDescription($posts['description']);
     }
 }

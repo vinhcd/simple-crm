@@ -69,6 +69,8 @@ class User extends Authenticatable implements UserInterface
         'email_verified_at' => 'datetime',
     ];
 
+    protected $info;
+
     /**
      * @var Collection
      */
@@ -85,6 +87,14 @@ class User extends Authenticatable implements UserInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
     }
 
     /**
@@ -114,11 +124,11 @@ class User extends Authenticatable implements UserInterface
      */
     public function getInfo()
     {
-        $info = $this->info()->first();
-
-        if (!$info) $info = new UserInfo();
-
-        return $info;
+        if (!$this->info) {
+            $this->info = $this->info()->first();
+            if (!$this->info) $this->info = new UserInfo();
+        }
+        return $this->info;
     }
 
     /**

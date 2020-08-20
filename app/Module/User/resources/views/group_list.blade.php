@@ -1,4 +1,4 @@
-<?php /* @var \App\Module\User\Block\UserList $userListBlock */ ?>
+<?php /* @var \App\Module\User\Models\Data\Group[] $groups */ ?>
 
 @extends('layouts.master')
 
@@ -16,37 +16,32 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">{{__('List of users')}}</h3>
+                            <h3 class="card-title">{{__('List of groups')}}</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="user-list" class="table table-bordered table-hover">
+                            <table id="group-list" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th>{{__('ID')}}</th>
-                                    <th>{{__('Full name')}}</th>
-                                    <th>{{__('Email')}}</th>
-                                    <th>{{__('Groups')}}</th>
-                                    <th>{{__('Departments')}}</th>
-                                    <th>{{__('Phone#')}}</th>
+                                    <th>{{__('Name')}}</th>
+                                    <th>{{__('Display Name')}}</th>
+                                    <th>{{__('Priority')}}</th>
+                                    <th>{{__('Description')}}</th>
                                     <th>{{__('Edit')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($userListBlock->getTransformedData() as $user)
+                                @foreach ($groups as $group)
                                 <tr>
-                                    <td>{{$user['id']}}</td>
-                                    <td>{{$user['full_name']}}</td>
-                                    <td>{{$user['email']}}</td>
-                                    <td>{{$user['groups']}}</td>
-                                    <td>{{$user['departments']}}</td>
-                                    <td>{{$user['phone']}}</td>
+                                    <td>{{$group->getId()}}</td>
+                                    <td>{{$group->getName()}}</td>
+                                    <td>{{$group->getDisplayName()}}</td>
+                                    <td>{{$group->getPriority()}}</td>
+                                    <td>{{$group->getDescription()}}</td>
                                     <td>
-                                        <a href="{{ route('user_create_update', $user['id']) }}" title="{{__('Edit')}}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-                                        <a href="{{ route('user_delete', $user['id']) }}" title="{{__('Delete')}}" onclick="return confirm('Are you sure?')">
-                                            <i class="fa fa-trash-alt"></i>
-                                        </a>&nbsp;&nbsp;
-                                        <a href="{{ route('user_reset_pwd', $user['id']) }}" title="{{__('Reset password')}}"><i class="fa fa-key"></i></a>
+                                        <a href="{{ route('user_group_create_update', $group->getId()) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                                        <a href="{{ route('user_group_delete', $group->getId()) }}"><i class="fa fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -58,8 +53,8 @@
                     <!-- /.card -->
                 </div>
                 <div class="col-12">
-                    <a href="{{route('user_create_update')}}">
-                        <button class="btn btn-dark">{{ __('Create user') }}</button>
+                    <a href="{{route('user_group_create_update')}}">
+                        <button class="btn btn-dark">{{ __('Create group') }}</button>
                     </a>
                 </div>
                 <!-- /.col -->
@@ -79,9 +74,9 @@
     <script src="{{url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 
     <script>
-        $('#nav-user-user').addClass('active');
+        $('#nav-user-group').addClass('active');
 
-        $("#user-list").DataTable({
+        $("#group-list").DataTable({
             "paging": true,
             "lengthChange": true,
             "searching": true,

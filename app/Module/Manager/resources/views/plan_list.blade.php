@@ -61,7 +61,8 @@
 @stop
 
 @section('custom-scripts')
+    @include('manager::includes.sidebar_script')
     <script>
-        $('#nav-plan').addClass('active')
+        $('#nav-manager-plan').addClass('active')
     </script>
 @stop
