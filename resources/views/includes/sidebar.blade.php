@@ -11,10 +11,10 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{url('dist/img/hungnt.jpg')}}" class="img-circle elevation-2" alt="User Image">
+                <img src="{{upload_url(auth()->user()->getInfo()->getAvatar())}}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="{{route('user_profile')}}" class="d-block">{{auth()->user()->name}}</a>
+                <a href="{{route('user_profile')}}" class="d-block">{{auth()->user()->getName()}}</a>
             </div>
         </div>
 
@@ -45,7 +45,7 @@
                 <li class="nav-item" id="nav-group-user">
                     <a href="#" class="nav-link" id="nav-group-user-title">
                         <i class="nav-icon fas fa-user-edit"></i>
-                        <p>{{__('DEPARTMENT')}}<i class="fas fa-angle-left right"></i></p>
+                        <p>{{__('COMPANY')}}<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
@@ -58,6 +58,12 @@
                             <a href="{{route('user_group_list')}}" class="nav-link" id="nav-user-group">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>{{__('Groups')}}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('user_depart_list')}}" class="nav-link" id="nav-user-depart">
+                                <i class="nav-icon fas fa-house-user"></i>
+                                <p>{{__('Departments')}}</p>
                             </a>
                         </li>
                     </ul>

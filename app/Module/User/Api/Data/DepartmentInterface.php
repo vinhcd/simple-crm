@@ -23,4 +23,9 @@ interface DepartmentInterface
      * @return UserInterface[] | Collection
      */
     public function getUsers();
+
+    /**
+     * @return DepartmentInterface
+     */
+    public function getParent();
 }

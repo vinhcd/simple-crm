@@ -36,6 +36,11 @@ class Department extends AbstractModel implements DepartmentInterface
     protected $users;
 
     /**
+     * @var Department
+     */
+    protected $parent;
+
+    /**
      * @return User[]|Collection
      */
     public function getUsers()
@@ -44,6 +49,17 @@ class Department extends AbstractModel implements DepartmentInterface
             $this->users = $this->users()->get();
         }
         return $this->users;
+    }
+
+    /**
+     * @return Department|\Illuminate\Database\Eloquent\Model
+     */
+    public function getParent()
+    {
+        if (!$this->parent) {
+            $this->parent = Department::find($this->getParentId());
+        }
+        return $this->parent;
     }
 
     /**

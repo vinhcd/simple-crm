@@ -21,9 +21,18 @@
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle"
-                                     src="../../dist/img/user4-128x128.jpg"
-                                     alt="User profile picture">
+                                <form id="form-avatar"
+                                      enctype="multipart/form-data"
+                                      action="{{route('user_change_avatar', $user->getId())}}"
+                                      method="post">
+                                    @csrf
+                                    <img class="profile-user-img img-fluid img-circle"
+                                         src="{{upload_url($user->getInfo()->getAvatar())}}"
+                                         alt="User profile picture"
+                                         style="cursor: pointer"
+                                         id="profile-picture">
+                                    <input type="file" style="display: none" id="avatar" name="avatar" accept="image/*">
+                                </form>
                             </div>
 
                             <h3 class="profile-username text-center">{{$user->getName()}}</h3>
@@ -65,4 +74,12 @@
     <script src="{{url('plugins/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{url('plugins/jquery-validation/additional-methods.min.js')}}"></script>
     <script src="{{url('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+    <script>
+        $('#profile-picture').click(function () {
+            $('#avatar').trigger('click');
+        });
+        $('#avatar').change(function () {
+            $('#form-avatar').submit();
+        });
+    </script>
 @stop

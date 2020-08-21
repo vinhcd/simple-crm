@@ -40,7 +40,7 @@ class GroupEdit extends AbstractBlock
     /**
      * @return void
      */
-    public function updateGroup()
+    public function update()
     {
         $posts = Request::post();
 
@@ -66,7 +66,7 @@ class GroupEdit extends AbstractBlock
             foreach ($users as $user) {
                 $this->usersData[$user->getId()] = [
                     'id' => $user->getId(),
-                    'name' => $user->getFullName(),
+                    'name' => $user->getFullName() ? $user->getFullName() : $user->getName(),
                 ];
                 if (in_array($this->group->getId(), array_map(function ($group) {
                     return $group['id'];

@@ -19,6 +19,7 @@ class CreateUsersInfoTable extends Migration
             $table->date('birthday')->nullable();
             $table->string('phone', 50)->nullable();
             $table->string('address', 500)->nullable();
+            $table->string('avatar', 500)->nullable();
             $table->text('description')->nullable();
 
             $table->unsignedBigInteger('created_by')->nullable();

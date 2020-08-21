@@ -15,6 +15,7 @@ Route::prefix('user')->middleware('auth')->group(function () {
 
 Route::prefix('profile')->middleware('auth')->group(function () {
     Route::get('/', 'ProfileController@index')->name('user_profile');
+    Route::post('/avatar/{id}', 'ProfileController@changeAvatar')->name('user_change_avatar');
     Route::match(['get', 'post'], '/changepwd', 'ProfileController@changePassword')->name('user_change_pwd');
     Route::match(['get', 'post'], '/update', 'ProfileController@updateProfile')->name('user_profile_update');
 });
@@ -24,4 +25,11 @@ Route::prefix('group')->middleware('auth')->group(function () {
     Route::match(['get', 'post'], '/createOrUpdate/{id?}', 'GroupController@createOrUpdate')->name('user_group_create_update');
     Route::post('/update-users/{id?}',  'GroupController@updateUsers')->name('user_group_update_users');
     Route::get('/delete/{id}',  'GroupController@delete')->name('user_group_delete');
+});
+
+Route::prefix('department')->middleware('auth')->group(function () {
+    Route::get('/list', 'DepartmentController@list')->name('user_depart_list');
+    Route::match(['get', 'post'], '/createOrUpdate/{id?}', 'DepartmentController@createOrUpdate')->name('user_depart_create_update');
+    Route::post('/update-users/{id?}',  'DepartmentController@updateUsers')->name('user_depart_update_users');
+    Route::get('/delete/{id}',  'DepartmentController@delete')->name('user_depart_delete');
 });

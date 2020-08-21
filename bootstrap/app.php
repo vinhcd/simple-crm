@@ -15,6 +15,12 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
+$subdomain = '';
+if (isset($_SERVER['SERVER_NAME'])) {
+    list($subdomain, $host) = explode('.', $_SERVER['SERVER_NAME']);
+}
+define('SUBDOMAIN', $subdomain);
+
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces

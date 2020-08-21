@@ -1,6 +1,6 @@
 
 - app:
-    - Support: application wide support classes
+    - Support: application wide helper classes
     - Models: application wide model classes
     - Module:
         - {$module_name}
@@ -15,6 +15,7 @@
                 - migrations: module migration files
             - Middleware
             - Models: all models which implement interfaces from Api folder
+            - Support: helper classes
             - Providers: module providers
             - resources:
                 - css: module css files

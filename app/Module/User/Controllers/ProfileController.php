@@ -5,11 +5,11 @@ namespace App\Module\User\Controllers;
 use App\Http\Controllers\Controller;
 use App\Module\User\Api\UserRepositoryInterface;
 use App\Module\User\Models\Data\User;
+use App\Support\FileUpload;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -39,6 +39,29 @@ class ProfileController extends Controller
 
     /**
      * @param Request $request
+     * @param int $id
+     * @return RedirectResponse|View
+     */
+    public function changeAvatar(Request $request, $id)
+    {
+        /* @var User $user */
+        $user = Auth::user();
+        if ($user->getId() != $id) return redirect()->route('user_profile')->withErrors('User ID mismatch');
+
+        $request->validate([
+            'avatar' => 'required|mimes:jpg,jpeg,png,gif|max:2048',
+        ]);
+        $path = $request->file('avatar')->store('avatars');
+        $fileUpload = new FileUpload();
+        $fileUpload->deleteFromPublicUpload($user->getInfo()->getAvatar());
+        $user->getInfo()->setAvatar($path)->save();
+        $request->session()->flash('success', __('Avatar has been updated'));
+
+        return redirect()->route('user_profile');
+    }
+
+    /**
+     * @param Request $request
      * @return RedirectResponse|View
      */
     public function changePassword(Request $request)
@@ -46,14 +69,11 @@ class ProfileController extends Controller
         /* @var User $user */
         $user = Auth::user();
         if ($posts = $request->post()) {
-            $validator = Validator::make($posts, [
+            $request->validate([
                 'current_password' => 'required|min:3|max:255',
                 'password' => 'required|min:3|max:255',
                 'retype_password' => 'required|min:3|max:255|same:password',
             ]);
-            if ($validator->fails()) {
-                return redirect()->route('user_profile')->withErrors($validator);
-            }
             if (!Hash::check($posts['current_password'], $user->getAuthPassword())) {
                 return redirect()->route('user_profile')->withErrors(__('Your current password is not correct'));
             }

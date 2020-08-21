@@ -59,7 +59,7 @@ class GroupController extends Controller
             if ($validator->fails()) {
                 return redirect()->route('user_group_create_update', ['id' => $id])->withErrors($validator);
             }
-            $groupEditBlock->updateGroup();
+            $groupEditBlock->update();
             if ($this->isDuplicate($group)) {
                 return redirect()->back()->withErrors(__('Group is already exist'));
             }
@@ -89,8 +89,8 @@ class GroupController extends Controller
         $group = $this->repository->getById($id);
         try {
             DB::beginTransaction();
-            UserGroup::where('group_id', $group->getId())->delete();
             if (is_array($userIds)) {
+                UserGroup::where('group_id', $group->getId())->delete();
                 foreach ($userIds as $userId) {
                     $userGroup = new UserGroup();
                     $userGroup->setGroupId($group->getId());

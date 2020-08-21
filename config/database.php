@@ -2,11 +2,6 @@
 
 use Illuminate\Support\Str;
 
-$subdomain = '';
-if (isset($_SERVER['SERVER_NAME'])) {
-    list($subdomain, $host) = explode('.', $_SERVER['SERVER_NAME']);
-}
-
 return [
 
     /*
@@ -20,7 +15,7 @@ return [
     |
     */
 
-    'default' => $subdomain ?: env('DB_CONNECTION', 'mysql'),
+    'default' => SUBDOMAIN ?: env('DB_CONNECTION', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------

@@ -7,8 +7,8 @@ use App\Models\AbstractModel;
 /**
  * @method int getUserId()
  * @method $this setUserId(int $value)
- * @method int getGroupId()
- * @method $this setGroupId(int $value)
+ * @method int getDepartmentId()
+ * @method $this setDepartmentId(int $value)
  */
 class UserDepartment extends AbstractModel
 {
