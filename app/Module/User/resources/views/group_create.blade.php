@@ -14,6 +14,7 @@ $group = $groupEditBlock->getGroup();
     <section class="content">
         <div class="container-fluid">
             <div class="row">
+                @if($group->getName() != \App\Module\User\Api\Data\GroupInterface::SUPER_ADMIN)
                 <div class="col-6">
                     <div class="card card-primary">
                         <div class="card-header">
@@ -47,6 +48,7 @@ $group = $groupEditBlock->getGroup();
                         </form>
                     </div>
                 </div>
+                @endif
 
                 <div class="col-6">
                     <div class="card card-primary">

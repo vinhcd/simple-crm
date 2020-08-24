@@ -2,9 +2,6 @@
 
 namespace App\Module\Acl\Api\Data;
 
-use App\Module\User\Api\Data\GroupInterface;
-use App\Module\User\Api\Data\UserInterface;
-
 /**
  * @method integer getId()
  * @method string getName()
@@ -17,14 +14,14 @@ use App\Module\User\Api\Data\UserInterface;
 interface RoleInterface
 {
     /**
-     * @return UserInterface[]
+     * @return int[]
      */
-    public function getUsers();
+    public function getUserIds();
 
     /**
-     * @return GroupInterface[]
+     * @return int[]
      */
-    public function getGroups();
+    public function getGroupIds();
 
     /**
      * @return RolePermissionInterface[]

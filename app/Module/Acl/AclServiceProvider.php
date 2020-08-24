@@ -2,6 +2,7 @@
 
 namespace App\Module\Acl;
 
+use App\Module\Acl\Providers\RouteServiceProvider;
 use App\Support\Injection;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,6 +16,7 @@ class AclServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
         $this->loadFactoriesFrom(__DIR__ . '/database/factories');
         $this->loadJsonTranslationsFrom(__DIR__ . '/resources/lang');
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'acl');
     }
 
     /**
@@ -22,6 +24,8 @@ class AclServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->register(RouteServiceProvider::class);
+
         $this->bindInjection();
     }
 

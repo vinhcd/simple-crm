@@ -11,7 +11,6 @@ use App\Module\User\Models\Data\UserGroup;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class GroupController extends Controller
@@ -52,13 +51,11 @@ class GroupController extends Controller
         $groupEditBlock = new GroupEdit($group);
 
         if ($posts = $request->post()) {
-            $validator = Validator::make($posts, [
+            $request->validate([
                 'name' => 'required|max:255',
                 'display_name' => 'required|max:255',
             ]);
-            if ($validator->fails()) {
-                return redirect()->route('user_group_create_update', ['id' => $id])->withErrors($validator);
-            }
+            if ($group->getName() == GroupInterface::SUPER_ADMIN) return redirect()->back()->withErrors(__('Super Admin group cannot be changed'));
             $groupEditBlock->update();
             if ($this->isDuplicate($group)) {
                 return redirect()->back()->withErrors(__('Group is already exist'));

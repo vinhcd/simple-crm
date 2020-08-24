@@ -23,8 +23,8 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item" id="nav-group-manager">
                     <a href="#" class="nav-link" id="nav-group-manager-title">
-                        <i class="nav-icon fa fa-lock"></i>
-                        <p>{{__('MANAGER')}}<i class="fas fa-angle-left right"></i></p>
+                        <i class="nav-icon fa fa-money-bill"></i>
+                        <p>{{__('PLAN')}}<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
@@ -67,6 +67,13 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{route('acl_list')}}" class="nav-link" id="nav-acl">
+                        <i class="nav-icon fa fa-lock"></i>
+                        <p>{{__('Roles')}}</p>
+                    </a>
                 </li>
             </ul>
         </nav>

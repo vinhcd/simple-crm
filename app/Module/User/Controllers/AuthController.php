@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class AuthController extends Controller
@@ -68,13 +67,11 @@ class AuthController extends Controller
     {
         $user = $this->repository->getById($id);
         if ($posts = $request->post()) {
-            $validator = Validator::make($posts, [
+            $request->validate([
                 'password' => 'required|min:3|max:255',
                 'retype_password' => 'required|min:3|max:255',
             ]);
-            if ($validator->fails()) {
-                return redirect()->route('user_reset_pwd', ['id' => $id])->withErrors($validator);
-            }
+            if ($user->getId() == Auth::id()) redirect()->back()->withErrors(__('You cannot reset yourself'));
             $user->setPassword(Hash::make($posts['password']));
             try {
                 $this->repository->save($user);
@@ -117,14 +114,11 @@ class AuthController extends Controller
 
         $userEditBlock = new UserEdit($user);
         if ($posts = $request->post()) {
-            $validator = Validator::make($posts, [
+            $request->validate([
                 'name' => 'required|max:255',
                 'email' => 'required|email',
                 'birthday' => 'date:Y-m-d|nullable',
             ]);
-            if ($validator->fails()) {
-                return redirect()->back()->withErrors($validator);
-            }
             $userEditBlock->updateUser();
             if ($this->isDuplicate($user)) {
                 return redirect()->back()->withErrors(__('User already exist'));

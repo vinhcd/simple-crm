@@ -42,11 +42,13 @@
                                     <td>{{$user['departments']}}</td>
                                     <td>{{$user['phone']}}</td>
                                     <td>
+                                        @if($user['id'] != auth()->id())
                                         <a href="{{ route('user_create_update', $user['id']) }}" title="{{__('Edit')}}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
                                         <a href="{{ route('user_delete', $user['id']) }}" title="{{__('Delete')}}" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash-alt"></i>
                                         </a>&nbsp;&nbsp;
                                         <a href="{{ route('user_reset_pwd', $user['id']) }}" title="{{__('Reset password')}}"><i class="fa fa-key"></i></a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

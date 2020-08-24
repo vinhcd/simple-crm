@@ -5,10 +5,6 @@ namespace App\Module\Acl\Models\Data;
 use App\Models\AbstractModel;
 use App\Module\Acl\Api\Data\RoleInterface;
 use App\Module\Acl\Api\Data\RolePermissionInterface;
-use App\Module\User\Api\Data\GroupInterface;
-use App\Module\User\Api\Data\UserInterface;
-use App\Module\User\Api\GroupRepositoryInterface;
-use App\Module\User\Api\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -35,14 +31,14 @@ class Role extends AbstractModel implements RoleInterface
     protected $properties = ['name', 'active', 'description'];
 
     /**
-     * @var UserInterface[]
+     * @var int[]
      */
-    protected $users = [];
+    protected $userIds = [];
 
     /**
-     * @var GroupInterface[]
+     * @var int[]
      */
-    protected $groups = [];
+    protected $groupIds = [];
 
     /**
      * @var RolePermissionInterface[]
@@ -50,37 +46,9 @@ class Role extends AbstractModel implements RoleInterface
     protected $permissions = [];
 
     /**
-     * @var UserRepositoryInterface
+     * @return int[]
      */
-    protected $userRepository;
-
-    /**
-     * @var GroupRepositoryInterface
-     */
-    protected $groupRepository;
-
-    /**
-     * Role constructor.
-     * @param UserRepositoryInterface $userRepository
-     * @param GroupRepositoryInterface $groupRepository
-     * @param array $attributes
-     */
-    public function __construct(
-        UserRepositoryInterface $userRepository,
-        GroupRepositoryInterface $groupRepository,
-        array $attributes = []
-    )
-    {
-        $this->userRepository = $userRepository;
-        $this->groupRepository = $groupRepository;
-
-        parent::__construct($attributes);
-    }
-
-    /**
-     * @return RoleUser[]
-     */
-    public function getUsers()
+    public function getUserIds()
     {
         if (!$this->users) {
             $roleUsers = $this->users()->get();
@@ -95,20 +63,18 @@ class Role extends AbstractModel implements RoleInterface
     }
 
     /**
-     * @return RoleGroup[]
+     * @return int[]
      */
-    public function getGroups()
+    public function getGroupIds()
     {
-        if (!$this->groups) {
+        if (!$this->groupIds) {
             $roleGroups = $this->groups()->get();
-            $ids = [];
             /* @var RoleGroup $roleGroup */
             foreach ($roleGroups as $roleGroup) {
-                $ids[] = $roleGroup->getId();
+                $this->groupIds[] = $roleGroup->getId();
             }
-            $this->groups = $this->groupRepository->getByIds($ids)->toArray();
         }
-        return $this->groups;
+        return $this->groupIds;
     }
 
     /**

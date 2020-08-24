@@ -4,7 +4,6 @@ namespace App\Module\User\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Module\User\Api\Data\DepartmentInterface;
-use App\Module\User\Api\Data\GroupInterface;
 use App\Module\User\Api\DepartmentRepositoryInterface;
 use App\Module\User\Block\DepartEdit;
 use App\Module\User\Models\Data\Department;
@@ -12,7 +11,6 @@ use App\Module\User\Models\Data\UserDepartment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class DepartmentController extends Controller
@@ -53,13 +51,10 @@ class DepartmentController extends Controller
         $departmentEditBlock = new DepartEdit($department);
 
         if ($posts = $request->post()) {
-            $validator = Validator::make($posts, [
+            $request->validate([
                 'name' => 'required|max:255',
                 'display_name' => 'required|max:255',
             ]);
-            if ($validator->fails()) {
-                return redirect()->route('user_department_create_update', ['id' => $id])->withErrors($validator);
-            }
             $departmentEditBlock->update();
             if ($this->isDuplicate($department)) {
                 return redirect()->back()->withErrors(__('Department is already exist'));
