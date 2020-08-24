@@ -34,10 +34,10 @@
                                     <td>{{$role->getId()}}</td>
                                     <td>{{$role->getName()}}</td>
                                     <td>{{$role->getDescription()}}</td>
-                                    <td>{{$role->Active()}}</td>
+                                    <td>{{$role->getActive() == 1 ? 'True' : 'False'}}</td>
                                     <td>
-                                        <a href="{{ route('acl_create_update', $role->getId()) }}" title="{{__('Edit')}}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-                                        <a href="{{ route('acl_delete', $role->getId()) }}" title="{{__('Delete')}}" onclick="return confirm('Are you sure?')">
+                                        <a href="{{ route('role_create_update', $role->getId()) }}" title="{{__('Edit')}}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                                        <a href="{{ route('role_delete', $role->getId()) }}" title="{{__('Delete')}}" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash-alt"></i>
                                         </a>
                                     </td>
@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <a href="{{route('acl_create_update')}}">
+                    <a href="{{route('role_create_update')}}">
                         <button class="btn btn-dark">{{ __('Create role') }}</button>
                     </a>
                 </div>
@@ -66,7 +66,7 @@
     <script src="{{url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 
     <script>
-        $('#nav-acl').addClass('active');
+        $('#nav-role').addClass('active');
 
         $("#acl-list").DataTable({
             "paging": true,

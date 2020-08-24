@@ -39,7 +39,7 @@ class AuthController extends Controller
     {
         if ($request->post()) {
             $credentials = $request->only('email', 'password');
-            if (Auth::attempt($credentials)) {
+            if (Auth::attempt($credentials, $request->post('remember') == 'on')) {
                 return redirect()->intended('/');
             } else {
                 return redirect()->route('login')->withErrors(__('Invalid email or password!'));
@@ -124,10 +124,7 @@ class AuthController extends Controller
                 return redirect()->back()->withErrors(__('User already exist'));
             }
             try {
-                DB::beginTransaction();
                 $this->repository->save($user);
-                $user->getInfo()->setUserId($user->getId())->save();
-                DB::commit();
             } catch (\Exception $e) {
                 return redirect()->back()->withErrors($e->getMessage());
             }

@@ -50,16 +50,14 @@ class Role extends AbstractModel implements RoleInterface
      */
     public function getUserIds()
     {
-        if (!$this->users) {
+        if (!$this->userIds) {
             $roleUsers = $this->users()->get();
-            $ids = [];
             /* @var RoleUser $roleUser */
             foreach ($roleUsers as $roleUser) {
-                $ids[] = $roleUser->getId();
+                $this->userIds[] = $roleUser->getUserId();
             }
-            $this->users = $this->userRepository->getByIds($ids)->toArray();
         }
-        return $this->users;
+        return $this->userIds;
     }
 
     /**
@@ -71,7 +69,7 @@ class Role extends AbstractModel implements RoleInterface
             $roleGroups = $this->groups()->get();
             /* @var RoleGroup $roleGroup */
             foreach ($roleGroups as $roleGroup) {
-                $this->groupIds[] = $roleGroup->getId();
+                $this->groupIds[] = $roleGroup->getGroupId();
             }
         }
         return $this->groupIds;

@@ -70,7 +70,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{route('acl_list')}}" class="nav-link" id="nav-acl">
+                    <a href="{{route('role_list')}}" class="nav-link" id="nav-role">
                         <i class="nav-icon fa fa-lock"></i>
                         <p>{{__('Roles')}}</p>
                     </a>

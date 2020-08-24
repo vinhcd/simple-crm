@@ -33,7 +33,7 @@ interface GroupRepositoryInterface
     public function getBuilder();
 
     /**
-     * @return Collection
+     * @return Collection|GroupInterface[]
      */
     public function getAll();
 

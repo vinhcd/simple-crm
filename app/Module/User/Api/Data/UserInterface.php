@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
  * @method $this setEmail(string $value)
  * @method string getPassword()
  * @method $this setPassword(string $value)
+ * @method string getFullName()
  * @method string getFirstName()
  * @method $this setFirstName(string $value)
  * @method string getLastName()

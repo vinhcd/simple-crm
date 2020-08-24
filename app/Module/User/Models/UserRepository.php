@@ -7,6 +7,7 @@ use App\Module\User\Models\Data\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -56,10 +57,18 @@ class UserRepository implements UserRepositoryInterface
     /**
      * @param User $user
      * @return bool
+     * @throws \Exception
      */
     public function save($user)
     {
-        return $user->save();
+        DB::beginTransaction();
+        $user->save();
+        $userInfo = $user->getInfo();
+        if (!$userInfo->getUserId()) $userInfo->setUserId($user->getId());
+        $userInfo->save();
+        DB::commit();
+
+        return true;
     }
 
     /**

@@ -55,6 +55,7 @@ class RoleRepository implements RoleRepositoryInterface
     /**
      * @param Role $role
      * @return bool
+     * @throws \Exception
      */
     public function save($role)
     {
