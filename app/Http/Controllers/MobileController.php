@@ -8,6 +8,6 @@ class MobileController extends Controller
 {
     public function login(Request $request)
     {
-        return redirect()->to('/uuid=abc12345');
+        return redirect()->to('/mobile?uuid=abc12345');
     }
 }
