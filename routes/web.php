@@ -18,3 +18,6 @@ Route::get('/', 'DashboardController@index')->middleware('auth')->name('home');
 Route::get('/test', function () {
     ddd(auth()->user()->isSuperAdmin());
 });
+
+//todo: fake login for mobile app
+Route::match(['get', 'post'], '/mobile-login', 'MobileController@login')->name('mobile_login');
