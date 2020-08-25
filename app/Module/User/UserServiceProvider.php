@@ -9,6 +9,8 @@ use Illuminate\Support\ServiceProvider;
 
 class UserServiceProvider extends ServiceProvider
 {
+    const MODULE_NAME = 'user';
+
     /**
      * @return void
      */
@@ -43,6 +45,6 @@ class UserServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/config/injection.php', Injection::KEY);
 
-        Injection::bind('user');
+        Injection::bind(self::MODULE_NAME);
     }
 }

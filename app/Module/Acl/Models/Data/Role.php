@@ -5,6 +5,7 @@ namespace App\Module\Acl\Models\Data;
 use App\Models\AbstractModel;
 use App\Module\Acl\Api\Data\RoleInterface;
 use App\Module\Acl\Api\Data\RolePermissionInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -76,12 +77,12 @@ class Role extends AbstractModel implements RoleInterface
     }
 
     /**
-     * @return RolePermissionInterface[]
+     * @return RolePermissionInterface[] | Collection
      */
     public function getPermissions()
     {
         if (!$this->permissions) {
-            $this->permissions = $this->permissions()->get()->toArray();
+            $this->permissions = $this->permissions()->get();
         }
         return $this->permissions;
     }

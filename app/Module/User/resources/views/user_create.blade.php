@@ -95,6 +95,10 @@ $user = $userEditBlock->getUserData();
                     required: true,
                     maxlength: 255
                 },
+                phone: {
+                    digits: true,
+                    maxlength: 50
+                },
             },
             messages: {},
             errorElement: 'span',

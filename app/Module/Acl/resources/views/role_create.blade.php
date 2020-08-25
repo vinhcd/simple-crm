@@ -29,22 +29,43 @@ $role = $roleEditBlock->getRole();
                             <div class="card-body">
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="tab_role">
-                                            <input type="hidden" name="id" value="{{ $role->getId() }}">
-                                            <div class="form-group">
-                                                <label for="name">{{__('Role name')}}*</label>
-                                                <input type="text" class="form-control" name="name" id="name" value="{{ $role->getName() }}" placeholder="{{__('Enter name')}}">
+                                        <input type="hidden" name="id" value="{{ $role->getId() }}">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="name">{{__('Role name')}}*</label>
+                                                    <input type="text" class="form-control" name="name" id="name"
+                                                           value="{{ $role->getName() }}"
+                                                           placeholder="{{__('Enter name')}}">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="active">{{__('Active')}}</label>
+                                                    <select class="form-control" name="active" id="active">
+                                                        <option value="0" @if(!$role->getActive()) selected @endif>{{__('False')}}</option>
+                                                        <option value="1" @if($role->getActive()) selected @endif>{{__('True')}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="description">{{__('Description')}}</label>
+                                                    <textarea class="form-control" rows="3" name="description"
+                                                              id="description"
+                                                              placeholder="{{__('Enter description')}}">{{ $role->getDescription() }}</textarea>
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="active">{{__('Active')}}</label>
-                                                <select class="form-control" name="active" id="active">
-                                                    <option value="0">{{__('False')}}</option>
-                                                    <option value="1" selected>{{__('True')}}</option>
-                                                </select>
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <select class="duallistbox" multiple="multiple" name="permissions[]">
+                                                        @foreach($roleEditBlock->getPermissionsData() as $permission)
+                                                            <option @if($permission['in_role']) selected
+                                                                    @endif value="{{$permission['name']}}">
+                                                                {{$permission['name']}}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    {{__('Choose permissions from the LEFT and add to the RIGHT to put into role')}}
+                                                </div>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="description">{{__('Description')}}</label>
-                                                <textarea class="form-control" rows="3" name="description" id="description" placeholder="{{__('Enter description')}}">{{ $role->getDescription() }}</textarea>
-                                            </div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane" id="tab_group">
                                         <div class="form-group">
@@ -108,7 +129,7 @@ $role = $roleEditBlock->getRole();
             }
         });
         $('.duallistbox').bootstrapDualListbox({
-            selectorMinimalHeight: 200
+            selectorMinimalHeight: 190
         })
     </script>
 @stop

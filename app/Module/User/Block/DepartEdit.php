@@ -48,8 +48,8 @@ class DepartEdit extends AbstractBlock
         $department = $this->department;
         $department->setName($posts['name']);
         $department->setDisplayName($posts['display_name']);
-        if ($posts['parent_id']) $department->setParentId($posts['parent_id']);
-        if ($posts['description']) $department->setDescription($posts['description']);
+        $department->setParentId($posts['parent_id'] ?: 0);
+        $department->setDescription($posts['description'] ?: '');
     }
 
     /**

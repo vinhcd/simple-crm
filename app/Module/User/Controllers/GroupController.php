@@ -86,8 +86,8 @@ class GroupController extends Controller
         $group = $this->repository->getById($id);
         try {
             DB::beginTransaction();
+            UserGroup::where('group_id', $group->getId())->delete();
             if (is_array($userIds)) {
-                UserGroup::where('group_id', $group->getId())->delete();
                 foreach ($userIds as $userId) {
                     $userGroup = new UserGroup();
                     $userGroup->setGroupId($group->getId());

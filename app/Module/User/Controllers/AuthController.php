@@ -117,6 +117,7 @@ class AuthController extends Controller
             $request->validate([
                 'name' => 'required|max:255',
                 'email' => 'required|email',
+                'phone' => 'numeric|nullable',
                 'birthday' => 'date:Y-m-d|nullable',
             ]);
             $userEditBlock->updateUser();

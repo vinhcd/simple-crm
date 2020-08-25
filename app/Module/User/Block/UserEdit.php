@@ -55,15 +55,15 @@ class UserEdit extends AbstractBlock
         $user = $this->user;
         $user->setName($posts['name']);
         $user->setEmail($posts['email']);
-        if ($posts['first_name']) $user->setFirstName($posts['first_name']);
-        if ($posts['last_name']) $user->setLastName($posts['last_name']);
+        $user->setFirstName($posts['first_name'] ?: '');
+        $user->setLastName($posts['last_name'] ?: '');
         if (empty($user->getId())) {
             $user->setPassword(PasswordGenerator::generate());
         }
         $info = $user->getInfo();
-        if ($posts['phone']) $info->setPhone($posts['phone']);
-        if ($posts['birthday']) $info->setBirthday($posts['birthday']);
-        if ($posts['address']) $info->setAddress($posts['address']);
-        if ($posts['description']) $info->setDescription($posts['description']);
+        $info->setPhone($posts['phone'] ?: '');
+        $info->setBirthday($posts['birthday'] ?: '');
+        $info->setAddress($posts['address'] ?: '');
+        $info->setDescription($posts['description'] ?: '');
     }
 }

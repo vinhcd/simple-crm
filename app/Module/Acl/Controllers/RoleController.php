@@ -61,4 +61,21 @@ class RoleController extends Controller
         }
         return view('acl::role_create', ['roleEditBlock' => $roleEditBlock]);
     }
+
+    /**
+     * @param string $id
+     * @return RedirectResponse
+     */
+    public function delete($id)
+    {
+        $role = $this->repository->getById($id);
+        try {
+            $this->repository->delete($role);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors($e->getMessage());
+        }
+        session()->flash('success', __('Role :role has been removed!', ['role' => $role->getName()]));
+
+        return redirect()->route('role_list');
+    }
 }

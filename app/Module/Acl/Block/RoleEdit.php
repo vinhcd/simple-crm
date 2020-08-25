@@ -5,8 +5,10 @@ namespace App\Module\Acl\Block;
 use App\Block\AbstractBlock;
 use App\Module\Acl\Models\Data\Role;
 use App\Module\Acl\Models\Data\RoleGroup;
+use App\Module\Acl\Models\Data\RolePermission;
 use App\Module\Acl\Models\Data\RoleUser;
 use App\Module\Acl\Models\RoleRepository;
+use App\Module\Acl\Support\ResourceConfig;
 use App\Module\User\Api\GroupRepositoryInterface;
 use App\Module\User\Api\UserRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -44,6 +46,7 @@ class RoleEdit extends AbstractBlock
     {
         DB::beginTransaction();
         $this->updateRoleInfo();
+        $this->updatePermissions();
         $this->updateRoleUsers();
         $this->updateRoleGroups();
         DB::commit();
@@ -77,13 +80,31 @@ class RoleEdit extends AbstractBlock
         $groupRepository = app(GroupRepositoryInterface::class);
 
         $groups = $groupRepository->getAll();
-        \StaticLogger::log($this->getRole()->getGroupIds());
         foreach ($groups as $group) {
             $groupsData[$group->getId()]['id'] = $group->getId();
             $groupsData[$group->getId()]['name'] = $group->getDisplayName();
             $groupsData[$group->getId()]['in_role'] = in_array($group->getId(), $this->getRole()->getGroupIds()) ? true : false;
         }
         return $groupsData;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPermissionsData()
+    {
+        $permissionsData = [];
+        $role = $this->getRole();
+        $resInRole = [];
+        foreach ($role->getPermissions() as $permission) {
+            $resInRole[] = $permission->getResourceId() . '::' . $permission->getPermission();
+        }
+        $allRes = ResourceConfig::getAll();
+        foreach ($allRes as $res) {
+            $permissionsData[$res]['name'] = $res;
+            $permissionsData[$res]['in_role'] = in_array($res, $resInRole) ? true : false;
+        }
+        return $permissionsData;
     }
 
     /**
@@ -97,10 +118,32 @@ class RoleEdit extends AbstractBlock
         $roleRepository = new RoleRepository();
         $role = $this->getRole();
         $role->setName($posts['name']);
-        if ($posts['active']) $role->setActive($posts['active']);
-        if ($posts['description']) $role->setDescription($posts['description']);
+        $role->setActive($posts['active']);
+        $role->setDescription($posts['description'] ?: '');
 
         $roleRepository->save($role);
+    }
+
+    /**
+     * @return void
+     * @throws \Exception
+     */
+    public function updatePermissions()
+    {
+        $posts = Request::post();
+
+        $role = $this->getRole();
+        RolePermission::where('role_id', $role->getId())->delete();
+        if (isset($posts['permissions'])) {
+            foreach ($posts['permissions'] as $permissionChain) {
+                list($module, $resource, $permission) = explode('::', $permissionChain);
+                $rolePermission = new RolePermission();
+                $rolePermission->setRoleId($role->getId());
+                $rolePermission->setResourceId($module . '::' . $resource);
+                $rolePermission->setPermission($permission);
+                $rolePermission->save();
+            }
+        }
     }
 
     /**
@@ -113,9 +156,8 @@ class RoleEdit extends AbstractBlock
 
         $role = $this->getRole();
         if (isset($posts['users'])) {
-            $userIds = $posts['users'];
             RoleUser::where('role_id', $role->getId())->delete();
-            foreach ($userIds as $userId) {
+            foreach ($posts['users'] as $userId) {
                 $roleUser = new RoleUser();
                 $roleUser->setRoleId($role->getId());
                 $roleUser->setUserId($userId);
@@ -134,9 +176,8 @@ class RoleEdit extends AbstractBlock
 
         $role = $this->getRole();
         if (isset($posts['groups'])) {
-            $groupIds = $posts['groups'];
             RoleGroup::where('role_id', $role->getId())->delete();
-            foreach ($groupIds as $groupId) {
+            foreach ($posts['groups'] as $groupId) {
                 $roleGroup = new RoleGroup();
                 $roleGroup->setRoleId($role->getId());
                 $roleGroup->setGroupId($groupId);

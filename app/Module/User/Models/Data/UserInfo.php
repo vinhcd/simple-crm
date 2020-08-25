@@ -8,7 +8,6 @@ use App\Models\AbstractModel;
  * @method int getUserId()
  * @method $this setUserId(int $value)
  * @method string getBirthday()
- * @method $this setBirthday(string $value)
  * @method string getAddress()
  * @method $this setAddress(string $value)
  * @method string getPhone()
@@ -29,4 +28,18 @@ class UserInfo extends AbstractModel
      * @var array
      */
     protected $properties = ['user_id', 'birthday', 'address', 'phone', 'avatar', 'description'];
+
+    /**
+     * @param $date
+     * @return $this
+     */
+    public function setBirthday($date)
+    {
+        if (empty($date)) {
+            $this->birthday = null;
+        } else {
+            $this->birthday = $date;
+        }
+        return $this;
+    }
 }

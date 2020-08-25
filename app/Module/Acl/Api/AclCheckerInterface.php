@@ -19,15 +19,17 @@ interface AclCheckerInterface
 
     /**
      * @param string $resource
+     * @param string $module
      * @return $this
      */
-    public function addResource($resource);
+    public function addResource($resource, $module);
 
     /**
      * @param array $resources
+     * @param string $module
      * @return $this
      */
-    public function setResources($resources);
+    public function setResources($resources, $module);
 
     /**
      * @return bool

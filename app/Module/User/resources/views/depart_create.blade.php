@@ -93,7 +93,7 @@ $department = $departmentEditBlock->getDepartment();
     <script src="{{url('plugins/jquery-validation/additional-methods.min.js')}}"></script>
     <script src="{{url('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>
     <script>
-        $('#nav-user-department').addClass('active');
+        $('#nav-user-depart').addClass('active');
         $('#form-depart').validate({
             rules: {
                 name: {

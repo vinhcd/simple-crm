@@ -85,8 +85,8 @@ class DepartmentController extends Controller
         $department = $this->repository->getById($id);
         try {
             DB::beginTransaction();
+            UserDepartment::where('department_id', $department->getId())->delete();
             if (is_array($userIds)) {
-                UserDepartment::where('department_id', $department->getId())->delete();
                 foreach ($userIds as $userId) {
                     $userDepartment = new UserDepartment();
                     $userDepartment->setDepartmentId($department->getId());

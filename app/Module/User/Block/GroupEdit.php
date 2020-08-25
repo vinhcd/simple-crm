@@ -47,8 +47,8 @@ class GroupEdit extends AbstractBlock
         $group = $this->group;
         $group->setName($posts['name']);
         $group->setDisplayName($posts['display_name']);
-        if ($posts['priority']) $group->setPriority($posts['priority']);
-        if ($posts['description']) $group->setDescription($posts['description']);
+        $group->setPriority($posts['priority'] ?: 100);
+        $group->setDescription($posts['description'] ?: '');
     }
 
     /**
