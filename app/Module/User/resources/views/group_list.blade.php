@@ -1,4 +1,8 @@
-<?php /* @var \App\Module\User\Models\Data\Group[] $groups */ ?>
+<?php
+/* @var \App\Module\User\Models\Data\Group[] $groups */
+
+$permissionChecker = new \App\Support\PermissionChecker();
+?>
 
 @extends('layouts.master')
 
@@ -38,10 +42,12 @@
                                     <td>{{$group->getPriority()}}</td>
                                     <td>{{$group->getDescription()}}</td>
                                     <td>
+                                        @if($permissionChecker->canEditGroups())
                                         <a href="{{ route('user_group_create_update', $group->getId()) }}" title="{{__('Edit')}}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
                                         <a href="{{ route('user_group_delete', $group->getId()) }}" title="{{__('Delete')}}" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash-alt"></i>
                                         </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

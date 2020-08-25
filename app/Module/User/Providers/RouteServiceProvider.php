@@ -2,7 +2,12 @@
 
 namespace App\Module\User\Providers;
 
-use App\Module\User\Middleware\Acl;
+use App\Module\User\Middleware\EditDepart;
+use App\Module\User\Middleware\EditGroup;
+use App\Module\User\Middleware\ListDepart;
+use App\Module\User\Middleware\ListGroup;
+use App\Module\User\Middleware\EditUser;
+use App\Module\User\Middleware\ListUser;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +33,12 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function registerMiddleWare()
     {
-        $this->aliasMiddleware('user.acl', Acl::class);
+        $this->aliasMiddleware('user.list', ListUser::class);
+        $this->aliasMiddleware('user.edit', EditUser::class);
+        $this->aliasMiddleware('group.list', ListGroup::class);
+        $this->aliasMiddleware('group.edit', EditGroup::class);
+        $this->aliasMiddleware('depart.list', ListDepart::class);
+        $this->aliasMiddleware('depart.edit', EditDepart::class);
     }
 
     /**

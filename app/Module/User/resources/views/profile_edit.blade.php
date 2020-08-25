@@ -6,10 +6,6 @@ $user = $userEditBlock->getUserData();
 
 @extends('layouts.master')
 
-@section('title')
-    Neos Corp | Log in
-@stop
-
 @section('custom-head')
     <link rel="stylesheet" href="{{url('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
 @stop
@@ -24,7 +20,7 @@ $user = $userEditBlock->getUserData();
                         <div class="card-header">
                             <h3 class="card-title">{{__('Create/edit user')}}</h3>
                         </div>
-                        <form id="form-user" action="{{route('user_create_update', ['id' => $user['id']])}}" method="post">
+                        <form id="form-user" action="{{route('user_profile_update')}}" method="post">
                             @csrf
                             <input type="hidden" name="id" value="{{ $user['id'] }}">
                             <div class="card-body">
@@ -68,7 +64,7 @@ $user = $userEditBlock->getUserData();
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
-                                <a href="{{ route('user_list') }}" class="btn btn-secondary">{{__('Cancel')}}</a>
+                                <a href="{{ route('user_profile') }}" class="btn btn-secondary">{{__('Cancel')}}</a>
                             </div>
                         </form>
                     </div>
@@ -79,12 +75,10 @@ $user = $userEditBlock->getUserData();
 @stop
 
 @section('custom-scripts')
-    @include('user::includes.sidebar_script')
     <script src="{{url('plugins/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{url('plugins/jquery-validation/additional-methods.min.js')}}"></script>
     <script src="{{url('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
     <script>
-        $('#nav-user-user').addClass('active');
         $('#form-user').validate({
             rules: {
                 email: {

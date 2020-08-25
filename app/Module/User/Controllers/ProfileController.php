@@ -4,6 +4,7 @@ namespace App\Module\User\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Module\User\Api\UserRepositoryInterface;
+use App\Module\User\Block\UserEdit;
 use App\Module\User\Models\Data\User;
 use App\Support\FileUpload;
 use Illuminate\Http\RedirectResponse;
@@ -29,12 +30,39 @@ class ProfileController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return View
      */
-    public function index(Request $request)
+    public function index()
     {
         return view('user::profile', ['user' => Auth::user()]);
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse|View
+     */
+    public function updateProfile(Request $request)
+    {
+        /* @var User $user */
+        $user = Auth::user();
+        $userEditBlock = new UserEdit($user);
+        if ($posts = $request->post()) {
+            $request->validate([
+                'name' => 'required|max:255',
+                'email' => 'required|email',
+                'phone' => 'numeric|nullable',
+                'birthday' => 'date:Y-m-d|nullable',
+            ]);
+            try {
+                $userEditBlock->updateUser();
+            } catch (\Exception $e) {
+                return redirect()->back()->withErrors($e->getMessage());
+            }
+            $request->session()->flash('success', __('Profile has been updated!'));
+
+            return  redirect()->route('user_profile');
+        }
+        return view('user::profile_edit', ['userEditBlock' => $userEditBlock]);
     }
 
     /**

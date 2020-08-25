@@ -5,6 +5,7 @@ namespace App\Module\User\Block;
 use App\Block\AbstractBlock;
 use App\Module\User\Api\Data\UserInterface;
 use App\Module\User\Models\Data\User;
+use App\Module\User\Models\UserRepository;
 use App\Module\User\Support\PasswordGenerator;
 use Illuminate\Support\Facades\Request;
 
@@ -47,6 +48,7 @@ class UserEdit extends AbstractBlock
 
     /**
      * @return void
+     * @throws \Exception
      */
     public function updateUser()
     {
@@ -65,5 +67,27 @@ class UserEdit extends AbstractBlock
         $info->setBirthday($posts['birthday'] ?: '');
         $info->setAddress($posts['address'] ?: '');
         $info->setDescription($posts['description'] ?: '');
+
+        $this->checkDuplicate();
+        $repository = new UserRepository();
+        $repository->save($user);
+    }
+
+    /**
+     * @param User $user
+     * @return void
+     * @throws \Exception
+     */
+    private function checkDuplicate()
+    {
+        $repository = new UserRepository();
+
+        $user = $this->user;
+        /* @var UserInterface $exist */
+        $exist = $repository->getBuilder()
+            ->where('name', $user->getName())
+            ->orWhere('email', $user->getEmail())
+            ->get()->first();
+        if ($exist && ($exist->getId() != $user->getId())) throw new \Exception(__('User already exist'));
     }
 }

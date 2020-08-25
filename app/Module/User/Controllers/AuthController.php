@@ -110,8 +110,6 @@ class AuthController extends Controller
     {
         $user = $id ? $this->repository->getById($id) : $this->repository->create();
 
-        $routeBack = Auth::id() == $id ? 'user_profile' : 'user_list';
-
         $userEditBlock = new UserEdit($user);
         if ($posts = $request->post()) {
             $request->validate([
@@ -120,21 +118,16 @@ class AuthController extends Controller
                 'phone' => 'numeric|nullable',
                 'birthday' => 'date:Y-m-d|nullable',
             ]);
-            $userEditBlock->updateUser();
-            if ($this->isDuplicate($user)) {
-                return redirect()->back()->withErrors(__('User already exist'));
-            }
             try {
-                $this->repository->save($user);
+                $userEditBlock->updateUser();
             } catch (\Exception $e) {
                 return redirect()->back()->withErrors($e->getMessage());
             }
             $request->session()->flash('success', __('User :user has been updated!', ['user' => $user->getFullName()]));
-            $request->session()->remove('back_url');
 
-            return  redirect()->route($routeBack);
+            return  redirect()->route('user_list');
         }
-        return view('user::user_create', ['userEditBlock' => $userEditBlock, 'backUrl' => $routeBack]);
+        return view('user::user_create', ['userEditBlock' => $userEditBlock]);
     }
 
     /**
@@ -169,21 +162,5 @@ class AuthController extends Controller
         session()->flash('success', __('User has been recovered!'));
 
         return redirect()->route('user_list');
-    }
-
-    /**
-     * @param UserInterface $user
-     * @return bool
-     */
-    private function isDuplicate($user)
-    {
-        /* @var UserInterface $exist */
-        $exist = $this->repository->getBuilder()
-            ->where('name', $user->getName())
-            ->orWhere('email', $user->getEmail())
-            ->get()->first();
-        if ($exist && ($exist->getId() != $user->getId())) return true;
-
-        return false;
     }
 }

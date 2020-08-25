@@ -2,6 +2,8 @@
 
 namespace App\Module\User;
 
+use App\Module\User\Api\UserPermissionCheckerInterface;
+use App\Module\User\Models\UserPermissionChecker;
 use App\Support\Injection;
 use App\Module\User\Providers\EventServiceProvider;
 use App\Module\User\Providers\RouteServiceProvider;
@@ -34,6 +36,7 @@ class UserServiceProvider extends ServiceProvider
     {
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(EventServiceProvider::class);
+        $this->app->singleton(UserPermissionCheckerInterface::class, UserPermissionChecker::class);
 
         $this->bindInjection();
     }

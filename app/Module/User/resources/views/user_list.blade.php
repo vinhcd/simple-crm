@@ -1,4 +1,8 @@
-<?php /* @var \App\Module\User\Block\UserList $userListBlock */ ?>
+<?php
+/* @var \App\Module\User\Block\UserList $userListBlock */
+
+$permissionChecker = new \App\Support\PermissionChecker();
+?>
 
 @extends('layouts.master')
 
@@ -42,7 +46,7 @@
                                     <td>{{$user['departments']}}</td>
                                     <td>{{$user['phone']}}</td>
                                     <td>
-                                        @if($user['id'] != auth()->id())
+                                        @if($user['id'] != auth()->id() && $permissionChecker->canEditUsers())
                                         <a href="{{ route('user_create_update', $user['id']) }}" title="{{__('Edit')}}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
                                         <a href="{{ route('user_delete', $user['id']) }}" title="{{__('Delete')}}" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash-alt"></i>

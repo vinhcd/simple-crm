@@ -1,4 +1,8 @@
-<?php /* @var \App\Module\User\Models\Data\Department[] $departments */ ?>
+<?php
+/* @var \App\Module\User\Models\Data\Department[] $departments */
+
+$permissionChecker = new \App\Support\PermissionChecker();
+?>
 
 @extends('layouts.master')
 
@@ -38,10 +42,12 @@
                                     <td>{{$department->getParent() ? $department->getParent()->getDisplayName() : ''}}</td>
                                     <td>{{$department->getDescription()}}</td>
                                     <td>
+                                        @if($permissionChecker->canEditDepartments())
                                         <a href="{{ route('user_depart_create_update', $department->getId()) }}" title="{{__('Edit')}}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
                                         <a href="{{ route('user_depart_delete', $department->getId()) }}" title="{{__('Delete')}}" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash-alt"></i>
                                         </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach

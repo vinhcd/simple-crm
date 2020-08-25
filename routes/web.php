@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'DashboardController@index')->middleware('auth')->name('home');
+Route::get('/', '\App\Module\User\Controllers\ProfileController@index')->middleware('auth')->name('home');
 
 Route::get('/test', function () {
     ddd(auth()->user()->isSuperAdmin());
