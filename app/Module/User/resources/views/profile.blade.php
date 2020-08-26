@@ -41,22 +41,28 @@
 
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Email</b> <a class="float-right">{{$user->getEmail()}}</a>
+                                    <b>{{__('Email')}}</b> <a class="float-right">{{$user->getEmail()}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Full name</b> <a class="float-right">{{$user->getFullName()}}</a>
+                                    <b>{{__('Full name')}}</b> <a class="float-right">{{$user->getFullName()}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Birthday</b> <a class="float-right">{{$user->getInfo()->getBirthday()}}</a>
+                                    <b>{{__('Birthday')}}</b> <a class="float-right">{{$user->getInfo()->getBirthday()}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Phone</b> <a class="float-right">{{$user->getInfo()->getPhone()}}</a>
+                                    <b>{{__('Sex')}}</b> <a class="float-right">{{$user->getInfo()->getSex()}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Address</b> <a class="float-right">{{$user->getInfo()->getAddress()}}</a>
+                                    <b>{{__('Phone')}}</b> <a class="float-right">{{$user->getInfo()->getPhone()}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Description</b> <a class="float-right">{{$user->getInfo()->getDescription()}}</a>
+                                    <b>{{__('Personal email')}}</b> <a class="float-right">{{$user->getInfo()->getPersonalEmail()}}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>{{__('Address')}}</b> <a class="float-right">{{$user->getInfo()->getAddress()}}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>{{__('Description')}}</b> <a class="float-right">{{$user->getInfo()->getDescription()}}</a>
                                 </li>
                             </ul>
 

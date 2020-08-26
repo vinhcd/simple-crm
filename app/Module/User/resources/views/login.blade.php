@@ -14,9 +14,9 @@
         <div class="card-body login-card-body">
             <p class="login-box-msg">Sign in to start your session</p>
 
-            <form action="{{ route('login') }}" method="post">
+            <form action="{{ route('login') }}" method="post" id="form-login">
                 @csrf
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 form-group">
                     <input type="email" name="email" class="form-control" placeholder="Email">
                     <div class="input-group-append">
                         <div class="input-group-text">
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="input-group mb-3">
+                <div class="input-group mb-3 form-group">
                     <input type="password" name="password" class="form-control" placeholder="Password">
                     <div class="input-group-append">
                         <div class="input-group-text">
@@ -36,9 +36,7 @@
                     <div class="col-8">
                         <div class="icheck-primary">
                             <input type="checkbox" id="remember" name="remember">
-                            <label for="remember">
-                                Remember Me
-                            </label>
+                            <label for="remember">{{__('Remember Me')}}</label>
                         </div>
                     </div>
                     <div class="col-4">
@@ -50,3 +48,33 @@
     </div>
 </div>
 @stop
+
+@section('custom-scripts')
+    <script src="{{url('plugins/jquery-validation/jquery.validate.min.js')}}"></script>
+    <script src="{{url('plugins/jquery-validation/additional-methods.min.js')}}"></script>
+    <script>
+        $('#form-login').validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true,
+                },
+                password: {
+                    required: true,
+                },
+            },
+            messages: {},
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    </script>
+@endsection

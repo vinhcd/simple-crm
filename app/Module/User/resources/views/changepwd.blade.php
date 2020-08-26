@@ -49,6 +49,7 @@
 @section('custom-scripts')
     <script src="{{url('plugins/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{url('plugins/jquery-validation/additional-methods.min.js')}}"></script>
+    @include('user::includes.pwcheck')
     <script>
         $('#form-password').validate({
             rules: {
@@ -59,13 +60,12 @@
                 },
                 password: {
                     required: true,
-                    minlength: 3,
-                    maxlength: 255
+                    pwcheck: true,
+                    minlength: 8,
+                    maxlength: 50
                 },
                 retype_password: {
                     required: true,
-                    minlength: 3,
-                    maxlength: 255,
                     equalTo: "#password"
                 },
             },

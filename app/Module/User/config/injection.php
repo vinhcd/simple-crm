@@ -1,7 +1,9 @@
 <?php
 
+use App\Module\User\UserServiceProvider;
+
 return [
-    'user' => [
+    UserServiceProvider::MODULE_NAME => [
         \App\Module\User\Api\Data\UserInterface::class => \App\Module\User\Models\Data\User::class,
         \App\Module\User\Api\Data\GroupInterface::class => \App\Module\User\Models\Data\Group::class,
         \App\Module\User\Api\Data\DepartmentInterface::class => \App\Module\User\Models\Data\Department::class,

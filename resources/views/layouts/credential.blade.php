@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="{{url('plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{url('dist/css/adminlte.min.css')}}">
+
+    @yield('custom-head')
 </head>
 <body class="hold-transition login-page">
 
@@ -37,5 +39,7 @@
     <script src="{{url('plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{url('dist/js/adminlte.min.js')}}"></script>
+
+    @yield('custom-scripts')
 </body>
 </html>

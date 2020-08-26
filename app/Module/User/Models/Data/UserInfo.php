@@ -10,6 +10,10 @@ use App\Models\AbstractModel;
  * @method string getBirthday()
  * @method string getAddress()
  * @method $this setAddress(string $value)
+ * @method string getSex()
+ * @method $this setSex(string $value)
+ * @method string getPersonalEmail()
+ * @method $this setPersonalEmail(string $value)
  * @method string getPhone()
  * @method $this setPhone(string $value)
  * @method string getAvatar()
@@ -27,7 +31,7 @@ class UserInfo extends AbstractModel
     /**
      * @var array
      */
-    protected $properties = ['user_id', 'birthday', 'address', 'phone', 'avatar', 'description'];
+    protected $properties = ['user_id', 'birthday', 'sex', 'personal_email', 'address', 'phone', 'avatar', 'description'];
 
     /**
      * @param $date

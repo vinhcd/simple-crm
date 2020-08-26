@@ -3,10 +3,12 @@
 namespace App\Module\User\Block;
 
 use App\Block\AbstractBlock;
-use App\Module\User\Api\Data\UserInterface;
 use App\Module\User\Models\Data\User;
+use App\Module\User\Models\Data\UserDepartment;
+use App\Module\User\Models\DepartmentRepository;
 use App\Module\User\Models\UserRepository;
 use App\Module\User\Support\PasswordGenerator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 
 class UserEdit extends AbstractBlock
@@ -18,11 +20,19 @@ class UserEdit extends AbstractBlock
 
     /**
      * UserEdit constructor.
-     * @param UserInterface $user
+     * @param User $user
      */
     public function __construct($user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 
     /**
@@ -40,10 +50,33 @@ class UserEdit extends AbstractBlock
         $info = $user->getInfo();
         $userData['phone'] = $info->getPhone();
         $userData['birthday'] = $info->getBirthday();
+        $userData['sex'] = $info->getSex();
+        $userData['personal_email'] = $info->getPersonalEmail();
         $userData['address'] = $info->getAddress();
         $userData['description'] = $info->getDescription();
 
+        $userData['departments'] = [];
+        $userDepartments = $user->getDepartments();
+        foreach ($userDepartments as $userDepartment) {
+            $userData['departments'][] = $userDepartment->getId();
+        }
         return $userData;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDepartments()
+    {
+        $allDeparts = [];
+
+        $departRepo = new DepartmentRepository();
+        $departs = $departRepo->getAll();
+        foreach ($departs as $depart) {
+            $allDeparts[$depart->getId()]['id'] = $depart->getId();
+            $allDeparts[$depart->getId()]['name'] = $depart->getDisplayName();
+        }
+        return $allDeparts;
     }
 
     /**
@@ -65,8 +98,23 @@ class UserEdit extends AbstractBlock
         $info = $user->getInfo();
         $info->setPhone($posts['phone'] ?: '');
         $info->setBirthday($posts['birthday'] ?: '');
+        $info->setSex($posts['sex'] ?: '');
+        $info->setPersonalEmail($posts['personal_email'] ?: '');
         $info->setAddress($posts['address'] ?: '');
         $info->setDescription($posts['description'] ?: '');
+
+        DB::beginTransaction();
+        if (!isset($posts['departments'])) {
+            UserDepartment::where('user_id', $user->getId())->delete();
+        } elseif (is_array($posts['departments'])) {
+            foreach ($posts['departments'] as $department) {
+                $userDepartment = new UserDepartment();
+                $userDepartment->setDepartmentId($department);
+                $userDepartment->setUserId($user->getId());
+                $userDepartment->save();
+            }
+        }
+        DB::commit();
 
         $this->checkDuplicate();
         $repository = new UserRepository();
@@ -74,7 +122,6 @@ class UserEdit extends AbstractBlock
     }
 
     /**
-     * @param User $user
      * @return void
      * @throws \Exception
      */
@@ -83,7 +130,7 @@ class UserEdit extends AbstractBlock
         $repository = new UserRepository();
 
         $user = $this->user;
-        /* @var UserInterface $exist */
+        /* @var User $exist */
         $exist = $repository->getBuilder()
             ->where('name', $user->getName())
             ->orWhere('email', $user->getEmail())

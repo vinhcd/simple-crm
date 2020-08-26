@@ -7,6 +7,7 @@ Route::match(['get', 'post'], 'login', 'AuthController@login')
 Route::get('/logout', 'AuthController@logout')
     ->name('user_logout');
 
+// User
 Route::prefix('user')->middleware('auth')->group(function () {
     Route::get('/list', 'AuthController@list')
         ->name('user_list')
@@ -24,6 +25,7 @@ Route::prefix('user')->middleware('auth')->group(function () {
     });
 });
 
+// Profile
 Route::prefix('profile')->middleware('auth')->group(function () {
     Route::get('/', 'ProfileController@index')
         ->name('user_profile');
@@ -35,6 +37,7 @@ Route::prefix('profile')->middleware('auth')->group(function () {
         ->name('user_profile_update');
 });
 
+// Group
 Route::prefix('group')->middleware('auth')->group(function () {
     Route::get('/list', 'GroupController@list')
         ->name('user_group_list');
@@ -49,6 +52,7 @@ Route::prefix('group')->middleware('auth')->group(function () {
     });
 });
 
+// Department
 Route::prefix('department')->middleware('auth')->group(function () {
     Route::get('/list', 'DepartmentController@list')
         ->name('user_depart_list');

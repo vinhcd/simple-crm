@@ -36,7 +36,6 @@ class UserServiceProvider extends ServiceProvider
     {
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(EventServiceProvider::class);
-        $this->app->singleton(UserPermissionCheckerInterface::class, UserPermissionChecker::class);
 
         $this->bindInjection();
     }
@@ -46,6 +45,8 @@ class UserServiceProvider extends ServiceProvider
      */
     private function bindInjection()
     {
+        $this->app->singleton(UserPermissionCheckerInterface::class, UserPermissionChecker::class);
+
         $this->mergeConfigFrom(__DIR__ . '/config/injection.php', Injection::KEY);
 
         Injection::bind(self::MODULE_NAME);
