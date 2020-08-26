@@ -40,7 +40,8 @@ Route::prefix('profile')->middleware('auth')->group(function () {
 // Group
 Route::prefix('group')->middleware('auth')->group(function () {
     Route::get('/list', 'GroupController@list')
-        ->name('user_group_list');
+        ->name('user_group_list')
+        ->middleware('group.list');
 
     Route::middleware('group.edit')->group(function () {
         Route::match(['get', 'post'], '/createOrUpdate/{id?}', 'GroupController@createOrUpdate')
@@ -52,10 +53,25 @@ Route::prefix('group')->middleware('auth')->group(function () {
     });
 });
 
+// Position
+Route::prefix('position')->middleware('auth')->group(function () {
+    Route::get('/list', 'PositionController@list')
+        ->name('user_position_list')
+        ->middleware('position.list');
+
+    Route::middleware('position.edit')->group(function () {
+        Route::match(['get', 'post'], '/createOrUpdate/{id?}', 'PositionController@createOrUpdate')
+            ->name('user_position_create_update');
+        Route::get('/delete/{id}',  'PositionController@delete')
+            ->name('user_position_delete');
+    });
+});
+
 // Department
 Route::prefix('department')->middleware('auth')->group(function () {
     Route::get('/list', 'DepartmentController@list')
-        ->name('user_depart_list');
+        ->name('user_depart_list')
+        ->middleware('depart.list');
 
     Route::middleware('depart.edit')->group(function () {
         Route::match(['get', 'post'], '/createOrUpdate/{id?}', 'DepartmentController@createOrUpdate')

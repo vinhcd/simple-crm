@@ -1,45 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>DATABASE</ID>
-  <OriginalElement>12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.department</OriginalElement>
+  <OriginalElement>12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_department</OriginalElement>
   <nodes>
-    <node x="312.99999999999994" y="0.0">12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.users</node>
-    <node x="312.99999999999994" y="352.0">12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_info</node>
-    <node x="0.0" y="33.0">12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.department</node>
-    <node x="611.75" y="33.0">12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.group</node>
-    <node x="556.0" y="374.0">12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_group</node>
-    <node x="50.99999999999994" y="374.0">12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_department</node>
+    <node x="340.875" y="0.0">12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.users</node>
+    <node x="313.0" y="374.0">12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_info</node>
+    <node x="0.0" y="44.0">12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.department</node>
+    <node x="799.0" y="440.0">12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_position</node>
+    <node x="854.75" y="66.0">12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.position</node>
+    <node x="556.0" y="440.0">12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_group</node>
+    <node x="611.75" y="44.0">12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.group</node>
+    <node x="51.0" y="440.0">12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_department</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_group" target="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.users">
+    <edge source="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_position" target="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.users">
       <point x="-55.75" y="-96.0" />
-      <point x="611.75" y="327.0" />
-      <point x="498.8333333333333" y="327.0" />
-      <point x="74.33333333333337" y="151.0" />
+      <point x="854.75" y="344.0" />
+      <point x="536.0" y="344.0" />
+      <point x="83.625" y="162.0" />
     </edge>
     <edge source="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_info" target="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.users">
-      <point x="0.0" y="-118.0" />
-      <point x="0.0" y="151.0" />
-    </edge>
-    <edge source="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_department" target="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.department">
-      <point x="-60.5" y="-96.0" />
-      <point x="0.0" y="118.0" />
+      <point x="0.0" y="-162.0" />
+      <point x="-27.875" y="162.0" />
     </edge>
     <edge source="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_group" target="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.group">
       <point x="55.75" y="-96.0" />
       <point x="0.0" y="118.0" />
     </edge>
+    <edge source="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_group" target="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.users">
+      <point x="-55.75" y="-96.0" />
+      <point x="611.75" y="354.0" />
+      <point x="480.25" y="354.0" />
+      <point x="27.875" y="162.0" />
+    </edge>
+    <edge source="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_department" target="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.department">
+      <point x="-60.5" y="-96.0" />
+      <point x="0.0" y="118.0" />
+    </edge>
+    <edge source="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_position" target="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.position">
+      <point x="55.75" y="-96.0" />
+      <point x="0.0" y="96.0" />
+    </edge>
     <edge source="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_department" target="12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.users">
       <point x="60.5" y="-96.0" />
-      <point x="232.49999999999994" y="327.0" />
-      <point x="350.16666666666663" y="327.0" />
-      <point x="-74.33333333333331" y="151.0" />
+      <point x="232.5" y="354.0" />
+      <point x="368.75" y="354.0" />
+      <point x="-83.625" y="162.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="417.5" y="305.0" />
+  <settings layout="Hierarchic Group" zoom="1.0" x="539.0" y="349.0" />
   <SelectedNodes>
-    <node>12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.users</node>
+    <node>12089cd6-88dc-4018-924e-fe38e2fb2f86.TABLE:timesheetv2.user_department</node>
   </SelectedNodes>
   <Categories>
     <Category>Key columns</Category>

@@ -4,6 +4,7 @@ namespace App\Support;
 
 use App\Module\User\Api\Data\DepartmentInterface;
 use App\Module\User\Api\Data\GroupInterface;
+use App\Module\User\Api\Data\PositionInterface;
 use App\Module\User\Api\Data\UserInterface;
 use App\Module\User\Api\UserPermissionCheckerInterface;
 use App\Module\User\UserServiceProvider;
@@ -53,6 +54,22 @@ class PermissionChecker
     public function canEditGroups()
     {
         return $this->userPermissionChecker->canWrite(GroupInterface::RESOURCE_ID, UserServiceProvider::MODULE_NAME);
+    }
+
+    /**
+     * @return bool
+     */
+    public function canReadPositions()
+    {
+        return $this->userPermissionChecker->canRead(PositionInterface::RESOURCE_ID, UserServiceProvider::MODULE_NAME);
+    }
+
+    /**
+     * @return bool
+     */
+    public function canEditPositions()
+    {
+        return $this->userPermissionChecker->canWrite(PositionInterface::RESOURCE_ID, UserServiceProvider::MODULE_NAME);
     }
 
     /**

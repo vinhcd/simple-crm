@@ -5,8 +5,10 @@ namespace App\Module\User\Block;
 use App\Block\AbstractBlock;
 use App\Module\User\Models\Data\Department;
 use App\Module\User\Models\Data\User;
+use App\Module\User\Models\Data\UserDepartment;
 use App\Module\User\Models\DepartmentRepository;
 use App\Module\User\Models\UserRepository;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
 
 class DepartEdit extends AbstractBlock
@@ -40,6 +42,7 @@ class DepartEdit extends AbstractBlock
 
     /**
      * @return void
+     * @throws \Exception
      */
     public function update()
     {
@@ -50,6 +53,12 @@ class DepartEdit extends AbstractBlock
         $department->setDisplayName($posts['display_name']);
         $department->setParentId($posts['parent_id'] ?: 0);
         $department->setDescription($posts['description'] ?: '');
+
+        $this->checkDuplicate();
+        $repository = new DepartmentRepository();
+        $repository->save($department);
+
+        $this->updateUsers();
     }
 
     /**
@@ -89,5 +98,39 @@ class DepartEdit extends AbstractBlock
             }
         }
         return $this->usersData;
+    }
+
+    /**
+     * @return void
+     * @throws \Exception
+     */
+    private function updateUsers()
+    {
+        $posts = Request::post();
+
+        DB::beginTransaction();
+        UserDepartment::where('department_id', $this->department->getId())->delete();
+        if (isset($posts['users'])) {
+            foreach ($posts['users'] as $userId) {
+                $userDepartment = new UserDepartment();
+                $userDepartment->setDepartmentId($this->department->getId());
+                $userDepartment->setUserId($userId);
+                $userDepartment->save();
+            }
+        }
+        DB::commit();
+    }
+
+    /**
+     * @return void
+     * @throws \Exception
+     */
+    private function checkDuplicate()
+    {
+        $repository = new DepartmentRepository();
+
+        /* @var Department $exist */
+        $exist = $repository->getBuilder()->where('name', $this->department->getName())->get()->first();
+        if ($exist && ($exist->getId() != $this->department->getId())) throw new \Exception(__('Department already exist'));
     }
 }

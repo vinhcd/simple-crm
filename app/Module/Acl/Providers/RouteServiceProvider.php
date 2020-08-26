@@ -2,6 +2,7 @@
 
 namespace App\Module\Acl\Providers;
 
+use App\Module\Acl\Middleware\ManageRole;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,8 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
+
+        $this->aliasMiddleware('role.manage', ManageRole::class);
     }
 
     /**

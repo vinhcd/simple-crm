@@ -1,4 +1,8 @@
-<?php $permissionChecker = new \App\Support\PermissionChecker(); ?>
+<?php
+$permissionChecker = new \App\Support\PermissionChecker();
+/* @var \App\Module\User\Api\Data\UserInterface $user*/
+$user = \Illuminate\Support\Facades\Auth::user();
+?>
 
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -67,6 +71,14 @@
                             </a>
                         </li>
                         @endif
+                        @if($permissionChecker->canReadPositions())
+                            <li class="nav-item">
+                                <a href="{{route('user_position_list')}}" class="nav-link" id="nav-user-position">
+                                    <i class="nav-icon fas fa-clipboard"></i>
+                                    <p>{{__('Positions')}}</p>
+                                </a>
+                            </li>
+                        @endif
                         @if($permissionChecker->canReadDepartments())
                         <li class="nav-item">
                             <a href="{{route('user_depart_list')}}" class="nav-link" id="nav-user-depart">
@@ -79,12 +91,14 @@
                 </li>
                 @endif
 
+                @if($user->isSuperAdmin())
                 <li class="nav-item">
                     <a href="{{route('role_list')}}" class="nav-link" id="nav-role">
                         <i class="nav-icon fa fa-lock"></i>
                         <p>{{__('Roles')}}</p>
                     </a>
                 </li>
+                @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

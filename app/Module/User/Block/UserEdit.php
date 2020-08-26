@@ -5,7 +5,11 @@ namespace App\Module\User\Block;
 use App\Block\AbstractBlock;
 use App\Module\User\Models\Data\User;
 use App\Module\User\Models\Data\UserDepartment;
+use App\Module\User\Models\Data\UserGroup;
+use App\Module\User\Models\Data\UserPosition;
 use App\Module\User\Models\DepartmentRepository;
+use App\Module\User\Models\GroupRepository;
+use App\Module\User\Models\PositionRepository;
 use App\Module\User\Models\UserRepository;
 use App\Module\User\Support\PasswordGenerator;
 use Illuminate\Support\Facades\DB;
@@ -56,11 +60,53 @@ class UserEdit extends AbstractBlock
         $userData['description'] = $info->getDescription();
 
         $userData['departments'] = [];
-        $userDepartments = $user->getDepartments();
-        foreach ($userDepartments as $userDepartment) {
-            $userData['departments'][] = $userDepartment->getId();
+        foreach ($user->getDepartments() as $department) {
+            $userData['departments'][] = $department->getId();
         }
+
+        $userData['groups'] = [];
+        foreach ($user->getGroups() as $group) {
+            $userData['groups'][] = $group->getId();
+        }
+
+        $userData['positions'] = [];
+        foreach ($user->getPositions() as $position) {
+            $userData['positions'][] = $position->getId();
+        }
+
         return $userData;
+    }
+
+    /**
+     * @return array
+     */
+    public function getGroups()
+    {
+        $allGroups = [];
+
+        $groupRepo = new GroupRepository();
+        $groups = $groupRepo->getAll();
+        foreach ($groups as $group) {
+            $allGroups[$group->getId()]['id'] = $group->getId();
+            $allGroups[$group->getId()]['name'] = $group->getDisplayName();
+        }
+        return $allGroups;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPositions()
+    {
+        $allPositions = [];
+
+        $repo = new PositionRepository();
+        $positions = $repo->getAll();
+        foreach ($positions as $position) {
+            $allPositions[$position->getId()]['id'] = $position->getId();
+            $allPositions[$position->getId()]['name'] = $position->getName();
+        }
+        return $allPositions;
     }
 
     /**
@@ -103,22 +149,77 @@ class UserEdit extends AbstractBlock
         $info->setAddress($posts['address'] ?: '');
         $info->setDescription($posts['description'] ?: '');
 
-        DB::beginTransaction();
-        if (!isset($posts['departments'])) {
-            UserDepartment::where('user_id', $user->getId())->delete();
-        } elseif (is_array($posts['departments'])) {
-            foreach ($posts['departments'] as $department) {
-                $userDepartment = new UserDepartment();
-                $userDepartment->setDepartmentId($department);
-                $userDepartment->setUserId($user->getId());
-                $userDepartment->save();
-            }
-        }
-        DB::commit();
-
         $this->checkDuplicate();
         $repository = new UserRepository();
         $repository->save($user);
+
+        $this->updateGroups();
+        $this->updatePositions();
+        $this->updateDepartments();
+    }
+
+    /**
+     * @return void
+     * @throws \Exception
+     */
+    private function updatePositions()
+    {
+        $posts = Request::post();
+        if (isset($posts['positions']) && !is_array($posts['positions'])) return; // to ignore profile edit
+
+        DB::beginTransaction();
+        UserPosition::where('user_id', $this->user->getId())->delete();
+        if (isset($posts['positions'])) {
+            foreach ($posts['positions'] as $id) {
+                $userPosition = new UserPosition();
+                $userPosition->setPositionId($id);
+                $userPosition->setUserId($this->user->getId());
+                $userPosition->save();
+            }
+        }
+        DB::commit();
+    }
+
+    /**
+     * @return void
+     * @throws \Exception
+     */
+    private function updateGroups()
+    {
+        $posts = Request::post();
+        if (isset($posts['groups']) && !is_array($posts['groups'])) return; // to ignore profile edit
+
+        DB::beginTransaction();
+        UserGroup::where('user_id', $this->user->getId())->delete();
+        if (isset($posts['groups'])) {
+            foreach ($posts['groups'] as $id) {
+                $userGroup = new UserGroup();
+                $userGroup->setGroupId($id);
+                $userGroup->setUserId($this->user->getId());
+                $userGroup->save();
+            }
+        }
+        DB::commit();
+    }
+
+    /**
+     * @return void
+     * @throws \Exception
+     */
+    private function updateDepartments()
+    {
+        $posts = Request::post();
+        if (isset($posts['departments']) && !is_array($posts['departments'])) return; // to ignore profile edit
+
+        DB::beginTransaction();
+        UserDepartment::where('user_id', $this->user->getId())->delete();
+        foreach ($posts['departments'] as $department) {
+            $userDepartment = new UserDepartment();
+            $userDepartment->setDepartmentId($department);
+            $userDepartment->setUserId($this->user->getId());
+            $userDepartment->save();
+        }
+        DB::commit();
     }
 
     /**

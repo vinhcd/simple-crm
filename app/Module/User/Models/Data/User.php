@@ -79,6 +79,11 @@ class User extends Authenticatable implements UserInterface
     /**
      * @var Collection
      */
+    protected $positions;
+
+    /**
+     * @var Collection
+     */
     protected $departments;
 
     /**
@@ -106,6 +111,17 @@ class User extends Authenticatable implements UserInterface
             $this->groups = $this->groups()->get();
         }
         return $this->groups;
+    }
+
+    /**
+     * @return Position[] | Collection
+     */
+    public function getPositions()
+    {
+        if (!$this->positions) {
+            $this->positions = $this->positions()->get();
+        }
+        return $this->positions;
     }
 
     /**
@@ -156,6 +172,14 @@ class User extends Authenticatable implements UserInterface
     public function groups()
     {
         return $this->belongsToMany(Group::class, 'user_group');
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function positions()
+    {
+        return $this->belongsToMany(Position::class, 'user_position');
     }
 
     /**

@@ -13,14 +13,14 @@ $department = $departmentEditBlock->getDepartment();
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-6">
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">{{__('Create/edit department')}}</h3>
-                        </div>
-                        <form id="form-depart" action="{{ route('user_depart_create_update', ['id' => $department->getId()]) }}" method="post">
-                            @csrf
+            <form id="form-depart" action="{{ route('user_depart_create_update', ['id' => $department->getId()]) }}" method="post">
+                @csrf
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">{{__('Create/edit department')}}</h3>
+                            </div>
                             <input type="hidden" name="id" value="{{ $department->getId() }}">
                             <div class="card-body">
                                 <div class="form-group">
@@ -44,24 +44,21 @@ $department = $departmentEditBlock->getDepartment();
                                 </div>
                                 <div class="form-group">
                                     <label for="description">{{__('Description')}}</label>
-                                    <input type="text" class="form-control" name="description" id="description" value="{{ $department->getDescription() }}" placeholder="{{__('Enter description')}}">
+                                    <textarea class="form-control" rows="3" name="description" id="description" placeholder="{{__('Enter description')}}">{{ $department->getDescription() }}</textarea>
                                 </div>
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
                                 <a href="{{ route('user_depart_list') }}" class="btn btn-secondary">{{__('Back')}}</a>
                             </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="col-6">
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">{{__('List of users')}}</h3>
                         </div>
-                        <form id="form-user" action="{{ route('user_depart_update_users', ['id' => $department->getId()]) }}" method="post">
-                            @csrf
+                    </div>
+
+                    <div class="col-6">
+                        <div class="card card-primary">
+                            <div class="card-header">
+                                <h3 class="card-title">{{__('List of users')}}</h3>
+                            </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
@@ -76,13 +73,10 @@ $department = $departmentEditBlock->getDepartment();
                                     <div class="col-12">{{__('Choose user from the LEFT and add to the RIGHT to put into department')}}</div>
                                 </div>
                             </div>
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </section>
 @stop
@@ -119,7 +113,7 @@ $department = $departmentEditBlock->getDepartment();
             }
         });
         $('.duallistbox').bootstrapDualListbox({
-            selectorMinimalHeight: 200
+            selectorMinimalHeight: 310
         })
     </script>
 @stop

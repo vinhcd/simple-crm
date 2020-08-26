@@ -16,11 +16,15 @@ class CreateUsersInfoTable extends Migration
         Schema::create('user_info', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->unique();
+            $table->string('uuid')->nullable();
             $table->date('birthday')->nullable();
             $table->string('sex', 50)->nullable();
             $table->string('phone', 50)->nullable();
-            $table->string('address', 500)->nullable();
+            $table->string('address1', 500)->nullable();
+            $table->string('address2', 500)->nullable();
             $table->string('personal_email', 255)->nullable();
+            $table->string('contact_phone', 50)->nullable();
+            $table->string('contact_email', 255)->nullable();
             $table->string('avatar', 500)->nullable();
             $table->text('description')->nullable();
 

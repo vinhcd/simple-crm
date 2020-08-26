@@ -1,5 +1,5 @@
 <script>
-    var errorMessage = 'Password must contain lower-case, upper-case, digit and special character';
+    var errorMessage = 'Password must contain at lease one lower-case, upper-case, digit and special character';
     $.validator.addMethod("pwcheck", function(value) {
         return /[!@#$%^&*]/.test(value)
             && /[A-Z]/.test(value)
