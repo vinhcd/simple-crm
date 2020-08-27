@@ -52,11 +52,15 @@ class UserEdit extends AbstractBlock
         $userData['last_name'] = $user->getLastName();
 
         $info = $user->getInfo();
+        $userData['uuid'] = $info->getUuid();
         $userData['phone'] = $info->getPhone();
         $userData['birthday'] = $info->getBirthday();
         $userData['sex'] = $info->getSex();
         $userData['personal_email'] = $info->getPersonalEmail();
-        $userData['address'] = $info->getAddress();
+        $userData['contact_phone'] = $info->getContactPhone();
+        $userData['contact_email'] = $info->getContactEmail();
+        $userData['address1'] = $info->getAddress1();
+        $userData['address2'] = $info->getAddress2();
         $userData['description'] = $info->getDescription();
 
         $userData['departments'] = [];
@@ -131,23 +135,28 @@ class UserEdit extends AbstractBlock
      */
     public function updateUser()
     {
-        $posts = Request::post();
+        /* @var \Illuminate\Http\Request $request */
+        $request = request();
 
         $user = $this->user;
-        $user->setName($posts['name']);
-        $user->setEmail($posts['email']);
-        $user->setFirstName($posts['first_name'] ?: '');
-        $user->setLastName($posts['last_name'] ?: '');
+        $user->setName($request->post('name'));
+        $user->setEmail($request->post('email'));
+        $user->setFirstName($request->post('first_name') ?: '');
+        $user->setLastName($request->post('last_name') ?: '');
         if (empty($user->getId())) {
             $user->setPassword(PasswordGenerator::generate());
         }
         $info = $user->getInfo();
-        $info->setPhone($posts['phone'] ?: '');
-        $info->setBirthday($posts['birthday'] ?: '');
-        $info->setSex($posts['sex'] ?: '');
-        $info->setPersonalEmail($posts['personal_email'] ?: '');
-        $info->setAddress($posts['address'] ?: '');
-        $info->setDescription($posts['description'] ?: '');
+        $info->setUuid($request->post('uuid') ?: '');
+        $info->setPhone($request->post('phone') ?: '');
+        $info->setBirthday($request->post('birthday') ?: '');
+        $info->setSex($request->post('sex') ?: '');
+        $info->setPersonalEmail($request->post('personal_email') ?: '');
+        $info->setContactPhone($request->post('contact_phone') ?: '');
+        $info->setContactEmail($request->post('contact_email') ?: '');
+        $info->setAddress1($request->post('address1') ?: '');
+        $info->setAddress2($request->post('address2') ?: '');
+        $info->setDescription($request->post('description') ?: '');
 
         $this->checkDuplicate();
         $repository = new UserRepository();
@@ -165,7 +174,6 @@ class UserEdit extends AbstractBlock
     private function updatePositions()
     {
         $posts = Request::post();
-        if (isset($posts['positions']) && !is_array($posts['positions'])) return; // to ignore profile edit
 
         DB::beginTransaction();
         UserPosition::where('user_id', $this->user->getId())->delete();
@@ -187,7 +195,6 @@ class UserEdit extends AbstractBlock
     private function updateGroups()
     {
         $posts = Request::post();
-        if (isset($posts['groups']) && !is_array($posts['groups'])) return; // to ignore profile edit
 
         DB::beginTransaction();
         UserGroup::where('user_id', $this->user->getId())->delete();
@@ -209,15 +216,16 @@ class UserEdit extends AbstractBlock
     private function updateDepartments()
     {
         $posts = Request::post();
-        if (isset($posts['departments']) && !is_array($posts['departments'])) return; // to ignore profile edit
 
         DB::beginTransaction();
         UserDepartment::where('user_id', $this->user->getId())->delete();
-        foreach ($posts['departments'] as $department) {
-            $userDepartment = new UserDepartment();
-            $userDepartment->setDepartmentId($department);
-            $userDepartment->setUserId($this->user->getId());
-            $userDepartment->save();
+        if (isset($posts['departments'])) {
+            foreach ($posts['departments'] as $department) {
+                $userDepartment = new UserDepartment();
+                $userDepartment->setDepartmentId($department);
+                $userDepartment->setUserId($this->user->getId());
+                $userDepartment->save();
+            }
         }
         DB::commit();
     }

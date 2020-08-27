@@ -44,7 +44,7 @@ $userData = $userEditBlock->getUserData();
                                 </div>
                                 <div class="form-group">
                                     <label for="uuid">{{__('UUID')}}</label>
-                                    <input type="text" class="form-control" name="uuid" id="uuid" value="{{ $userData['last_name'] }}" placeholder="{{__('Enter uuid')}}">
+                                    <input type="text" class="form-control" name="uuid" id="uuid" value="{{ $userData['uuid'] }}" placeholder="{{__('Enter uuid')}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="birthday">{{__('Birthday')}}</label>
@@ -161,11 +161,21 @@ $userData = $userEditBlock->getUserData();
                     required: true,
                     maxlength: 255
                 },
+                birthday: {
+                    date: true
+                },
                 phone: {
                     digits: true,
                     maxlength: 50
                 },
+                contact_phone: {
+                    digits: true,
+                    maxlength: 50
+                },
                 personal_email: {
+                    email: true,
+                },
+                contact_email: {
                     email: true,
                 },
             },

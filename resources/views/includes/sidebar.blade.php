@@ -17,7 +17,9 @@ $user = \Illuminate\Support\Facades\Auth::user();
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{upload_url(auth()->user()->getInfo()->getAvatar())}}" class="img-circle elevation-2" alt="User Image">
+                <a href="{{route('user_profile')}}">
+                    <img src="{{upload_url(auth()->user()->getInfo()->getAvatar())}}" class="img-circle elevation-2" alt="User Image">
+                </a>
             </div>
             <div class="info">
                 <a href="{{route('user_profile')}}" class="d-block">{{auth()->user()->getName()}}</a>

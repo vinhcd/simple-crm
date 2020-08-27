@@ -4,7 +4,7 @@ namespace App\Module\User\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Module\User\Api\UserRepositoryInterface;
-use App\Module\User\Block\UserEdit;
+use App\Module\User\Block\ProfileEdit;
 use App\Module\User\Models\Data\User;
 use App\Support\FileUpload;
 use Illuminate\Http\RedirectResponse;
@@ -43,14 +43,14 @@ class ProfileController extends Controller
      */
     public function updateProfile(Request $request)
     {
-        /* @var User $user */
-        $user = Auth::user();
-        $userEditBlock = new UserEdit($user);
+        $userEditBlock = new ProfileEdit();
         if ($posts = $request->post()) {
             $request->validate([
                 'name' => 'required|max:255',
                 'email' => 'required|email',
+                'contact_email' => 'email|nullable',
                 'phone' => 'numeric|nullable',
+                'contact_phone' => 'numeric|nullable',
                 'birthday' => 'date:Y-m-d|nullable',
             ]);
             try {

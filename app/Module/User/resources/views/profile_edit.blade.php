@@ -67,8 +67,20 @@ $userData = $userEditBlock->getUserData();
                                     <input type="text" class="form-control" name="personal_email" id="personal_email" value="{{ $userData['personal_email'] }}" placeholder="{{__('Enter personal email')}}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="address">{{__('Address')}}</label>
-                                    <textarea class="form-control" rows="3" name="address" id="address" placeholder="{{__('Enter address')}}">{{ $userData['address'] }}</textarea>
+                                    <label for="contact_phone">{{__('Contact phone')}}</label>
+                                    <input type="text" class="form-control" name="contact_phone" id="contact_phone" value="{{ $userData['contact_phone'] }}" placeholder="{{__('Enter contact phone')}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact_email">{{__('Contact email')}}</label>
+                                    <input type="text" class="form-control" name="contact_email" id="contact_email" value="{{ $userData['contact_email'] }}" placeholder="{{__('Enter contact email')}}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="address1">{{__('Address1')}}</label>
+                                    <textarea class="form-control" rows="3" name="address1" id="address1" placeholder="{{__('Enter address1')}}">{{ $userData['address1'] }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address2">{{__('Address2')}}</label>
+                                    <textarea class="form-control" rows="3" name="address2" id="address2" placeholder="{{__('Enter address2')}}">{{ $userData['address2'] }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">{{__('Description')}}</label>
@@ -102,11 +114,21 @@ $userData = $userEditBlock->getUserData();
                     required: true,
                     maxlength: 255
                 },
+                birthday: {
+                    date: true
+                },
                 phone: {
                     digits: true,
                     maxlength: 50
                 },
+                contact_phone: {
+                    digits: true,
+                    maxlength: 50
+                },
                 personal_email: {
+                    email: true,
+                },
+                contact_email: {
                     email: true,
                 },
             },

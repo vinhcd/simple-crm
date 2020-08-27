@@ -37,9 +37,12 @@
 
                             <h3 class="profile-username text-center">{{$user->getName()}}</h3>
 
-                            <p class="text-muted text-center">Software Engineer</p>
+                            <p class="text-muted text-center">{{$user->getPositions()->first()}}</p>
 
                             <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>{{__('UUID')}}</b> <a class="float-right">{{$user->getInfo()->getUuid()}}</a>
+                                </li>
                                 <li class="list-group-item">
                                     <b>{{__('Email')}}</b> <a class="float-right">{{$user->getEmail()}}</a>
                                 </li>
@@ -59,7 +62,16 @@
                                     <b>{{__('Personal email')}}</b> <a class="float-right">{{$user->getInfo()->getPersonalEmail()}}</a>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>{{__('Address')}}</b> <a class="float-right">{{$user->getInfo()->getAddress()}}</a>
+                                    <b>{{__('Address1')}}</b> <a class="float-right">{{$user->getInfo()->getAddress1()}}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>{{__('Address2')}}</b> <a class="float-right">{{$user->getInfo()->getAddress2()}}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>{{__('Contact phone')}}</b> <a class="float-right">{{$user->getInfo()->getContactPhone()}}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>{{__('Contact email')}}</b> <a class="float-right">{{$user->getInfo()->getContactEmail()}}</a>
                                 </li>
                                 <li class="list-group-item">
                                     <b>{{__('Description')}}</b> <a class="float-right">{{$user->getInfo()->getDescription()}}</a>
