@@ -10,6 +10,7 @@ use App\Models\AbstractModel;
  * @method string getUuid()
  * @method $this setUuid(string $value)
  * @method string getBirthday()
+ * @method string getJoinDate()
  * @method string getAddress1()
  * @method $this setAddress1(string $value)
  * @method string getAddress2()
@@ -44,6 +45,7 @@ class UserInfo extends AbstractModel
         'uuid',
         'birthday',
         'sex',
+        'join_date',
         'personal_email',
         'address1',
         'address2',
@@ -55,7 +57,7 @@ class UserInfo extends AbstractModel
     ];
 
     /**
-     * @param $date
+     * @param string $date
      * @return $this
      */
     public function setBirthday($date)
@@ -64,6 +66,20 @@ class UserInfo extends AbstractModel
             $this->birthday = null;
         } else {
             $this->birthday = $date;
+        }
+        return $this;
+    }
+
+    /**
+     * @param string $date
+     * @return $this
+     */
+    public function setJoinDate($date)
+    {
+        if (empty($date)) {
+            $this->join_date = null;
+        } else {
+            $this->join_date = $date;
         }
         return $this;
     }

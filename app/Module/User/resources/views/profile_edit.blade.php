@@ -65,11 +65,11 @@ $userData = $userEditBlock->getUserData();
                                     <input type="text" class="form-control" name="contact_email" id="contact_email" value="{{ $userData['contact_email'] }}" placeholder="{{__('Enter contact email')}}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="address1">{{__('Address1')}}</label>
+                                    <label for="address1">{{__('Primary residence address')}}</label>
                                     <textarea class="form-control" rows="3" name="address1" id="address1" placeholder="{{__('Enter address1')}}">{{ $userData['address1'] }}</textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="address2">{{__('Address2')}}</label>
+                                    <label for="address2">{{__('Current address')}}</label>
                                     <textarea class="form-control" rows="3" name="address2" id="address2" placeholder="{{__('Enter address2')}}">{{ $userData['address2'] }}</textarea>
                                 </div>
                                 <div class="form-group">

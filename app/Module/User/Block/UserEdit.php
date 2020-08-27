@@ -56,6 +56,7 @@ class UserEdit extends AbstractBlock
         $userData['phone'] = $info->getPhone();
         $userData['birthday'] = $info->getBirthday();
         $userData['sex'] = $info->getSex();
+        $userData['join_date'] = $info->getJoinDate();
         $userData['personal_email'] = $info->getPersonalEmail();
         $userData['contact_phone'] = $info->getContactPhone();
         $userData['contact_email'] = $info->getContactEmail();
@@ -151,6 +152,7 @@ class UserEdit extends AbstractBlock
         $info->setPhone($request->post('phone') ?: '');
         $info->setBirthday($request->post('birthday') ?: '');
         $info->setSex($request->post('sex') ?: '');
+        $info->setJoinDate($request->post('join_date') ?: '');
         $info->setPersonalEmail($request->post('personal_email') ?: '');
         $info->setContactPhone($request->post('contact_phone') ?: '');
         $info->setContactEmail($request->post('contact_email') ?: '');

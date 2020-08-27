@@ -18,6 +18,7 @@ class CreateUsersInfoTable extends Migration
             $table->unsignedBigInteger('user_id')->unique();
             $table->string('uuid')->nullable();
             $table->date('birthday')->nullable();
+            $table->date('join_date')->nullable();
             $table->string('sex', 50)->nullable();
             $table->string('phone', 50)->nullable();
             $table->string('address1', 500)->nullable();
