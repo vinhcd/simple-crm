@@ -15,7 +15,7 @@ class CreatePlanTable extends Migration
     {
         Schema::create('plan', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->decimal('price');
             $table->integer('max_staff');
             $table->unsignedInteger('trial_days')->default(0);

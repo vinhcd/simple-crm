@@ -23,8 +23,15 @@ $userData = $userEditBlock->getUserData();
                         <form id="form-user" action="{{route('user_profile_update')}}" method="post">
                             @csrf
                             <input type="hidden" name="id" value="{{ $userData['id'] }}">
-                            <input type="hidden" name="departments" value="0">
                             <div class="card-body">
+                                <div class="form-group">
+                                    <label for="name">{{__('User name')}}</label>
+                                    <input type="text" class="form-control" name="name" id="name" value="{{ $userData['name'] }}" disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">{{__('Email')}}</label>
+                                    <input type="email" class="form-control" name="email" id="email" value="{{ $userData['email'] }}" disabled>
+                                </div>
                                 <div class="form-group">
                                     <label for="first_name">{{__('First name')}}</label>
                                     <input type="text" class="form-control" name="first_name" id="first_name" value="{{ $userData['first_name'] }}" placeholder="{{__('Enter firstname')}}">
@@ -32,15 +39,6 @@ $userData = $userEditBlock->getUserData();
                                 <div class="form-group">
                                     <label for="last_name">{{__('Last name')}}</label>
                                     <input type="text" class="form-control" name="last_name" id="last_name" value="{{ $userData['last_name'] }}" placeholder="{{__('Enter lastname')}}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="birthday">{{__('Birthday')}}</label>
-                                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                        <input type="text" name="birthday" id="birthday" value="{{ $userData['birthday'] }}" class="form-control datetimepicker-input" data-target="#reservationdate"/>
-                                        <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="sex">{{__('Sex')}}</label>
@@ -95,25 +93,26 @@ $userData = $userEditBlock->getUserData();
     <script src="{{url('plugins/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{url('plugins/jquery-validation/additional-methods.min.js')}}"></script>
     <script src="{{url('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+    @include('user::includes.js_validate')
     <script>
         $('#form-user').validate({
             rules: {
-                birthday: {
-                    date: true
-                },
                 phone: {
                     digits: true,
-                    maxlength: 50
+                    maxlength: 10,
                 },
                 contact_phone: {
                     digits: true,
-                    maxlength: 50
+                    maxlength: 10,
+                    notEqualTo: ['#phone']
                 },
                 personal_email: {
                     email: true,
+                    notEqualTo: ['#email']
                 },
                 contact_email: {
                     email: true,
+                    notEqualTo: ['#email', '#personal_email']
                 },
             },
             messages: {},

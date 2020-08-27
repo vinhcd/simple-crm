@@ -49,7 +49,6 @@ class ProfileController extends Controller
                 'contact_email' => 'email|nullable',
                 'phone' => 'numeric|nullable',
                 'contact_phone' => 'numeric|nullable',
-                'birthday' => 'date:Y-m-d|nullable',
             ]);
             try {
                 $userEditBlock->updateUser();

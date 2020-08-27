@@ -149,6 +149,7 @@ $userData = $userEditBlock->getUserData();
     <script src="{{url('plugins/jquery-validation/additional-methods.min.js')}}"></script>
     <script src="{{url('plugins/select2/js/select2.full.min.js')}}"></script>
     <script src="{{url('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+    @include('user::includes.js_validate')
     <script>
         $('#nav-user-user').addClass('active');
         $('#form-user').validate({
@@ -166,17 +167,20 @@ $userData = $userEditBlock->getUserData();
                 },
                 phone: {
                     digits: true,
-                    maxlength: 50
+                    maxlength: 10,
                 },
                 contact_phone: {
                     digits: true,
-                    maxlength: 50
+                    maxlength: 10,
+                    notEqualTo: ['#phone']
                 },
                 personal_email: {
                     email: true,
+                    notEqualTo: ['#email']
                 },
                 contact_email: {
                     email: true,
+                    notEqualTo: ['#email', '#personal_email']
                 },
             },
             messages: {},

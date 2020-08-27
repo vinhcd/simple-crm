@@ -49,7 +49,7 @@
 @section('custom-scripts')
     <script src="{{url('plugins/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{url('plugins/jquery-validation/additional-methods.min.js')}}"></script>
-    @include('user::includes.pwcheck')
+    @include('user::includes.js_validate')
     <script>
         $('#form-password').validate({
             rules: {

@@ -45,7 +45,6 @@ class ProfileEdit extends AbstractBlock
 
         $info = $user->getInfo();
         $userData['phone'] = $info->getPhone();
-        $userData['birthday'] = $info->getBirthday();
         $userData['sex'] = $info->getSex();
         $userData['personal_email'] = $info->getPersonalEmail();
         $userData['contact_phone'] = $info->getContactPhone();
@@ -72,7 +71,6 @@ class ProfileEdit extends AbstractBlock
 
         $info = $user->getInfo();
         $info->setPhone($request->post('phone') ?: '');
-        $info->setBirthday($request->post('birthday') ?: '');
         $info->setSex($request->post('sex') ?: '');
         $info->setPersonalEmail($request->post('personal_email') ?: '');
         $info->setContactPhone($request->post('contact_phone') ?: '');
