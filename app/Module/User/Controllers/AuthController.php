@@ -38,11 +38,11 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         if ($request->post()) {
-            $credentials = $request->only('email', 'password');
+            $credentials = $request->only('name', 'password');
             if (Auth::attempt($credentials, $request->post('remember') == 'on')) {
                 return redirect()->intended('/');
             } else {
-                return redirect()->route('login')->withErrors(__('Invalid email or password!'));
+                return redirect()->route('login')->withErrors(__('Invalid account or password!'));
             }
         }
         return view('user::login');

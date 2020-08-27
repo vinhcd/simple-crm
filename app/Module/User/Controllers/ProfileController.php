@@ -46,8 +46,6 @@ class ProfileController extends Controller
         $userEditBlock = new ProfileEdit();
         if ($posts = $request->post()) {
             $request->validate([
-                'name' => 'required|max:255',
-                'email' => 'required|email',
                 'contact_email' => 'email|nullable',
                 'phone' => 'numeric|nullable',
                 'contact_phone' => 'numeric|nullable',

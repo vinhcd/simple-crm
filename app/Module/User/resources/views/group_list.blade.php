@@ -56,11 +56,13 @@ $permissionChecker = new \App\Support\PermissionChecker();
                         </div>
                     </div>
                 </div>
+                @if($permissionChecker->canEditGroups())
                 <div class="col-12">
                     <a href="{{route('user_group_create_update')}}">
                         <button class="btn btn-dark">{{ __('Create group') }}</button>
                     </a>
                 </div>
+                @endif
             </div>
         </div>
     </section>

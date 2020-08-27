@@ -26,14 +26,6 @@ $userData = $userEditBlock->getUserData();
                             <input type="hidden" name="departments" value="0">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="name">{{__('User name')}}*</label>
-                                    <input type="text" class="form-control" name="name" id="name" value="{{ $userData['name'] }}" placeholder="{{__('Enter name')}}">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">{{__('Email')}}*</label>
-                                    <input type="email" class="form-control" name="email" id="email" value="{{ $userData['email'] }}" placeholder="{{__('Enter email')}}">
-                                </div>
-                                <div class="form-group">
                                     <label for="first_name">{{__('First name')}}</label>
                                     <input type="text" class="form-control" name="first_name" id="first_name" value="{{ $userData['first_name'] }}" placeholder="{{__('Enter firstname')}}">
                                 </div>
@@ -106,14 +98,6 @@ $userData = $userEditBlock->getUserData();
     <script>
         $('#form-user').validate({
             rules: {
-                email: {
-                    required: true,
-                    email: true,
-                },
-                name: {
-                    required: true,
-                    maxlength: 255
-                },
                 birthday: {
                     date: true
                 },

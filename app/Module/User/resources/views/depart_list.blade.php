@@ -56,11 +56,13 @@ $permissionChecker = new \App\Support\PermissionChecker();
                         </div>
                     </div>
                 </div>
+                @if($permissionChecker->canEditDepartments())
                 <div class="col-12">
                     <a href="{{route('user_depart_create_update')}}">
                         <button class="btn btn-dark">{{ __('Create department') }}</button>
                     </a>
                 </div>
+                @endif
             </div>
         </div>
     </section>

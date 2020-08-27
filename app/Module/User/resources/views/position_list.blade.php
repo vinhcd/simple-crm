@@ -52,11 +52,13 @@ $permissionChecker = new \App\Support\PermissionChecker();
                         </div>
                     </div>
                 </div>
+                @if($permissionChecker->canEditPositions())
                 <div class="col-12">
                     <a href="{{route('user_position_create_update')}}">
                         <button class="btn btn-dark">{{ __('Create position') }}</button>
                     </a>
                 </div>
+                @endif
             </div>
         </div>
     </section>

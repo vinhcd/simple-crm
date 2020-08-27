@@ -17,10 +17,10 @@
             <form action="{{ route('login') }}" method="post" id="form-login">
                 @csrf
                 <div class="input-group mb-3 form-group">
-                    <input type="email" name="email" class="form-control" placeholder="Email">
+                    <input type="text" name="name" class="form-control" placeholder="{{__('AccountID')}}">
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
+                            <span class="fas fa-user"></span>
                         </div>
                     </div>
                 </div>
@@ -55,9 +55,9 @@
     <script>
         $('#form-login').validate({
             rules: {
-                email: {
+                name: {
                     required: true,
-                    email: true,
+                    maxlength: 50,
                 },
                 password: {
                     required: true,

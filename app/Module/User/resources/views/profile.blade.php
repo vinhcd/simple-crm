@@ -37,7 +37,8 @@
 
                             <h3 class="profile-username text-center">{{$user->getName()}}</h3>
 
-                            <p class="text-muted text-center">{{$user->getPositions()->first()}}</p>
+                            <?php $pos = $user->getPositions()->first() ?>
+                            <p class="text-muted text-center">{{$pos ? $pos->getName() : ''}}</p>
 
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">

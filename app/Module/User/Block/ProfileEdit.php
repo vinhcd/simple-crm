@@ -67,13 +67,9 @@ class ProfileEdit extends AbstractBlock
         $request = request();
 
         $user = $this->user;
-        $user->setName($request->post('name'));
-        $user->setEmail($request->post('email'));
         $user->setFirstName($request->post('first_name') ?: '');
         $user->setLastName($request->post('last_name') ?: '');
-        if (empty($user->getId())) {
-            $user->setPassword(PasswordGenerator::generate());
-        }
+
         $info = $user->getInfo();
         $info->setPhone($request->post('phone') ?: '');
         $info->setBirthday($request->post('birthday') ?: '');
@@ -85,25 +81,7 @@ class ProfileEdit extends AbstractBlock
         $info->setAddress2($request->post('address2') ?: '');
         $info->setDescription($request->post('description') ?: '');
 
-        $this->checkDuplicate();
         $repository = new UserRepository();
         $repository->save($user);
-    }
-
-    /**
-     * @return void
-     * @throws \Exception
-     */
-    private function checkDuplicate()
-    {
-        $repository = new UserRepository();
-
-        $user = $this->user;
-        /* @var User $exist */
-        $exist = $repository->getBuilder()
-            ->where('name', $user->getName())
-            ->orWhere('email', $user->getEmail())
-            ->get()->first();
-        if ($exist && ($exist->getId() != $user->getId())) throw new \Exception(__('User already exist'));
     }
 }

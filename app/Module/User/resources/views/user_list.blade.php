@@ -13,7 +13,6 @@ $permissionChecker = new \App\Support\PermissionChecker();
 @show
 
 @section('content')
-    <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -22,7 +21,6 @@ $permissionChecker = new \App\Support\PermissionChecker();
                         <div class="card-header">
                             <h3 class="card-title">{{__('List of users')}}</h3>
                         </div>
-                        <!-- /.card-header -->
                         <div class="card-body">
                             <table id="user-list" class="table table-bordered table-hover">
                                 <thead>
@@ -59,20 +57,17 @@ $permissionChecker = new \App\Support\PermissionChecker();
                                 </tbody>
                             </table>
                         </div>
-                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
                 </div>
+                @if($permissionChecker->canEditUsers())
                 <div class="col-12">
                     <a href="{{route('user_create_update')}}">
                         <button class="btn btn-dark">{{ __('Create user') }}</button>
                     </a>
                 </div>
-                <!-- /.col -->
+                @endif
             </div>
-            <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
     </section>
 @stop
 

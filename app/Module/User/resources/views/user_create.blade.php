@@ -27,8 +27,8 @@ $userData = $userEditBlock->getUserData();
                             <input type="hidden" name="id" value="{{ $userData['id'] }}">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="name">{{__('User name')}}*</label>
-                                    <input type="text" class="form-control" name="name" id="name" value="{{ $userData['name'] }}" placeholder="{{__('Enter name')}}">
+                                    <label for="name">{{__('AccountID')}}*</label>
+                                    <input type="text" class="form-control" name="name" id="name" value="{{ $userData['name'] }}" placeholder="{{__('Enter AccountID')}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="email">{{__('Email')}}*</label>
