@@ -1,3 +1,7 @@
+<?php
+    $permissionChecker = new \App\Support\PermissionChecker();
+?>
+
 @extends('layouts.master')
 
 @section('custom-head')
@@ -21,33 +25,37 @@
                                 <thead>
                                 <tr>
                                     <th style="width: 3%">ID</th>
-                                    <th>Organization name</th>
-                                    <th>UUID</th>
-                                    <th>Phone#</th>
-                                    <th>Tax#</th>
-                                    <th>Address</th>
-                                    <th>Register Date</th>
-                                    <th>Plan#</th>
-                                    <th>Comment</th>
-                                    <th style="width: 5%">Edit</th>
+                                    <th>{{__('Name')}}</th>
+                                    <th>{{__('UUID')}}</th>
+                                    <th>{{__('Phone')}}</th>
+                                    <th>{{__('Tax')}}</th>
+                                    <th>{{__('Address')}}</th>
+                                    <th>{{__('Register Date')}}</th>
+                                    <th>{{__('Plan')}}</th>
+                                    <th>{{__('Description')}}</th>
+                                    <th style="width: 5%">{{__('Edit')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php /* @var \App\Module\Manager\Api\Data\OrganizationInterface $organization */ ?>
                                 @foreach ($organizations as $organization)
                                 <tr>
-                                    <td>{{$organization->id}}</td>
-                                    <td>{{$organization->name}}</td>
-                                    <td>{{$organization->uuid}}</td>
-                                    <td>{{$organization->phone_number}}</td>
-                                    <td>{{$organization->tax_number}}</td>
-                                    <td>{{$organization->address}}</td>
-                                    <td>{{$organization->register_date}}</td>
-                                    <td>{{$organization->plan_id}}</td>
-                                    <td>{{$organization->comment}}</td>
+                                    <td>{{$organization->getId()}}</td>
+                                    <td>{{$organization->getName()}}</td>
+                                    <td>{{$organization->getUuid()}}</td>
+                                    <td>{{$organization->getPhoneNumber()}}</td>
+                                    <td>{{$organization->getTaxNumber()}}</td>
+                                    <td>{{$organization->getAddress()}}</td>
+                                    <td>{{$organization->getRegisterDate()}}</td>
+                                    <td>{{$organization->getPlan() ? $organization->getPlan()->getName() : ''}}</td>
+                                    <td>{{$organization->getDescription()}}</td>
                                     <td>
-                                        <a href="{{ route('manager_organization_create_update', $organization->id) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-                                        <a href="{{ route('manager_organization_delete', $organization->id) }}"><i class="fa fa-trash-alt"></i></a>
+                                        @if($permissionChecker->canEditOrganizations())
+                                        <a href="{{ route('manager_organization_create_update', $organization->getId()) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                                        <a href="{{ route('manager_organization_delete', $organization->getId()) }}" title="{{__('Delete')}}" onclick="return confirm('Are you sure?')">
+                                            <i class="fa fa-trash-alt"></i>
+                                        </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 </tbody>

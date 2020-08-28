@@ -5,6 +5,7 @@ namespace App\Module\Manager\Controllers;
 use App\Http\Controllers\Controller;
 use App\Module\Manager\Api\OrganizationRepositoryInterface;
 
+use App\Module\Manager\Block\OrganizationEdit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
@@ -44,25 +45,26 @@ class OrganizationController extends Controller
      */
     public function createOrUpdate(Request $request, $id = '')
     {
-        if ($id) {
-            $org = $this->repository->getById($id);
-        } else {
-            $org = $this->repository->create();
-        }
-        if ($posts = $request->post()) {
-            $org->name = $posts['name'];
-            $org->phone_number = $posts['phone_number'];
-            $org->tax_number = $posts['tax_number'];
-            $org->address = $posts['address'];
-            $org->register_date = Date::createFromFormat('Y-m-d', $posts['register_date'])->toDateString();
-            $org->plan_id = $posts['plan_id'];
-            $org->comment = $posts['comment'];
+        $org = $id ? $this->repository->getById($id) : $this->repository->create();
 
-            $this->repository->save($org);
+        $orgEditBlock = new OrganizationEdit($org);
+        if ($posts = $request->post()) {
+            $request->validate([
+                'name' => 'required|max:255',
+                'domain' => 'required|max:255',
+                'email' => 'required|max:255',
+                'register_date' => 'required|date:Y-m-d',
+                'phone_number' => 'required|numeric',
+            ]);
+            try {
+                $orgEditBlock->update();
+            } catch (\Exception $e) {
+                return redirect()->back()->withErrors(__($e->getMessage()));
+            }
 
             return redirect()->route('manager_organization_list');
         }
-        return view('manager::organization_create', ['org' => $org]);
+        return view('manager::organization_create', ['orgEditBlock' => $orgEditBlock]);
     }
 
     /**

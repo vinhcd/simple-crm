@@ -2,12 +2,17 @@
 
 namespace App\Support;
 
+use App\Module\Manager\Api\Data\OrganizationInterface;
+use App\Module\Manager\Api\Data\PlanInterface;
+use App\Module\Manager\ManagerServiceProvider;
 use App\Module\User\Api\Data\DepartmentInterface;
 use App\Module\User\Api\Data\GroupInterface;
 use App\Module\User\Api\Data\PositionInterface;
 use App\Module\User\Api\Data\UserInterface;
 use App\Module\User\Api\UserPermissionCheckerInterface;
 use App\Module\User\UserServiceProvider;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 
 class PermissionChecker
 {
@@ -22,6 +27,38 @@ class PermissionChecker
     public function __construct()
     {
         $this->userPermissionChecker = app(UserPermissionCheckerInterface::class);
+    }
+
+    /**
+     * @return bool
+     */
+    public function canReadOrganizations()
+    {
+        return $this->userPermissionChecker->canRead(OrganizationInterface::RESOURCE_ID, ManagerServiceProvider::MODULE_NAME);
+    }
+
+    /**
+     * @return bool
+     */
+    public function canEditOrganizations()
+    {
+        return Auth::user()->isSuperAdmin() && Config::get('app.neos_subdomain') == SUBDOMAIN;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canReadPlans()
+    {
+        return $this->userPermissionChecker->canRead(PlanInterface::RESOURCE_ID, ManagerServiceProvider::MODULE_NAME);
+    }
+
+    /**
+     * @return bool
+     */
+    public function canEditPlans()
+    {
+        return Auth::user()->isSuperAdmin() && Config::get('app.neos_subdomain') == SUBDOMAIN;
     }
 
     /**

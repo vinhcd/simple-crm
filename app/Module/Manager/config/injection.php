@@ -1,7 +1,9 @@
 <?php
 
+use App\Module\Manager\ManagerServiceProvider;
+
 return [
-    'manager' => [
+    ManagerServiceProvider::MODULE_NAME => [
         \App\Module\Manager\Api\Data\PlanInterface::class => \App\Module\Manager\Models\Data\Plan::class,
         \App\Module\Manager\Api\Data\OrganizationInterface::class => \App\Module\Manager\Models\Data\Organization::class,
 

@@ -49,7 +49,7 @@ $userData = $userEditBlock->getUserData();
                                 <div class="form-group">
                                     <label for="birthday">{{__('Birthday')}}</label>
                                     <div class="input-group date reservationdate" id="birthday_wrp" data-target-input="nearest">
-                                        <input type="text" name="birthday" id="birthday" value="{{ $userData['birthday'] }}" class="form-control datetimepicker-input" data-target="#reservationdate"/>
+                                        <input type="text" name="birthday" id="birthday" value="{{ $userData['birthday'] }}" class="form-control datetimepicker-input" data-target="#birthday_wrp"/>
                                         <div class="input-group-append" data-target="#birthday_wrp" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
@@ -58,7 +58,7 @@ $userData = $userEditBlock->getUserData();
                                 <div class="form-group">
                                     <label for="birthday">{{__('Join date')}}</label>
                                     <div class="input-group date reservationdate" id="join_date_wrp" data-target-input="nearest">
-                                        <input type="text" name="join_date" id="join_date" value="{{ $userData['join_date'] }}" class="form-control datetimepicker-input" data-target="#reservationdate"/>
+                                        <input type="text" name="join_date" id="join_date" value="{{ $userData['join_date'] }}" class="form-control datetimepicker-input" data-target="#join_date_wrp"/>
                                         <div class="input-group-append" data-target="#join_date_wrp" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>

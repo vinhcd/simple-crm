@@ -4,6 +4,8 @@ namespace App\Module\Manager\Models\Data;
 
 use App\Models\AbstractModel;
 use App\Module\Manager\Api\Data\OrganizationInterface;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @method integer getId()
@@ -13,6 +15,8 @@ use App\Module\Manager\Api\Data\OrganizationInterface;
  * @method $this setUuid(string $value)
  * @method string getDomain()
  * @method $this setDomain(string $value)
+ * @method string getEmail()
+ * @method $this setEmail(string $value)
  * @method string getPhoneNumber()
  * @method $this setPhoneNumber(string $value)
  * @method string getTaxNumber()
@@ -21,8 +25,8 @@ use App\Module\Manager\Api\Data\OrganizationInterface;
  * @method $this setAddress(string $value)
  * @method string getRegisterDate()
  * @method $this setRegisterDate(string $value)
- * @method string getComment()
- * @method $this setComment(string $value)
+ * @method string getDescription()
+ * @method $this setDescription(string $value)
  */
 class Organization extends AbstractModel implements OrganizationInterface
 {
@@ -34,20 +38,37 @@ class Organization extends AbstractModel implements OrganizationInterface
     /**
      * @var string[]
      */
-    protected $properties = ['name', 'uuid', 'domain', 'phone_number', 'tax_number', 'address', 'description'];
+    protected $properties = ['name', 'uuid', 'domain', 'email', 'phone_number', 'register_date', 'tax_number', 'address', 'description'];
 
+    /**
+     * @var Collection
+     */
+    protected $plans;
+
+    /**
+     * @return Plan | null
+     */
     public function getPlan()
     {
-        // TODO: Implement getPlan() method.
+        return $this->getPlanHistory()->last();
     }
 
+    /**
+     * @return Collection
+     */
     public function getPlanHistory()
     {
-        // TODO: Implement getPlanHistory() method.
+        if (!$this->plans) {
+            $this->plans = $this->plans()->get();
+        }
+        return $this->plans;
     }
 
-    public function setPlan($plan)
+    /**
+     * @return BelongsToMany
+     */
+    public function plans()
     {
-        // TODO: Implement setPlan() method.
+        return $this->belongsToMany(Plan::class, 'organization_plan');
     }
 }

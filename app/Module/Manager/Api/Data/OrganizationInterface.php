@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Collection;
  * @method string getUuid()
  * @method $this setUuid(string $value)
  * @method string getDomain()
+ * @method string getEmail()
+ * @method $this setEmail(string $value)
  * @method $this setDomain(string $value)
  * @method string getPhoneNumber()
  * @method $this setPhoneNumber(string $value)
@@ -20,8 +22,8 @@ use Illuminate\Database\Eloquent\Collection;
  * @method $this setAddress(string $value)
  * @method string getRegisterDate()
  * @method $this setRegisterDate(string $value)
- * @method string getComment()
- * @method $this setComment(string $value)
+ * @method string getDescription()
+ * @method $this setDescription(string $value)
  */
 interface OrganizationInterface
 {
@@ -36,10 +38,4 @@ interface OrganizationInterface
      * @return Collection of PlanInterface
      */
     public function getPlanHistory();
-
-    /**
-     * @param PlanInterface $plan
-     * @return $this
-     */
-    public function setPlan($plan);
 }

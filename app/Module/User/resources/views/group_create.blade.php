@@ -38,7 +38,7 @@ $group = $groupEditBlock->getGroup();
                                 </div>
                                 <div class="form-group">
                                     <label for="description">{{__('Description')}}</label>
-                                    <input type="text" class="form-control" name="description" id="description" value="{{ $group->getDescription() }}" placeholder="{{__('Enter description')}}">
+                                    <textarea class="form-control" rows="3" name="description" id="description" placeholder="{{__('Enter description')}}">{{ $group->getDescription() }}</textarea>
                                 </div>
                             </div>
                             <div class="card-footer">

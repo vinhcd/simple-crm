@@ -5,6 +5,7 @@ namespace App\Module\Manager\Controllers;
 use App\Http\Controllers\Controller;
 use App\Module\Manager\Api\PlanRepositoryInterface;
 
+use App\Module\Manager\Block\PlanEdit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -42,21 +43,26 @@ class PlanController extends Controller
      */
     public function createOrUpdate(Request $request, $id = '')
     {
-        if ($id) {
-            $plan = $this->repository->getById($id);
-        } else {
-            $plan = $this->repository->create();
-        }
+        $plan = $id ? $this->repository->getById($id) : $this->repository->create();
+
+        $planEditBlock = new PlanEdit($plan);
         if ($posts = $request->post()) {
-            $plan->name = $posts['name'];
-            $plan->price = $posts['price'];
-            $plan->max_staff = $posts['max_staff'];
-            $plan->trial_days = $posts['trial_days'];
-            $this->repository->save($plan);
+            $request->validate([
+                'name' => 'required|max:255',
+                'price' => 'required|numeric',
+                'max_staff' => 'required|integer',
+                'trial_days' => 'required|integer',
+            ]);
+            try {
+                $planEditBlock->update();
+            } catch (\Exception $e) {
+                return redirect()->back()->withErrors(__($e->getMessage()))->withInput();
+            }
+            $request->session()->flash('success', __('Plan :plan has been updated!', ['plan' => $plan->getName()]));
 
             return redirect()->route('manager_plan_list');
         }
-        return view('manager::plan_create', ['plan' => $plan]);
+        return view('manager::plan_create', ['planEditBlock' => $planEditBlock]);
     }
 
     /**
@@ -66,7 +72,13 @@ class PlanController extends Controller
      */
     public function delete($id)
     {
-        $this->repository->delete($this->repository->getById($id));
+        $plan = $this->repository->getById($id);
+        try {
+            $this->repository->delete($plan);
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(__($e->getMessage()));
+        }
+        session()->flash('success', __('Plan :plan has been removed!', ['plan' => $plan->getName()]));
 
         return redirect()->route('manager_plan_list');
     }

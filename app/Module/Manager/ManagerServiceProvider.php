@@ -8,6 +8,8 @@ use Illuminate\Support\ServiceProvider;
 
 class ManagerServiceProvider extends ServiceProvider
 {
+    const MODULE_NAME = 'manager';
+
     /**
      * @return void
      */
@@ -41,6 +43,6 @@ class ManagerServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__ . '/config/injection.php', Injection::KEY);
 
-        Injection::bind('manager');
+        Injection::bind(self::MODULE_NAME);
     }
 }

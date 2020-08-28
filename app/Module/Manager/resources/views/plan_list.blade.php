@@ -1,3 +1,7 @@
+<?php
+    $permissionChecker = new \App\Support\PermissionChecker();
+?>
+
 @extends('layouts.master')
 
 @section('custom-head')
@@ -32,14 +36,18 @@
                                 <?php /* @var \App\Module\Manager\Api\Data\PlanInterface $plan*/ ?>
                                 @foreach ($plans as $plan)
                                 <tr>
-                                    <td>{{$plan->id}}</td>
-                                    <td>{{$plan->name}}</td>
-                                    <td>{{$plan->price}}</td>
-                                    <td>{{$plan->max_staff}}</td>
-                                    <td>{{$plan->days_of_trial}}</td>
+                                    <td>{{$plan->getId()}}</td>
+                                    <td>{{$plan->getName()}}</td>
+                                    <td>{{$plan->getPrice()}}</td>
+                                    <td>{{$plan->getMaxStaff()}}</td>
+                                    <td>{{$plan->getTrialDays()}}</td>
                                     <td>
-                                        <a href="{{ route('manager_plan_create_update', $plan->id) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-                                        <a href="{{ route('manager_plan_delete', $plan->id) }}"><i class="fa fa-trash-alt"></i></a>
+                                        @if($permissionChecker->canEditPlans())
+                                        <a href="{{ route('manager_plan_create_update', $plan->getId()) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                                        <a href="{{ route('manager_plan_delete', $plan->getId()) }}" title="{{__('Delete')}}" onclick="return confirm('Are you sure?')">
+                                            <i class="fa fa-trash-alt"></i>
+                                        </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 </tbody>

@@ -2,7 +2,7 @@
 
 namespace App\Module\Manager\Providers;
 
-use App\Module\Manager\Middleware\Acl;
+use App\Module\Manager\Middleware\CheckApiKey;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -28,7 +28,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function registerMiddleWare()
     {
-        $this->aliasMiddleware('manager.acl', Acl::class);
+        $this->aliasMiddleware('manager.apikey', CheckApiKey::class);
     }
 
     /**
@@ -47,5 +47,12 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../routes/web.php');
+    }
+
+    protected function mapApiRoutes()
+    {
+        Route::middleware('api')
+            ->namespace($this->namespace)
+            ->group(__DIR__ . '/../routes/api.php');
     }
 }

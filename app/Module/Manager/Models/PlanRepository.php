@@ -21,7 +21,7 @@ class PlanRepository implements PlanRepositoryInterface
      */
     public function getById($id)
     {
-        return Plan::find($id);
+        return Plan::findOrFail($id);
     }
 
     /**
@@ -43,6 +43,7 @@ class PlanRepository implements PlanRepositoryInterface
     /**
      * @param Plan $plan
      * @return bool
+     * @throws \Exception
      */
     public function save($plan)
     {

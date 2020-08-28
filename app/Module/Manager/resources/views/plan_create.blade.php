@@ -1,3 +1,9 @@
+<?php
+/* @var \App\Module\Manager\Block\PlanEdit $planEditBlock */
+
+$plan = $planEditBlock->getPlan();
+?>
+
 @extends('layouts.master')
 
 @section('content')
@@ -10,30 +16,34 @@
                         <div class="card-header">
                             <h3 class="card-title">{{__('Creating plan')}}</h3>
                         </div>
-                        <?php /* @var \App\Module\Manager\Api\Data\PlanInterface $plan */ ?>
-                        <form action="{{route('manager_plan_create_update', $plan->id)}}" method="post">
+                        <form action="{{route('manager_plan_create_update', $plan->getId())}}" method="post">
                             @csrf
-                            <input type="hidden" name="id" value="{{ $plan->id }}">
+                            <input type="hidden" name="id" value="{{ $plan->getId() }}">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">{{__('Plan name')}}</label>
-                                    <input type="text" class="form-control" name="name" id="name" value="{{ $plan->name }}" placeholder="Enter name">
+                                    <input type="text" class="form-control" name="name" id="name" value="{{ old('name', $plan->getName()) }}" placeholder="Enter name">
                                 </div>
                                 <div class="form-group">
                                     <label for="price">{{__('Price')}}</label>
-                                    <input type="text" class="form-control" name="price" id="price" value="{{ $plan->price }}" placeholder="Enter price">
+                                    <input type="text" class="form-control" name="price" id="price" value="{{ old('price', $plan->getPrice()) }}" placeholder="Enter price">
                                 </div>
                                 <div class="form-group">
                                     <label for="max_staff">{{__('Max staff')}}</label>
-                                    <input type="text" class="form-control" name="max_staff" id="max_staff" value="{{ $plan->max_staff }}" placeholder="Enter maximum staff">
+                                    <input type="text" class="form-control" name="max_staff" id="max_staff" value="{{ old('max_staff',  $plan->getMaxStaff()) }}" placeholder="Enter maximum staff">
                                 </div>
                                 <div class="form-group">
                                     <label for="trial_days">{{__('Trial days')}}</label>
-                                    <input type="text" class="form-control" name="trial_days" id="trial_days" value="{{ $plan->days_of_trial }}" placeholder="Enter trial days">
+                                    <input type="text" class="form-control" name="trial_days" id="trial_days" value="{{ old('trial_days', $plan->getTrialDays()) }}" placeholder="Enter trial days">
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">{{__('Description')}}</label>
+                                    <textarea class="form-control" rows="3" name="description" id="description" placeholder="{{__('Enter description')}}">{{ old('description', $plan->getDescription()) }}</textarea>
                                 </div>
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">{{__('Submit')}}</button>
+                                <a href="{{ route('manager_plan_list') }}" class="btn btn-secondary">{{__('Back')}}</a>
                             </div>
                         </form>
                     </div>

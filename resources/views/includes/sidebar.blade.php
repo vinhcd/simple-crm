@@ -29,26 +29,32 @@ $user = \Illuminate\Support\Facades\Auth::user();
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-{{--                <li class="nav-item" id="nav-group-manager">--}}
-{{--                    <a href="#" class="nav-link" id="nav-group-manager-title">--}}
-{{--                        <i class="nav-icon fa fa-money-bill"></i>--}}
-{{--                        <p>{{__('PLAN')}}<i class="fas fa-angle-left right"></i></p>--}}
-{{--                    </a>--}}
-{{--                    <ul class="nav nav-treeview">--}}
-{{--                        <li class="nav-item">--}}
-{{--                            <a href="{{route('manager_plan_list')}}" class="nav-link" id="nav-manager-plan">--}}
-{{--                                <i class="nav-icon fa fa-usd"></i>--}}
-{{--                                <p>{{__('Plans')}}</p>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                        <li class="nav-item">--}}
-{{--                            <a href="{{route('manager_organization_list')}}" class="nav-link" id="nav-manager-organization">--}}
-{{--                                <i class="nav-icon fas fa-building"></i>--}}
-{{--                                <p>{{__('Organizations')}}</p>--}}
-{{--                            </a>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
-{{--                </li>--}}
+                @if($permissionChecker->canReadOrganizations() || $permissionChecker->canReadPlans())
+                <li class="nav-item" id="nav-group-manager">
+                    <a href="#" class="nav-link" id="nav-group-manager-title">
+                        <i class="nav-icon fa fa-money-bill"></i>
+                        <p>{{__('PLAN')}}<i class="fas fa-angle-left right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @if($permissionChecker->canReadPlans())
+                        <li class="nav-item">
+                            <a href="{{route('manager_plan_list')}}" class="nav-link" id="nav-manager-plan">
+                                <i class="nav-icon fa fa-usd"></i>
+                                <p>{{__('Plans')}}</p>
+                            </a>
+                        </li>
+                        @endif
+                        @if($permissionChecker->canReadOrganizations())
+                        <li class="nav-item">
+                            <a href="{{route('manager_organization_list')}}" class="nav-link" id="nav-manager-organization">
+                                <i class="nav-icon fas fa-building"></i>
+                                <p>{{__('Organizations')}}</p>
+                            </a>
+                        </li>
+                        @endif
+                    </ul>
+                </li>
+                @endif
 
                 @if($permissionChecker->canReadUsers() || $permissionChecker->canReadGroups() || $permissionChecker->canReadDepartments())
                 <li class="nav-item" id="nav-group-user">

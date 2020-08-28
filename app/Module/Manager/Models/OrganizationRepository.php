@@ -13,7 +13,7 @@ class OrganizationRepository implements OrganizationRepositoryInterface
     public function create()
     {
         $organization = new Organization();
-        $organization->uuid = $this->generateUuid();
+        $organization->setUuid($this->generateUuid());
 
         return $organization;
     }

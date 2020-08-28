@@ -18,7 +18,9 @@ class CreateOrganizationTable extends Migration
             $table->string('name', 500)->unique();
             $table->string('uuid')->unique();
             $table->string('domain')->unique();
-            $table->string('phone_number', 50)->nullable();
+            $table->string('email')->unique();
+            $table->string('phone_number', 50);
+            $table->date('register_date');
             $table->string('tax_number', 50)->nullable();
             $table->text('address')->nullable();
             $table->text('description')->nullable();
