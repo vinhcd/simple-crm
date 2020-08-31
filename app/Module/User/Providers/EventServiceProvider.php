@@ -2,7 +2,6 @@
 
 namespace App\Module\User\Providers;
 
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -10,7 +9,14 @@ class EventServiceProvider extends ServiceProvider
     /**
      * @var array
      */
-    protected $listen = [];
+    protected $listen = [
+        'eloquent.saving: ' . \App\Module\User\Models\Data\User::class => [
+            \App\Module\User\Listeners\ValidateUserChangePermission::class
+        ],
+        'eloquent.deleting: ' . \App\Module\User\Models\Data\User::class => [
+            \App\Module\User\Listeners\ValidateUserChangePermission::class
+        ]
+    ];
 
     /**
      * @return void

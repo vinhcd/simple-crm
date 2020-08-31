@@ -56,7 +56,7 @@ class PositionController extends Controller
 
             return redirect()->route('user_position_create_update', ['id' => $position->getId()]);
         }
-        return view('user::position_create', ['positionEditBlock' => $positionEditBlock]);
+        return view('user::position_edit', ['positionEditBlock' => $positionEditBlock]);
     }
 
     /**

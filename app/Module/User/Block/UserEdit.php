@@ -5,11 +5,11 @@ namespace App\Module\User\Block;
 use App\Block\AbstractBlock;
 use App\Module\User\Models\Data\User;
 use App\Module\User\Models\Data\UserDepartment;
-use App\Module\User\Models\Data\UserGroup;
 use App\Module\User\Models\Data\UserPosition;
 use App\Module\User\Models\DepartmentRepository;
 use App\Module\User\Models\GroupRepository;
 use App\Module\User\Models\PositionRepository;
+use App\Module\User\Models\UserGroupManagement;
 use App\Module\User\Models\UserRepository;
 use App\Module\User\Support\PasswordGenerator;
 use Illuminate\Support\Facades\DB;
@@ -198,17 +198,11 @@ class UserEdit extends AbstractBlock
     {
         $posts = Request::post();
 
-        DB::beginTransaction();
-        UserGroup::where('user_id', $this->user->getId())->delete();
-        if (isset($posts['groups'])) {
-            foreach ($posts['groups'] as $id) {
-                $userGroup = new UserGroup();
-                $userGroup->setGroupId($id);
-                $userGroup->setUserId($this->user->getId());
-                $userGroup->save();
-            }
-        }
-        DB::commit();
+        $userGroupManagement = new UserGroupManagement();
+        $userGroupManagement->updateGroupsForUser(
+            $this->user->getId(),
+            isset($posts['groups']) ? $posts['groups'] : []
+        );
     }
 
     /**

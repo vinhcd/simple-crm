@@ -47,6 +47,14 @@ class Group extends AbstractModel implements GroupInterface
     }
 
     /**
+     * @return bool
+     */
+    public function isSuperAdmin()
+    {
+        return $this->getName() == self::SUPER_ADMIN;
+    }
+
+    /**
      * @return BelongsToMany
      */
     public function users()

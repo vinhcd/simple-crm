@@ -7,7 +7,7 @@ use App\Module\User\Api\Data\GroupInterface;
 use App\Module\User\Api\GroupRepositoryInterface;
 use App\Module\User\Block\GroupEdit;
 use App\Module\User\Models\Data\Group;
-use App\Module\User\Models\Data\UserGroup;
+use App\Module\User\Models\UserGroupManagement;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -69,7 +69,7 @@ class GroupController extends Controller
 
             return redirect()->route('user_group_create_update', ['id' => $group->getId()]);
         }
-        return view('user::group_create', ['groupEditBlock' => $groupEditBlock]);
+        return view('user::group_edit', ['groupEditBlock' => $groupEditBlock]);
     }
 
     /**
@@ -85,17 +85,11 @@ class GroupController extends Controller
         $userIds = $request->post('users');
         $group = $this->repository->getById($id);
         try {
-            DB::beginTransaction();
-            UserGroup::where('group_id', $group->getId())->delete();
-            if (is_array($userIds)) {
-                foreach ($userIds as $userId) {
-                    $userGroup = new UserGroup();
-                    $userGroup->setGroupId($group->getId());
-                    $userGroup->setUserId($userId);
-                    $userGroup->save();
-                }
-            }
-            DB::commit();
+            $userGroupManagement = new UserGroupManagement();
+            $userGroupManagement->updateUsersForGroup(
+                $id,
+                $userIds ? $userIds : []
+            );
         } catch (\Exception $e) {
             return redirect()->back()->withErrors($e->getMessage());
         }

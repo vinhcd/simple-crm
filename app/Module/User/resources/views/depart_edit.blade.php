@@ -32,17 +32,6 @@ $department = $departmentEditBlock->getDepartment();
                                     <input type="text" class="form-control" name="display_name" id="display_name" value="{{ $department->getDisplayName() }}" placeholder="{{__('Enter display name')}}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="parent_id">{{__('Parent')}}</label>
-                                    <select class="form-control" name="parent_id" id="parent_id">
-                                        <option value=""></option>
-                                        @foreach($departmentEditBlock->getAllDepartments() as $depart)
-                                        <option value="{{$depart->getId()}}" @if($depart->getId() == $department->getParentId()) selected @endif>
-                                            {{$depart->getDisplayName()}}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
                                     <label for="description">{{__('Description')}}</label>
                                     <textarea class="form-control" rows="3" name="description" id="description" placeholder="{{__('Enter description')}}">{{ $department->getDescription() }}</textarea>
                                 </div>

@@ -64,7 +64,7 @@ class DepartmentController extends Controller
 
             return redirect()->route('user_depart_create_update', ['id' => $department->getId()]);
         }
-        return view('user::depart_create', ['departmentEditBlock' => $departmentEditBlock]);
+        return view('user::depart_edit', ['departmentEditBlock' => $departmentEditBlock]);
     }
 
     /**

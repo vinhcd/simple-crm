@@ -56,7 +56,8 @@ $user = \Illuminate\Support\Facades\Auth::user();
                 </li>
                 @endif
 
-                @if($permissionChecker->canReadUsers() || $permissionChecker->canReadGroups() || $permissionChecker->canReadDepartments())
+                @if($permissionChecker->canReadUsers() || $permissionChecker->canReadGroups()
+                    || $permissionChecker->canReadPositions() || $permissionChecker->canReadDepartments())
                 <li class="nav-item" id="nav-group-user">
                     <a href="#" class="nav-link" id="nav-group-user-title">
                         <i class="nav-icon fas fa-user-edit"></i>

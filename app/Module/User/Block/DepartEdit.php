@@ -51,7 +51,6 @@ class DepartEdit extends AbstractBlock
         $department = $this->department;
         $department->setName($posts['name']);
         $department->setDisplayName($posts['display_name']);
-        $department->setParentId($posts['parent_id'] ?: 0);
         $department->setDescription($posts['description'] ?: '');
 
         $this->checkDuplicate();
@@ -59,16 +58,6 @@ class DepartEdit extends AbstractBlock
         $repository->save($department);
 
         $this->updateUsers();
-    }
-
-    /**
-     * @return Department[]
-     */
-    public function getAllDepartments()
-    {
-        $departRepo = new DepartmentRepository();
-
-        return $departRepo->getAll()->except($this->getDepartment()->getId());
     }
 
     /**

@@ -127,7 +127,7 @@ class AuthController extends Controller
 
             return  redirect()->route('user_list');
         }
-        return view('user::user_create', ['userEditBlock' => $userEditBlock]);
+        return view('user::user_edit', ['userEditBlock' => $userEditBlock]);
     }
 
     /**
