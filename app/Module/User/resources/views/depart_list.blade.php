@@ -28,7 +28,6 @@ $permissionChecker = new \App\Support\PermissionChecker();
                                     <th>{{__('ID')}}</th>
                                     <th>{{__('Name')}}</th>
                                     <th>{{__('Display Name')}}</th>
-                                    <th>{{__('Parent')}}</th>
                                     <th>{{__('Description')}}</th>
                                     <th>{{__('Edit')}}</th>
                                 </tr>
@@ -39,7 +38,6 @@ $permissionChecker = new \App\Support\PermissionChecker();
                                     <td>{{$department->getId()}}</td>
                                     <td>{{$department->getName()}}</td>
                                     <td>{{$department->getDisplayName()}}</td>
-                                    <td>{{$department->getParent() ? $department->getParent()->getDisplayName() : ''}}</td>
                                     <td>{{$department->getDescription()}}</td>
                                     <td>
                                         @if($permissionChecker->canEditDepartments())
