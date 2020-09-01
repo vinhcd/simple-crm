@@ -16,7 +16,6 @@ class CreateContractTable extends Migration
         Schema::create('contract', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('display_name');
             $table->string('type')->nullable();
             $table->date('issue_date')->nullable();
             $table->string('description')->nullable();

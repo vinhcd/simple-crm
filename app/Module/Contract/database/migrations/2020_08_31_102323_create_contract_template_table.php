@@ -17,7 +17,7 @@ class CreateContractTemplateTable extends Migration
             $table->id();
             $table->unsignedBigInteger('contract_id');
             $table->string('name')->unique();
-            $table->string('content');
+            $table->text('content');
 
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

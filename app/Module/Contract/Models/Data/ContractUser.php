@@ -4,6 +4,7 @@ namespace App\Module\Contract\Models\Data;
 
 use App\Models\AbstractModel;
 use App\Module\Contract\Api\Data\ContractUserInterface;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @method int getId()
@@ -50,5 +51,21 @@ class ContractUser extends AbstractModel implements ContractUserInterface
         $this->end = !empty($date) ? $date : null;
 
         return $this;
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function contract()
+    {
+        return $this->belongsTo(Contract::class, 'contract_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function template()
+    {
+        return $this->belongsTo(ContractTemplate::class, 'template_id');
     }
 }

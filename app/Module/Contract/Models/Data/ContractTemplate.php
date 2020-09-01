@@ -4,6 +4,7 @@ namespace App\Module\Contract\Models\Data;
 
 use App\Models\AbstractModel;
 use App\Module\Contract\Api\Data\ContractTemplateInterface;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @method int getId()
@@ -25,4 +26,12 @@ class ContractTemplate extends AbstractModel implements ContractTemplateInterfac
      * @var string[]
      */
     protected $properties = ['contract_id', 'name', 'content'];
+
+    /**
+     * @return BelongsTo
+     */
+    public function contract()
+    {
+        return $this->belongsTo(Contract::class);
+    }
 }

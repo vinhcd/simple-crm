@@ -2,12 +2,12 @@
 
 namespace App\Module\Contract\Api\Data;
 
+use Illuminate\Database\Eloquent\Collection;
+
 /**
  * @method int getId()
  * @method string getName()
  * @method $this setName(string $value)
- * @method string getDisplayName()
- * @method $this setDisplayName(string $value)
  * @method int getGroupId()
  * @method $this setGroupId(int $value)
  * @method string getType()
@@ -20,4 +20,9 @@ namespace App\Module\Contract\Api\Data;
 interface ContractInterface
 {
     const RESOURCE_ID = 'contract';
+
+    /**
+     * @return ContractTemplateInterface[]|Collection
+     */
+    public function getTemplates();
 }

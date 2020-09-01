@@ -50,7 +50,6 @@ class ContractController extends Controller
         if ($posts = $request->post()) {
             $request->validate([
                 'name' => 'required|max:255',
-                'display_name' => 'required|max:255',
             ]);
             try {
                 $contractEditBlock->update();
@@ -58,10 +57,28 @@ class ContractController extends Controller
                 Log::error($e->getMessage());
                 return redirect()->back()->withErrors($e->getMessage());
             }
-            $request->session()->flash('success', __('Contract :contract has been updated!', ['contract' => $contract->getDisplayName()]));
+            $request->session()->flash('success', __('Contract :contract has been updated!', ['contract' => $contract->getName()]));
 
             return redirect()->route('contract_create_update', ['id' => $contract->getId()]);
         }
         return view('contract::contract_edit', ['contractEditBlock' => $contractEditBlock]);
+    }
+
+    /**
+     * @param string $id
+     * @return RedirectResponse
+     */
+    public function delete($id)
+    {
+        $contract = $this->repository->getById($id);
+        try {
+            $this->repository->delete($contract);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->back()->withErrors($e->getMessage());
+        }
+        session()->flash('success', __('Contract :contract has been removed!', ['contract' => $contract->getName()]));
+
+        return redirect()->route('contract_list');
     }
 }

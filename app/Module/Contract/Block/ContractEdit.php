@@ -3,7 +3,9 @@
 namespace App\Module\Contract\Block;
 
 use App\Block\AbstractBlock;
+use App\Module\Contract\Models\ContractRepository;
 use App\Module\Contract\Models\Data\Contract;
+use Illuminate\Support\Facades\Request;
 
 class ContractEdit extends AbstractBlock
 {
@@ -29,8 +31,19 @@ class ContractEdit extends AbstractBlock
         return $this->contract;
     }
 
+    /**
+     * @return void
+     * @throws \Exception
+     */
     public function update()
     {
+        $posts = Request::post();
 
+        $contract = $this->getContract();
+        $contract->setName($posts['name']);
+        $contract->setType($posts['type'] ?: '');
+        $contract->setDescription($posts['description'] ?: '');
+
+        (new ContractRepository())->save($contract);
     }
 }

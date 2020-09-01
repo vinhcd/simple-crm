@@ -22,6 +22,12 @@ interface ContractTemplateRepositoryInterface
     public function getById($id);
 
     /**
+     * @param int $id
+     * @return ContractTemplateInterface[]|Collection
+     */
+    public function getByContractId($id);
+
+    /**
      * @return Builder
      */
     public function getBuilder();

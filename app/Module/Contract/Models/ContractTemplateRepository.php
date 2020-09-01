@@ -29,6 +29,15 @@ class ContractTemplateRepository implements ContractTemplateRepositoryInterface
     }
 
     /**
+     * @param int $id
+     * @return ContractTemplate[]|Collection
+     */
+    public function getByContractId($id)
+    {
+        return $this->getBuilder()->where('contract_id', $id)->get();
+    }
+
+    /**
      * @return Builder
      */
     public function getBuilder()
@@ -41,7 +50,7 @@ class ContractTemplateRepository implements ContractTemplateRepositoryInterface
      */
     public function getAll()
     {
-        return ContractTemplate::all();
+        return ContractTemplate::query()->orderBy('contract_id')->get();
     }
 
     /**

@@ -98,20 +98,30 @@ $user = \Illuminate\Support\Facades\Auth::user();
                 </li>
                 @endif
 
-                @if($permissionChecker->canReadContracts() || $permissionChecker->canEditContracts())
+                @if($permissionChecker->canReadContracts())
                 <li class="nav-item" id="nav-group-contract">
                     <a href="#" class="nav-link" id="nav-group-contract-title">
                         <p>{{__('CONTRACT')}}<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
-                        @if($permissionChecker->canReadContracts())
-                            <li class="nav-item">
-                                <a href="{{route('contract_list')}}" class="nav-link" id="nav-contract-contract">
-                                    <i class="nav-icon fa fa-file-contract"></i>
-                                    <p>{{__('Contracts')}}</p>
-                                </a>
-                            </li>
-                        @endif
+                        <li class="nav-item">
+                            <a href="{{route('contract_user_list')}}" class="nav-link" id="nav-contract-user">
+                                <i class="nav-icon fa fa-user-graduate"></i>
+                                <p>{{__('Users')}}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('contract_list')}}" class="nav-link" id="nav-contract-contract">
+                                <i class="nav-icon fa fa-file-signature"></i>
+                                <p>{{__('Contracts')}}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('contract_template_list')}}" class="nav-link" id="nav-contract-template">
+                                <i class="nav-icon fa fa-file-code"></i>
+                                <p>{{__('Templates')}}</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 @endif

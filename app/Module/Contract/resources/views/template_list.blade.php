@@ -21,28 +21,28 @@
                             <h3 class="card-title">{{__('Contract list')}}</h3>
                         </div>
                         <div class="card-body">
-                            <table id="contract-list" class="table table-bordered table-hover">
+                            <table id="template-list" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th style="width: 3%">ID</th>
                                     <th>{{__('Name')}}</th>
-                                    <th>{{__('Type')}}</th>
-                                    <th>{{__('Description')}}</th>
+                                    <th>{{__('Contract')}}</th>
+                                    <th style="width: 50%">{{__('Content')}}</th>
                                     <th style="width: 5%">{{__('Edit')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php /* @var \App\Module\Contract\Api\Data\ContractInterface $contract */ ?>
-                                @foreach ($contracts as $contract)
+                                <?php /* @var \App\Module\Contract\Api\Data\ContractTemplateInterface $contractTemplate */ ?>
+                                @foreach ($contractTemplates as $contractTemplate)
                                 <tr>
-                                    <td>{{$contract->getId()}}</td>
-                                    <td>{{$contract->getName()}}</td>
-                                    <td>{{$contract->getType()}}</td>
-                                    <td>{{$contract->getDescription()}}</td>
+                                    <td>{{$contractTemplate->getId()}}</td>
+                                    <td>{{$contractTemplate->getName()}}</td>
+                                    <td>{{$contractTemplate->contract->getName()}}</td>
+                                    <td>{{ substr($contractTemplate->getContent(), 0, 300) }} ...</td>
                                     <td>
                                         @if($permissionChecker->canEditContracts())
-                                        <a href="{{ route('contract_create_update', $contract->getId()) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-                                        <a href="{{ route('contract_delete', $contract->getId()) }}" title="{{__('Delete')}}" onclick="return confirm('Are you sure?')">
+                                        <a href="{{ route('contract_template_create_update', $contractTemplate->getId()) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                                        <a href="{{ route('contract_template_delete', $contractTemplate->getId()) }}" title="{{__('Delete')}}" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash-alt"></i>
                                         </a>
                                         @endif
@@ -57,8 +57,8 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <a href="{{route('contract_create_update')}}">
-                        <button class="btn btn-dark">{{__('Create contract')}}</button>
+                    <a href="{{route('contract_template_create_update')}}">
+                        <button class="btn btn-dark">{{__('Create template')}}</button>
                     </a>
                 </div>
             </div>
@@ -75,9 +75,9 @@
     <script src="{{url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 
     <script>
-        $('#nav-contract-contract').addClass('active')
+        $('#nav-contract-template').addClass('active')
 
-        $("#contract-list").DataTable({
+        $("#template-list").DataTable({
             "paging": true,
             "lengthChange": true,
             "searching": true,
