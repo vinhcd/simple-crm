@@ -1,7 +1,7 @@
 <?php
 /* @var \App\Module\User\Models\Data\Department[] $departments */
 
-$permissionChecker = new \App\Support\PermissionChecker();
+$permissionChecker = new \App\Support\ModuleResourcePermissionChecker();
 ?>
 
 @extends('layouts.master')

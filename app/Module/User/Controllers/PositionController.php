@@ -7,6 +7,7 @@ use App\Module\User\Api\PositionRepositoryInterface;
 use App\Module\User\Block\PositionEdit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class PositionController extends Controller
@@ -50,6 +51,7 @@ class PositionController extends Controller
             try {
                 $positionEditBlock->update();
             } catch (\Exception $e) {
+                Log::error($e->getMessage());
                 return redirect()->back()->withErrors($e->getMessage());
             }
             $request->session()->flash('success', __('Position :position has been updated!', ['position' => $position->getName()]));
@@ -69,6 +71,7 @@ class PositionController extends Controller
         try {
             $this->repository->delete($position);
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return redirect()->route('user_position_list')->withErrors($e->getMessage());
         }
         session()->flash('success', __('Position :position has been removed!', ['position' => $position->getName()]));

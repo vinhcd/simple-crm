@@ -18,33 +18,33 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">{{__('Plan list')}}</h3>
+                            <h3 class="card-title">{{__('Contract list')}}</h3>
                         </div>
                         <div class="card-body">
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th style="width: 3%">ID</th>
-                                    <th>Plan name</th>
-                                    <th>Price</th>
-                                    <th>Max staffs</th>
-                                    <th>Trial days</th>
-                                    <th style="width: 5%">Edit</th>
+                                    <th>{{__('Name')}}</th>
+                                    <th>{{__('Display name')}}</th>
+                                    <th>{{__('Type')}}</th>
+                                    <th>{{__('Description')}}</th>
+                                    <th style="width: 5%">{{__('Edit')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php /* @var \App\Module\Manager\Api\Data\PlanInterface $plan*/ ?>
-                                @foreach ($plans as $plan)
+                                <?php /* @var \App\Module\Contract\Api\Data\ContractInterface $contract */ ?>
+                                @foreach ($contracts as $contract)
                                 <tr>
-                                    <td>{{$plan->getId()}}</td>
-                                    <td>{{$plan->getName()}}</td>
-                                    <td>{{$plan->getPrice()}}</td>
-                                    <td>{{$plan->getMaxStaff()}}</td>
-                                    <td>{{$plan->getTrialDays()}}</td>
+                                    <td>{{$contract->getId()}}</td>
+                                    <td>{{$contract->getName()}}</td>
+                                    <td>{{$contract->getType()}}</td>
+                                    <td>{{$contract->getDisplayName()}}</td>
+                                    <td>{{$contract->getDescription()}}</td>
                                     <td>
-                                        @if($permissionChecker->canEditPlans())
-                                        <a href="{{ route('manager_plan_create_update', $plan->getId()) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
-                                        <a href="{{ route('manager_plan_delete', $plan->getId()) }}" title="{{__('Delete')}}" onclick="return confirm('Are you sure?')">
+                                        @if($permissionChecker->canEditContracts())
+                                        <a href="{{ route('contract_create_update', $contract->getId()) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                                        <a href="{{ route('contract_delete', $contract->getId()) }}" title="{{__('Delete')}}" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash-alt"></i>
                                         </a>
                                         @endif
@@ -59,8 +59,8 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <a href="{{route('manager_plan_create_update')}}">
-                        <button class="btn btn-dark">{{__('Create plan')}}</button>
+                    <a href="{{route('contract_create_update')}}">
+                        <button class="btn btn-dark">{{__('Create contract')}}</button>
                     </a>
                 </div>
             </div>
@@ -69,8 +69,8 @@
 @stop
 
 @section('custom-scripts')
-    @include('manager::includes.sidebar_script')
+    @include('contract::includes.sidebar_script')
     <script>
-        $('#nav-manager-plan').addClass('active')
+        $('#nav-contract-contract').addClass('active')
     </script>
 @stop

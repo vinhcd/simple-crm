@@ -189,6 +189,7 @@ return [
         \App\Module\User\UserServiceProvider::class,
         \App\Module\Acl\AclServiceProvider::class,
         \App\Module\Manager\ManagerServiceProvider::class,
+        \App\Module\Contract\ContractServiceProvider::class,
     ],
 
     /*

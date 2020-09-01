@@ -1,7 +1,7 @@
 <?php
 /* @var \App\Module\User\Block\UserList $userListBlock */
 
-$permissionChecker = new \App\Support\PermissionChecker();
+$permissionChecker = new \App\Support\ModuleResourcePermissionChecker();
 ?>
 
 @extends('layouts.master')

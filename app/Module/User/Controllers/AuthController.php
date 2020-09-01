@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class AuthController extends Controller
@@ -32,6 +33,7 @@ class AuthController extends Controller
     }
 
     /**
+     * @todo: lock user after X times failed
      * @param Request $request
      * @return RedirectResponse|View
      */
@@ -76,6 +78,7 @@ class AuthController extends Controller
             try {
                 $this->repository->save($user);
             } catch (\Exception $e) {
+                Log::error($e->getMessage());
                 return redirect()->route('user_list')->withErrors($e->getMessage());
             }
             session()->flash('success', __('Password has been updated!'));
@@ -121,6 +124,7 @@ class AuthController extends Controller
             try {
                 $userEditBlock->updateUser();
             } catch (\Exception $e) {
+                Log::error($e->getMessage());
                 return redirect()->back()->withErrors($e->getMessage());
             }
             $request->session()->flash('success', __('User :user has been updated!', ['user' => $user->getFullName()]));
@@ -141,6 +145,7 @@ class AuthController extends Controller
             if ($user->getId() == Auth::id()) throw new \Exception(__('You cannot remove yourself'));
             $this->repository->delete($user);
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return redirect()->route('user_list')->withErrors($e->getMessage());
         }
         session()->flash('success', __('User :user has been removed!', ['user' => $user->getFullName()]));
@@ -157,6 +162,7 @@ class AuthController extends Controller
         try {
             $this->repository->recover($id);
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return redirect()->intended('user_list')->withErrors($e->getMessage());
         }
         session()->flash('success', __('User has been recovered!'));

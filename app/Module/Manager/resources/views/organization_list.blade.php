@@ -1,5 +1,5 @@
 <?php
-    $permissionChecker = new \App\Support\PermissionChecker();
+    $permissionChecker = new \App\Support\ModuleResourcePermissionChecker();
 ?>
 
 @extends('layouts.master')

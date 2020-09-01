@@ -2,6 +2,8 @@
 
 namespace App\Support;
 
+use App\Module\Contract\Api\Data\ContractInterface;
+use App\Module\Contract\ContractServiceProvider;
 use App\Module\Manager\Api\Data\OrganizationInterface;
 use App\Module\Manager\Api\Data\PlanInterface;
 use App\Module\Manager\ManagerServiceProvider;
@@ -14,7 +16,7 @@ use App\Module\User\UserServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 
-class PermissionChecker
+class ModuleResourcePermissionChecker
 {
     /**
      * @var UserPermissionCheckerInterface
@@ -123,5 +125,21 @@ class PermissionChecker
     public function canEditDepartments()
     {
         return $this->userPermissionChecker->canWrite(DepartmentInterface::RESOURCE_ID, UserServiceProvider::MODULE_NAME);
+    }
+
+    /**
+     * @return bool
+     */
+    public function canReadContracts()
+    {
+        return $this->userPermissionChecker->canRead(ContractInterface::RESOURCE_ID, ContractServiceProvider::MODULE_NAME);
+    }
+
+    /**
+     * @return bool
+     */
+    public function canEditContracts()
+    {
+        return $this->userPermissionChecker->canWrite(ContractInterface::RESOURCE_ID, ContractServiceProvider::MODULE_NAME);
     }
 }

@@ -62,11 +62,8 @@ class UserInfo extends AbstractModel
      */
     public function setBirthday($date)
     {
-        if (empty($date)) {
-            $this->birthday = null;
-        } else {
-            $this->birthday = $date;
-        }
+        $this->birthday = !empty($date) ? $date : null;
+
         return $this;
     }
 
@@ -76,11 +73,8 @@ class UserInfo extends AbstractModel
      */
     public function setJoinDate($date)
     {
-        if (empty($date)) {
-            $this->join_date = null;
-        } else {
-            $this->join_date = $date;
-        }
+        $this->join_date = !empty($date) ? $date : null;
+
         return $this;
     }
 }

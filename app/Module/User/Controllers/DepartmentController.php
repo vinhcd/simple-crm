@@ -11,6 +11,7 @@ use App\Module\User\Models\Data\UserDepartment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class DepartmentController extends Controller
@@ -58,6 +59,7 @@ class DepartmentController extends Controller
             try {
                 $departmentEditBlock->update();
             } catch (\Exception $e) {
+                Log::error($e->getMessage());
                 return redirect()->back()->withErrors($e->getMessage());
             }
             $request->session()->flash('success', __('Department :department has been updated!', ['department' => $department->getDisplayName()]));
@@ -77,6 +79,7 @@ class DepartmentController extends Controller
         try {
             $this->repository->delete($department);
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return redirect()->back()->withErrors($e->getMessage());
         }
         session()->flash('success', __('Department :department has been removed!', ['department' => $department->getDisplayName()]));

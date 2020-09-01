@@ -24,7 +24,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @method string getAddress()
  * @method $this setAddress(string $value)
  * @method string getRegisterDate()
- * @method $this setRegisterDate(string $value)
  * @method string getDescription()
  * @method $this setDescription(string $value)
  */
@@ -62,6 +61,17 @@ class Organization extends AbstractModel implements OrganizationInterface
             $this->plans = $this->plans()->get();
         }
         return $this->plans;
+    }
+
+    /**
+     * @param string $date
+     * @return $this
+     */
+    public function setRegisterDate($date)
+    {
+        $this->register_date = !empty($date) ? $date : null;
+
+        return $this;
     }
 
     /**

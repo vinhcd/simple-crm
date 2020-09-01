@@ -7,6 +7,7 @@ use App\Module\Acl\Api\RoleRepositoryInterface;
 use App\Module\Acl\Block\RoleEdit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class RoleController extends Controller
@@ -53,6 +54,7 @@ class RoleController extends Controller
             try {
                 $roleEditBlock->update();
             } catch (\Exception $e) {
+                Log::error($e->getMessage());
                 return redirect()->back()->withErrors($e->getMessage());
             }
             $request->session()->flash('success', __('Role :role has been updated!', ['role' => $role->getName()]));
@@ -72,6 +74,7 @@ class RoleController extends Controller
         try {
             $this->repository->delete($role);
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return redirect()->back()->withErrors($e->getMessage());
         }
         session()->flash('success', __('Role :role has been removed!', ['role' => $role->getName()]));

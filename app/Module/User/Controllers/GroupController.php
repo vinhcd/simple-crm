@@ -11,6 +11,7 @@ use App\Module\User\Models\UserGroupManagement;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class GroupController extends Controller
@@ -63,6 +64,7 @@ class GroupController extends Controller
             try {
                 $this->repository->save($group);
             } catch (\Exception $e) {
+                Log::error($e->getMessage());
                 return redirect()->route('user_group_create_update', ['id' => $id])->withErrors($e->getMessage());
             }
             $request->session()->flash('success', __('Group :group has been updated!', ['group' => $group->getDisplayName()]));
@@ -91,6 +93,7 @@ class GroupController extends Controller
                 $userIds ? $userIds : []
             );
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return redirect()->back()->withErrors($e->getMessage());
         }
         session()->flash('success', __('Group :group has been updated!', ['group' => $group->getDisplayName()]));
@@ -109,6 +112,7 @@ class GroupController extends Controller
             if ($group->getName() == GroupInterface::SUPER_ADMIN) throw new \Exception(__('Super Admin group cannot be removed'));
             $this->repository->delete($group);
         } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return redirect()->route('user_group_list')->withErrors($e->getMessage());
         }
         session()->flash('success', __('Group :group has been removed!', ['group' => $group->getDisplayName()]));

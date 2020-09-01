@@ -1,5 +1,5 @@
 <?php
-$permissionChecker = new \App\Support\PermissionChecker();
+$permissionChecker = new \App\Support\ModuleResourcePermissionChecker();
 /* @var \App\Module\User\Api\Data\UserInterface $user*/
 $user = \Illuminate\Support\Facades\Auth::user();
 ?>
@@ -32,7 +32,6 @@ $user = \Illuminate\Support\Facades\Auth::user();
                 @if($permissionChecker->canReadOrganizations() || $permissionChecker->canReadPlans())
                 <li class="nav-item" id="nav-group-manager">
                     <a href="#" class="nav-link" id="nav-group-manager-title">
-                        <i class="nav-icon fa fa-money-bill"></i>
                         <p>{{__('PLAN')}}<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -60,7 +59,6 @@ $user = \Illuminate\Support\Facades\Auth::user();
                     || $permissionChecker->canReadPositions() || $permissionChecker->canReadDepartments())
                 <li class="nav-item" id="nav-group-user">
                     <a href="#" class="nav-link" id="nav-group-user-title">
-                        <i class="nav-icon fas fa-user-edit"></i>
                         <p>{{__('COMPANY')}}<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
@@ -95,6 +93,24 @@ $user = \Illuminate\Support\Facades\Auth::user();
                                 <p>{{__('Departments')}}</p>
                             </a>
                         </li>
+                        @endif
+                    </ul>
+                </li>
+                @endif
+
+                @if($permissionChecker->canReadContracts() || $permissionChecker->canEditContracts())
+                <li class="nav-item" id="nav-group-contract">
+                    <a href="#" class="nav-link" id="nav-group-contract-title">
+                        <p>{{__('CONTRACT')}}<i class="fas fa-angle-left right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @if($permissionChecker->canReadContracts())
+                            <li class="nav-item">
+                                <a href="{{route('contract_list')}}" class="nav-link" id="nav-contract-contract">
+                                    <i class="nav-icon fa fa-file-contract"></i>
+                                    <p>{{__('Contracts')}}</p>
+                                </a>
+                            </li>
                         @endif
                     </ul>
                 </li>
