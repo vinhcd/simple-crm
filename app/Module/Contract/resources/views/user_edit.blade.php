@@ -98,6 +98,7 @@ $contractData = $contractUserEditBlock->getContractData();
     <script src="{{url('plugins/jquery-validation/additional-methods.min.js')}}"></script>
     <script src="{{url('plugins/select2/js/select2.full.min.js')}}"></script>
     <script src="{{url('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js')}}"></script>
+    @include('contract::includes.js_validate')
 
     <script>
         $('#nav-contract-user').addClass('active');
@@ -119,7 +120,8 @@ $contractData = $contractUserEditBlock->getContractData();
                 },
                 end: {
                     required: true,
-                    date: true
+                    date: true,
+                    dateGreaterThan: '#start'
                 },
             },
             messages: {},

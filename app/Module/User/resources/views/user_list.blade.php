@@ -1,6 +1,8 @@
 <?php
 /* @var \App\Module\User\Block\UserList $userListBlock */
 
+use \Illuminate\Support\Facades\Date;
+
 $permissionChecker = new \App\Support\ModuleResourcePermissionChecker();
 ?>
 
@@ -44,7 +46,9 @@ $permissionChecker = new \App\Support\ModuleResourcePermissionChecker();
                                     <td>{{$user['groups']}}</td>
                                     <td>{{$user['departments']}}</td>
                                     <td>{{$user['phone']}}</td>
-                                    <td>{{$user['contract_expire']}}</td>
+                                    <td @if($user['contract_expire'] && (Date::createFromFormat('Y-m-d', $user['contract_expire'])->toDate() < Date::now())) class="text-danger" @endif>
+                                        {{$user['contract_expire']}}
+                                    </td>
                                     <td>
                                         @if($user['id'] != auth()->id() && $permissionChecker->canEditUsers())
                                         <a href="{{ route('user_create_update', $user['id']) }}" title="{{__('Edit')}}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
@@ -89,6 +93,7 @@ $permissionChecker = new \App\Support\ModuleResourcePermissionChecker();
             "lengthChange": true,
             "searching": true,
             "ordering": true,
+            "order": [[6, 'asc']],
             "info": true,
             "autoWidth": false,
             "responsive": true,
