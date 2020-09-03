@@ -60,10 +60,11 @@ class DepartmentController extends Controller
                 $departmentEditBlock->update();
             } catch (\Exception $e) {
                 Log::error($e->getMessage());
-                return redirect()->back()->withErrors($e->getMessage());
+                return redirect()->back()->withErrors($e->getMessage())->withInput();
             }
-            $request->session()->flash('success', __('Department :department has been updated!', ['department' => $department->getDisplayName()]));
-
+            $request->session()->flash('success',
+                __('Department :department has been updated!', ['department' => $department->getDisplayName()])
+            );
             return redirect()->route('user_depart_create_update', ['id' => $department->getId()]);
         }
         return view('user::depart_edit', ['departmentEditBlock' => $departmentEditBlock]);
@@ -82,8 +83,9 @@ class DepartmentController extends Controller
             Log::error($e->getMessage());
             return redirect()->back()->withErrors($e->getMessage());
         }
-        session()->flash('success', __('Department :department has been removed!', ['department' => $department->getDisplayName()]));
-
+        session()->flash('success',
+            __('Department :department has been removed!', ['department' => $department->getDisplayName()])
+        );
         return redirect()->route('user_depart_list');
     }
 }

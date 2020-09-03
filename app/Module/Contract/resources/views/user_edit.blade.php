@@ -26,6 +26,9 @@ $contractData = $contractUserEditBlock->getContractData();
                         <form id="form-user" action="{{route('contract_user_create_update', $contractUser->getId())}}" method="post">
                             @csrf
                             <input type="hidden" name="id" value="{{ $contractUser->getId() }}">
+                            @if($contractUser->getId())
+                            <input type="hidden" name="user" value="{{ $contractUser->getUserId() }}">
+                            @endif
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="user">{{__('User')}}</label>
@@ -68,6 +71,13 @@ $contractData = $contractUserEditBlock->getContractData();
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="status">{{__('Status')}}</label>
+                                    <select class="form-control" name="status" id="status">
+                                        <option value="1" @if($contractUser->getActive()) selected @endif>{{__('Active')}}</option>
+                                        <option value="0" @if(!$contractUser->getActive()) selected @endif>{{__('In active')}}</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -145,5 +155,6 @@ $contractData = $contractUserEditBlock->getContractData();
                 $('#template').html(options);
             }
         }
+        setTemplateOption();
     </script>
 @stop

@@ -20,7 +20,7 @@ $contractTemplate = $templateEditBlock->getContractTemplate();
                         <div class="card-header">
                             <h3 class="card-title">{{__('Create/Edit template')}}</h3>
                         </div>
-                        <form action="{{route('contract_template_create_update', $contractTemplate->getId())}}" method="post">
+                        <form id="form-template" action="{{route('contract_template_create_update', $contractTemplate->getId())}}" method="post">
                             @csrf
                             <input type="hidden" name="id" value="{{ $contractTemplate->getId() }}">
                             <div class="card-body">
@@ -58,10 +58,35 @@ $contractTemplate = $templateEditBlock->getContractTemplate();
 
 @section('custom-scripts')
     @include('contract::includes.sidebar_script')
+    <script src="{{url('plugins/jquery-validation/jquery.validate.min.js')}}"></script>
+    <script src="{{url('plugins/jquery-validation/additional-methods.min.js')}}"></script>
     <script src="{{url('plugins/summernote/summernote-bs4.min.js')}}"></script>
     <script>
         $('#nav-contract-template').addClass('active');
 
-        $('#content').summernote({height: 150});
+        $('#form-template').validate({
+            rules: {
+                name: {
+                    required: true,
+                    maxlength: 255
+                },
+                contract_id: {
+                    required: true,
+                }
+            },
+            messages: {},
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+        $('#content').summernote({height: 200});
     </script>
 @stop

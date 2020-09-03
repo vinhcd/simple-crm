@@ -26,19 +26,23 @@ $group = $groupEditBlock->getGroup();
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">{{__('Group name')}}*</label>
-                                    <input type="text" class="form-control" name="name" id="name" value="{{ $group->getName() }}" placeholder="{{__('Enter unique name')}}">
+                                    <input type="text" class="form-control" name="name" id="name"
+                                           value="{{ old('name', $group->getName()) }}" placeholder="{{__('Enter unique name')}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="display_name">{{__('Display name')}}*</label>
-                                    <input type="text" class="form-control" name="display_name" id="display_name" value="{{ $group->getDisplayName() }}" placeholder="{{__('Enter display name')}}">
+                                    <input type="text" class="form-control" name="display_name" id="display_name"
+                                           value="{{ old('display_name', $group->getDisplayName()) }}" placeholder="{{__('Enter display name')}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="priority">{{__('Priority')}}</label>
-                                    <input type="text" class="form-control" name="priority" id="priority" value="{{ $group->getPriority() }}" placeholder="{{__('Priority')}}">
+                                    <input type="text" class="form-control" name="priority" id="priority"
+                                           value="{{ old('priority', $group->getPriority()) }}" placeholder="{{__('Priority')}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="description">{{__('Description')}}</label>
-                                    <textarea class="form-control" rows="3" name="description" id="description" placeholder="{{__('Enter description')}}">{{ $group->getDescription() }}</textarea>
+                                    <textarea class="form-control" rows="3" name="description" id="description"
+                                              placeholder="{{__('Enter description')}}">{{ old('description', $group->getDescription()) }}</textarea>
                                 </div>
                             </div>
                             <div class="card-footer">

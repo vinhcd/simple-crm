@@ -3,6 +3,7 @@
 namespace App\Module\User\Block;
 
 use App\Block\AbstractBlock;
+use App\Module\Contract\Api\ContractUserRepositoryInterface;
 use App\Module\User\Models\Data\User;
 use App\Module\User\Models\Data\UserDepartment;
 use App\Module\User\Models\Data\UserPosition;
@@ -128,6 +129,26 @@ class UserEdit extends AbstractBlock
             $allDeparts[$depart->getId()]['name'] = $depart->getDisplayName();
         }
         return $allDeparts;
+    }
+
+    /**
+     * @return array
+     */
+    public function getContractHistory()
+    {
+        $contractData = [];
+        /* @var ContractUserRepositoryInterface $contractRepo */
+        $contractRepo = app(ContractUserRepositoryInterface::class);
+        $userContracts = $contractRepo->getContractHistoryForUser($this->getUser()->getId());
+        foreach ($userContracts as $userContract) {
+            $contractData[$userContract->getId()]['id'] = $userContract->getId();
+            $contractData[$userContract->getId()]['name'] = $userContract->getContract()->getName();
+            $contractData[$userContract->getId()]['template'] = $userContract->getTemplate()->getName();
+            $contractData[$userContract->getId()]['start'] = $userContract->getStart();
+            $contractData[$userContract->getId()]['end'] = $userContract->getEnd();
+            $contractData[$userContract->getId()]['active'] = $userContract->getActive();
+        }
+        return $contractData;
     }
 
     /**

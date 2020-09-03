@@ -10,6 +10,7 @@ use App\Module\Contract\Models\Data\ContractUser;
 use App\Module\User\Api\Data\UserInterface;
 use App\Module\User\Api\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Request;
 
 class ContractUserEdit extends AbstractBlock
 {
@@ -92,8 +93,23 @@ class ContractUserEdit extends AbstractBlock
         return $data;
     }
 
+    /**
+     * @return void
+     * @throws \Exception
+     */
     public function update()
     {
+        $posts = Request::post();
 
+        $userContract = $this->getContractUser();
+        $userContract->setUserId($posts['user']);
+        $userContract->setContractId($posts['contract']);
+        $userContract->setTemplateId($posts['template']);
+        $userContract->setUsername($this->userRepository->getById($posts['user'])->getFullName());
+        $userContract->setStart($posts['start']);
+        $userContract->setEnd($posts['end']);
+        $userContract->setActive($posts['status']);
+
+        $this->repository->save($userContract);
     }
 }

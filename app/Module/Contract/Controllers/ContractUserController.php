@@ -3,7 +3,6 @@
 namespace App\Module\Contract\Controllers;
 
 use App\Module\Contract\Api\ContractUserRepositoryInterface;
-use App\Module\Contract\Block\ContractTemplateEdit;
 use App\Module\Contract\Block\ContractUserEdit;
 use App\Module\Contract\Block\ContractUserList;
 use Illuminate\Http\RedirectResponse;
@@ -50,17 +49,18 @@ class ContractUserController
 
         if ($posts = $request->post()) {
             $request->validate([
-                'contract_id' => 'required|integer',
-                'user_id' => 'required|integer',
-                'template_id' => 'required|integer',
+                'contract' => 'required|integer',
+                'user' => 'required|integer',
+                'template' => 'required|integer',
                 'start' => 'required|date:Y-m-d',
                 'end' => 'required|date:Y-m-d',
+                'status' => 'required|integer',
             ]);
             try {
                 $contractUserEditBlock->update();
             } catch (\Exception $e) {
                 Log::error($e->getMessage());
-                return redirect()->back()->withErrors($e->getMessage());
+                return redirect()->back()->withErrors($e->getMessage())->withInput();
             }
             $request->session()->flash(
                 'success',
@@ -69,5 +69,23 @@ class ContractUserController
             return redirect()->route('contract_user_create_update', ['id' => $contractUser->getId()]);
         }
         return view('contract::user_edit', ['contractUserEditBlock' => $contractUserEditBlock]);
+    }
+
+    /**
+     * @param string $id
+     * @return RedirectResponse
+     */
+    public function delete($id)
+    {
+        $userContract = $this->repository->getById($id);
+        try {
+            $this->repository->delete($userContract);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->back()->withErrors($e->getMessage());
+        }
+        session()->flash('success', __('Contract for :userContract has been removed!', ['userContract' => $userContract->getUsername()]));
+
+        return redirect()->route('contract_user_list');
     }
 }

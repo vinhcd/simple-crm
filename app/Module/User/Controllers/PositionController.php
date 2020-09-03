@@ -52,7 +52,7 @@ class PositionController extends Controller
                 $positionEditBlock->update();
             } catch (\Exception $e) {
                 Log::error($e->getMessage());
-                return redirect()->back()->withErrors($e->getMessage());
+                return redirect()->back()->withErrors($e->getMessage())->withInput();
             }
             $request->session()->flash('success', __('Position :position has been updated!', ['position' => $position->getName()]));
 

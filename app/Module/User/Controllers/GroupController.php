@@ -56,18 +56,23 @@ class GroupController extends Controller
                 'name' => 'required|max:255',
                 'display_name' => 'required|max:255',
             ]);
-            if ($group->getName() == GroupInterface::SUPER_ADMIN) return redirect()->back()->withErrors(__('Super Admin group cannot be changed'));
+            if ($group->getName() == GroupInterface::SUPER_ADMIN) {
+                return redirect()->back()->withErrors(__('Super Admin group cannot be changed'));
+            }
             $groupEditBlock->update();
             if ($this->isDuplicate($group)) {
-                return redirect()->back()->withErrors(__('Group is already exist'));
+                return redirect()->back()->withErrors(__('Group is already exist'))->withInput();
             }
             try {
                 $this->repository->save($group);
             } catch (\Exception $e) {
                 Log::error($e->getMessage());
-                return redirect()->route('user_group_create_update', ['id' => $id])->withErrors($e->getMessage());
+                return redirect()->route('user_group_create_update', ['id' => $id])
+                    ->withErrors($e->getMessage())->withInput();
             }
-            $request->session()->flash('success', __('Group :group has been updated!', ['group' => $group->getDisplayName()]));
+            $request->session()->flash('success',
+                __('Group :group has been updated!', ['group' => $group->getDisplayName()])
+            );
 
             return redirect()->route('user_group_create_update', ['id' => $group->getId()]);
         }

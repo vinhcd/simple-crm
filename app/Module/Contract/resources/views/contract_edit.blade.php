@@ -16,7 +16,7 @@ $contract = $contractEditBlock->getContract();
                         <div class="card-header">
                             <h3 class="card-title">{{__('Create/Edit contract')}}</h3>
                         </div>
-                        <form action="{{route('contract_create_update', $contract->getId())}}" method="post">
+                        <form id="form-contract" action="{{route('contract_create_update', $contract->getId())}}" method="post">
                             @csrf
                             <input type="hidden" name="id" value="{{ $contract->getId() }}">
                             <div class="card-body">
@@ -52,7 +52,30 @@ $contract = $contractEditBlock->getContract();
 
 @section('custom-scripts')
     @include('contract::includes.sidebar_script')
+    <script src="{{url('plugins/jquery-validation/jquery.validate.min.js')}}"></script>
+    <script src="{{url('plugins/jquery-validation/additional-methods.min.js')}}"></script>
     <script>
         $('#nav-contract-contract').addClass('active')
+
+        $('#form-contract').validate({
+            rules: {
+                name: {
+                    required: true,
+                    maxlength: 255
+                },
+            },
+            messages: {},
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
     </script>
 @stop

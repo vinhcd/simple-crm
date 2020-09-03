@@ -3,6 +3,7 @@
 namespace App\Module\Contract\Models;
 
 use App\Module\Contract\Api\ContractUserRepositoryInterface;
+use App\Module\Contract\Api\Data\ContractUserInterface;
 use App\Module\Contract\Models\Data\ContractUser;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -26,6 +27,42 @@ class ContractUserRepository implements ContractUserRepositoryInterface
     public function getById($id)
     {
         return ContractUser::findOrFail($id);
+    }
+
+    /**
+     * @param int $userId
+     * @return ContractUser|null
+     */
+    public function getActiveContractForUser($userId)
+    {
+        return $this->getBuilder()
+            ->where('user_id', $userId)
+            ->where('active', 1)
+            ->first();
+    }
+
+    /**
+     * @param int[] $userIds
+     * @return ContractUserInterface[]|Collection
+     */
+    public function getActiveContractsForUsers($userIds)
+    {
+        return $this->getBuilder()
+            ->whereIn('user_id', $userIds)
+            ->where('active', 1)
+            ->get();
+    }
+
+    /**
+     * @param int $userId
+     * @return ContractUserInterface[]|Collection
+     */
+    public function getContractHistoryForUser($userId)
+    {
+        return $this->getBuilder()
+            ->where('user_id', $userId)
+            ->orderByDesc('end')
+            ->get();
     }
 
     /**

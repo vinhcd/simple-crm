@@ -28,28 +28,35 @@ $userData = $userEditBlock->getUserData();
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">{{__('AccountID')}}*</label>
-                                    <input type="text" class="form-control" name="name" id="name" value="{{ $userData['name'] }}" placeholder="{{__('Enter AccountID')}}">
+                                    <input type="text" class="form-control" name="name" id="name"
+                                           value="{{ old('name', $userData['name']) }}" placeholder="{{__('Enter AccountID')}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="email">{{__('Email')}}*</label>
-                                    <input type="email" class="form-control" name="email" id="email" value="{{ $userData['email'] }}" placeholder="{{__('Enter email')}}">
+                                    <input type="email" class="form-control" name="email" id="email"
+                                           value="{{ old('email', $userData['email']) }}" placeholder="{{__('Enter email')}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="first_name">{{__('First name')}}</label>
-                                    <input type="text" class="form-control" name="first_name" id="first_name" value="{{ $userData['first_name'] }}" placeholder="{{__('Enter firstname')}}">
+                                    <input type="text" class="form-control" name="first_name" id="first_name"
+                                           value="{{ old('first_name', $userData['first_name']) }}" placeholder="{{__('Enter firstname')}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="last_name">{{__('Last name')}}</label>
-                                    <input type="text" class="form-control" name="last_name" id="last_name" value="{{ $userData['last_name'] }}" placeholder="{{__('Enter lastname')}}">
+                                    <input type="text" class="form-control" name="last_name" id="last_name"
+                                           value="{{ old('last_name', $userData['last_name']) }}" placeholder="{{__('Enter lastname')}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="uuid">{{__('UUID')}}</label>
-                                    <input type="text" class="form-control" name="uuid" id="uuid" value="{{ $userData['uuid'] }}" placeholder="{{__('Enter uuid')}}">
+                                    <input type="text" class="form-control" name="uuid" id="uuid"
+                                           value="{{ old('uuid', $userData['uuid']) }}" placeholder="{{__('Enter uuid')}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="birthday">{{__('Birthday')}}</label>
                                     <div class="input-group date reservationdate" id="birthday_wrp" data-target-input="nearest">
-                                        <input type="text" name="birthday" id="birthday" value="{{ $userData['birthday'] }}" class="form-control datetimepicker-input" data-target="#birthday_wrp"/>
+                                        <input type="text" name="birthday" id="birthday"
+                                               value="{{ old('birthday', $userData['birthday']) }}"
+                                               class="form-control datetimepicker-input" data-target="#birthday_wrp"/>
                                         <div class="input-group-append" data-target="#birthday_wrp" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
@@ -58,7 +65,9 @@ $userData = $userEditBlock->getUserData();
                                 <div class="form-group">
                                     <label for="birthday">{{__('Join date')}}</label>
                                     <div class="input-group date reservationdate" id="join_date_wrp" data-target-input="nearest">
-                                        <input type="text" name="join_date" id="join_date" value="{{ $userData['join_date'] }}" class="form-control datetimepicker-input" data-target="#join_date_wrp"/>
+                                        <input type="text" name="join_date" id="join_date"
+                                               value="{{ old('join_date', $userData['join_date']) }}"
+                                               class="form-control datetimepicker-input" data-target="#join_date_wrp"/>
                                         <div class="input-group-append" data-target="#join_date_wrp" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
@@ -74,31 +83,38 @@ $userData = $userEditBlock->getUserData();
                                 </div>
                                 <div class="form-group">
                                     <label for="phone">{{__('Phone#')}}</label>
-                                    <input type="text" class="form-control" name="phone" id="phone" value="{{ $userData['phone'] }}" placeholder="{{__('Enter phone number')}}">
+                                    <input type="text" class="form-control" name="phone" id="phone"
+                                           value="{{ old('phone', $userData['phone']) }}" placeholder="{{__('Enter phone number')}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="personal_email">{{__('Personal email')}}</label>
-                                    <input type="text" class="form-control" name="personal_email" id="personal_email" value="{{ $userData['personal_email'] }}" placeholder="{{__('Enter personal email')}}">
+                                    <input type="text" class="form-control" name="personal_email" id="personal_email"
+                                           value="{{ old('personal_email', $userData['personal_email']) }}" placeholder="{{__('Enter personal email')}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="contact_phone">{{__('Contact phone')}}</label>
-                                    <input type="text" class="form-control" name="contact_phone" id="contact_phone" value="{{ $userData['contact_phone'] }}" placeholder="{{__('Enter contact phone')}}">
+                                    <input type="text" class="form-control" name="contact_phone" id="contact_phone"
+                                           value="{{ old('contact_phone', $userData['contact_phone']) }}" placeholder="{{__('Enter contact phone')}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="contact_email">{{__('Contact email')}}</label>
-                                    <input type="text" class="form-control" name="contact_email" id="contact_email" value="{{ $userData['contact_email'] }}" placeholder="{{__('Enter contact email')}}">
+                                    <input type="text" class="form-control" name="contact_email" id="contact_email"
+                                           value="{{ old('contact_email', $userData['contact_email']) }}" placeholder="{{__('Enter contact email')}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="address1">{{__('Primary residence address')}}</label>
-                                    <textarea class="form-control" rows="3" name="address1" id="address1" placeholder="{{__('Enter address1')}}">{{ $userData['address1'] }}</textarea>
+                                    <textarea class="form-control" rows="3" name="address1" id="address1"
+                                              placeholder="{{__('Enter address1')}}">{{ old('address1', $userData['address1']) }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="address2">{{__('Current address')}}</label>
-                                    <textarea class="form-control" rows="3" name="address2" id="address2" placeholder="{{__('Enter address2')}}">{{ $userData['address2'] }}</textarea>
+                                    <textarea class="form-control" rows="3" name="address2" id="address2"
+                                              placeholder="{{__('Enter address2')}}">{{ old('address2', $userData['address2']) }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="description">{{__('Description')}}</label>
-                                    <textarea class="form-control" rows="3" name="description" id="description" placeholder="{{__('Enter description')}}">{{ $userData['description'] }}</textarea>
+                                    <textarea class="form-control" rows="3" name="description" id="description"
+                                              placeholder="{{__('Enter description')}}">{{ old('description', $userData['description']) }}</textarea>
                                 </div>
                             </div>
                             <div class="card-footer">
@@ -108,40 +124,77 @@ $userData = $userEditBlock->getUserData();
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="card card-primary">
-                            <div class="card-header">
-                                <h3 class="card-title">{{__('Group/Department/Position')}}</h3>
+                        <div class="col-12">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">{{__('Group/Department/Position')}}</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label>{{__('Groups')}}</label>
+                                        <select class="select2bs4" name="groups[]" multiple="multiple"
+                                                data-placeholder="{{__('Select groups')}}" style="width: 100%;">
+                                            @foreach($userEditBlock->getGroups() as $group)
+                                                <option value="{{$group['id']}}"
+                                                        @if(in_array($group['id'], $userData['groups'])) selected @endif>{{$group['name']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{{__('Positions')}}</label>
+                                        <select class="select2bs4" name="positions[]" multiple="multiple"
+                                                data-placeholder="{{__('Select positions')}}" style="width: 100%;">
+                                            @foreach($userEditBlock->getPositions() as $position)
+                                                <option value="{{$position['id']}}"
+                                                        @if(in_array($position['id'], $userData['positions'])) selected @endif>{{$position['name']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{{__('Departments')}}</label>
+                                        <select class="select2bs4" name="departments[]" multiple="multiple"
+                                                data-placeholder="{{__('Select departments')}}" style="width: 100%;">
+                                            @foreach($userEditBlock->getDepartments() as $department)
+                                                <option value="{{$department['id']}}"
+                                                        @if(in_array($department['id'], $userData['departments'])) selected @endif>{{$department['name']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label>{{__('Groups')}}</label>
-                                    <select class="select2bs4" name="groups[]" multiple="multiple"
-                                            data-placeholder="{{__('Select groups')}}" style="width: 100%;">
-                                        @foreach($userEditBlock->getGroups() as $group)
-                                            <option value="{{$group['id']}}"
-                                                    @if(in_array($group['id'], $userData['groups'])) selected @endif>{{$group['name']}}</option>
-                                        @endforeach
-                                    </select>
+                        </div>
+                        <div class="col-12">
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">{{__('Contract history')}}</h3>
                                 </div>
-                                <div class="form-group">
-                                    <label>{{__('Positions')}}</label>
-                                    <select class="select2bs4" name="positions[]" multiple="multiple"
-                                            data-placeholder="{{__('Select positions')}}" style="width: 100%;">
-                                        @foreach($userEditBlock->getPositions() as $position)
-                                            <option value="{{$position['id']}}"
-                                                    @if(in_array($position['id'], $userData['positions'])) selected @endif>{{$position['name']}}</option>
+                                <div class="card-body">
+                                    <table id="contract-list" class="table table-bordered table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>{{__('Contract name')}}</th>
+                                            <th>{{__('Template')}}</th>
+                                            <th>{{__('Start')}}</th>
+                                            <th>{{__('End')}}</th>
+                                            <th>{{__('Status')}}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach ($userEditBlock->getContractHistory() as $contractData)
+                                        <tr>
+                                            <td>{{$contractData['name']}}</td>
+                                            <td>{{$contractData['template']}}</td>
+                                            <td>{{$contractData['start']}}</td>
+                                            <td>{{$contractData['end']}}</td>
+                                            @if($contractData['active'] == 1)
+                                                <td class = "bg-olive color-palette">{{__('Active')}}</td>
+                                            @else
+                                                <td class = "bg-pink color-palette">{{__('Inactive')}}</td>
+                                            @endif
+                                            </tr>
                                         @endforeach
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>{{__('Departments')}}</label>
-                                    <select class="select2bs4" name="departments[]" multiple="multiple"
-                                            data-placeholder="{{__('Select departments')}}" style="width: 100%;">
-                                        @foreach($userEditBlock->getDepartments() as $department)
-                                            <option value="{{$department['id']}}"
-                                                    @if(in_array($department['id'], $userData['departments'])) selected @endif>{{$department['name']}}</option>
-                                        @endforeach
-                                    </select>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

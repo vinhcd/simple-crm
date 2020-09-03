@@ -18,6 +18,7 @@ class CreateContractUserTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('contract_id');
             $table->unsignedBigInteger('template_id');
+            $table->string('username')->nullable();
             $table->date('start');
             $table->date('end');
             $table->unsignedTinyInteger('active')->default(0);

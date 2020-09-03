@@ -22,6 +22,24 @@ interface ContractUserRepositoryInterface
     public function getById($id);
 
     /**
+     * @param int $userId
+     * @return ContractUserInterface|null
+     */
+    public function getActiveContractForUser($userId);
+
+    /**
+     * @param int[] $userIds
+     * @return ContractUserInterface[]|Collection
+     */
+    public function getActiveContractsForUsers($userIds);
+
+    /**
+     * @param int $userId
+     * @return ContractUserInterface[]|Collection
+     */
+    public function getContractHistoryForUser($userId);
+
+    /**
      * @return Builder
      */
     public function getBuilder();

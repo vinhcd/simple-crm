@@ -55,7 +55,7 @@ class ContractController extends Controller
                 $contractEditBlock->update();
             } catch (\Exception $e) {
                 Log::error($e->getMessage());
-                return redirect()->back()->withErrors($e->getMessage());
+                return redirect()->back()->withErrors($e->getMessage())->withInput();
             }
             $request->session()->flash('success', __('Contract :contract has been updated!', ['contract' => $contract->getName()]));
 

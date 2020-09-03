@@ -10,6 +10,8 @@ namespace App\Module\Contract\Api\Data;
  * @method $this setContractId(int $value)
  * @method int getTemplateId()
  * @method $this setTemplateId(int $value)
+ * @method string getUsername()
+ * @method $this setUsername(string $value)
  * @method string getStart()
  * @method $this setStart(string $value)
  * @method string getEnd()
@@ -20,4 +22,14 @@ namespace App\Module\Contract\Api\Data;
 interface ContractUserInterface
 {
     const RESOURCE_ID = 'contract_user';
+
+    /**
+     * @return ContractInterface
+     */
+    public function getContract();
+
+    /**
+     * @return ContractTemplateInterface
+     */
+    public function getTemplate();
 }

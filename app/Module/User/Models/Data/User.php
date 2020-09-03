@@ -99,7 +99,9 @@ class User extends Authenticatable implements UserInterface
      */
     public function getFullName()
     {
-        return $this->getFirstName() . ' ' . $this->getLastName();
+        return (empty($this->getFirstName()) && empty($this->getLastName()))
+            ? $this->getName()
+            : $this->getFirstName() . ' ' . $this->getLastName();
     }
 
     /**

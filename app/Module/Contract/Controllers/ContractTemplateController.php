@@ -57,7 +57,7 @@ class ContractTemplateController extends Controller
                 $templateEditBlock->update();
             } catch (\Exception $e) {
                 Log::error($e->getMessage());
-                return redirect()->back()->withErrors($e->getMessage());
+                return redirect()->back()->withErrors($e->getMessage())->withInput();
             }
             $request->session()->flash('success', __('Template :template has been updated!', ['template' => $contractTemplate->getName()]));
 

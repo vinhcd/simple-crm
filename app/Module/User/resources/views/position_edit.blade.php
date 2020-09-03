@@ -25,12 +25,13 @@ $position = $positionEditBlock->getPosition();
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="name">{{__('Name')}}*</label>
-                                    <input type="text" class="form-control" name="name" id="name" value="{{ $position->getName() }}"
+                                    <input type="text" class="form-control" name="name" id="name" value="{{ old('name', $position->getName()) }}"
                                            placeholder="{{__('Enter unique name')}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="description">{{__('Description')}}</label>
-                                    <textarea class="form-control" rows="4" name="description" id="description" placeholder="{{__('Enter description')}}">{{ $position->getDescription() }}</textarea>
+                                    <textarea class="form-control" rows="4" name="description" id="description"
+                                              placeholder="{{__('Enter description')}}">{{ old('description', $position->getDescription()) }}</textarea>
                                 </div>
                             </div>
                             <div class="card-footer">

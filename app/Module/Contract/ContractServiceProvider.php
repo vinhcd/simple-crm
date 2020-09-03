@@ -2,6 +2,7 @@
 
 namespace App\Module\Contract;
 
+use App\Module\Contract\Providers\EventServiceProvider;
 use App\Module\Contract\Providers\RouteServiceProvider;
 use App\Support\Injection;
 use Illuminate\Support\ServiceProvider;
@@ -32,6 +33,7 @@ class ContractServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
+        $this->app->register(EventServiceProvider::class);
 
         $this->bindInjection();
     }

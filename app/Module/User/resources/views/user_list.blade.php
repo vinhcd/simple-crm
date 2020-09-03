@@ -31,6 +31,7 @@ $permissionChecker = new \App\Support\ModuleResourcePermissionChecker();
                                     <th>{{__('Groups')}}</th>
                                     <th>{{__('Departments')}}</th>
                                     <th>{{__('Phone#')}}</th>
+                                    <th>{{__('Expire')}}</th>
                                     <th>{{__('Edit')}}</th>
                                 </tr>
                                 </thead>
@@ -43,6 +44,7 @@ $permissionChecker = new \App\Support\ModuleResourcePermissionChecker();
                                     <td>{{$user['groups']}}</td>
                                     <td>{{$user['departments']}}</td>
                                     <td>{{$user['phone']}}</td>
+                                    <td>{{$user['contract_expire']}}</td>
                                     <td>
                                         @if($user['id'] != auth()->id() && $permissionChecker->canEditUsers())
                                         <a href="{{ route('user_create_update', $user['id']) }}" title="{{__('Edit')}}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;

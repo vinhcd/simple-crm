@@ -4,6 +4,7 @@ namespace App\Module\Contract\Block;
 
 use App\Block\AbstractBlock;
 use App\Module\Contract\Models\ContractUserRepository;
+use App\Module\Contract\Models\Data\ContractUser;
 use App\Module\User\Api\UserRepositoryInterface;
 
 class ContractUserList extends AbstractBlock
@@ -33,21 +34,16 @@ class ContractUserList extends AbstractBlock
     public function getUsersData()
     {
         $usersData = [];
-        $userContractedIds = [];
         $usersContracted = $this->repository->getBuilder()->with(['contract', 'template'])->get();
+        /* @var ContractUser $item */
         foreach ($usersContracted as $item) {
             $usersData[$item->getId()]['id'] = $item->getId();
             $usersData[$item->getId()]['start'] = $item->getStart();
             $usersData[$item->getId()]['end'] = $item->getEnd();
             $usersData[$item->getId()]['active'] = $item->getActive();
-            $usersData[$item->getId()]['username'] = '';
+            $usersData[$item->getId()]['username'] = $item->getUsername();
             $usersData[$item->getId()]['contract'] = $item->contract->getName();
             $usersData[$item->getId()]['template'] = $item->template->getName();
-            $userContractedIds[] = $item->getId();
-        }
-        $users = $this->userRepository->getByIds($userContractedIds);
-        foreach ($users as $user) {
-            $usersData[$user->getId()]['username'] = $user->getFullName();
         }
         return $usersData;
     }
