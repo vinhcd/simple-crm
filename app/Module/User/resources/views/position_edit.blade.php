@@ -99,7 +99,7 @@ $position = $positionEditBlock->getPosition();
             }
         });
         $('.duallistbox').bootstrapDualListbox({
-            selectorMinimalHeight: 163
+            selectorMinimalHeight: 162
         })
     </script>
 @stop

@@ -46,7 +46,7 @@ $permissionChecker = new \App\Support\ModuleResourcePermissionChecker();
                                     <td>{{$user['groups']}}</td>
                                     <td>{{$user['departments']}}</td>
                                     <td>{{$user['phone']}}</td>
-                                    <td @if($user['contract_expire'] && (Date::createFromFormat('Y-m-d', $user['contract_expire'])->toDate() < Date::now())) class="text-danger" @endif>
+                                    <td @if($user['contract_expire'] && (Date::createFromFormat('Y-m-d', $user['contract_expire'])->subMonth(1)->toDate() < Date::now())) class="bg-pink" @endif>
                                         {{$user['contract_expire']}}
                                     </td>
                                     <td>

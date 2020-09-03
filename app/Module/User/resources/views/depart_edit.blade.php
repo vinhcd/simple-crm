@@ -105,7 +105,7 @@ $department = $departmentEditBlock->getDepartment();
             }
         });
         $('.duallistbox').bootstrapDualListbox({
-            selectorMinimalHeight: 310
+            selectorMinimalHeight: 224
         })
     </script>
 @stop

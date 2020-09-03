@@ -118,7 +118,7 @@ $group = $groupEditBlock->getGroup();
             }
         });
         $('.duallistbox').bootstrapDualListbox({
-            selectorMinimalHeight: 200
+            selectorMinimalHeight: 247
         })
     </script>
 @stop
