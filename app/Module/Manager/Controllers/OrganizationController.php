@@ -43,7 +43,7 @@ class OrganizationController extends Controller
      * @return RedirectResponse|View
      * @throws \Exception
      */
-    public function createOrUpdate(Request $request, $id = '')
+    public function edit(Request $request, $id = '')
     {
         $org = $id ? $this->repository->getById($id) : $this->repository->create();
 
@@ -64,7 +64,7 @@ class OrganizationController extends Controller
 
             return redirect()->route('manager_organization_list');
         }
-        return view('manager::organization_create', ['orgEditBlock' => $orgEditBlock]);
+        return view('manager::organization_edit', ['orgEditBlock' => $orgEditBlock]);
     }
 
     /**
@@ -76,6 +76,6 @@ class OrganizationController extends Controller
     {
         $this->repository->delete($this->repository->getById($id));
 
-        return redirect()->route('manager_organization_create_update');
+        return redirect()->route('manager_organization_edit');
     }
 }

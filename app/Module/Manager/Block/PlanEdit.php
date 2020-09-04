@@ -41,7 +41,7 @@ class PlanEdit extends AbstractBlock
 
         $plan = $this->plan;
         $plan->setName($posts['name']);
-        $plan->setPrice($posts['price']);
+        $plan->setMonthlyPrice($posts['monthly_price']);
         $plan->setMaxStaff($posts['max_staff']);
         $plan->setTrialDays($posts['trial_days']);
         $plan->setDescription($posts['description'] ?: '');

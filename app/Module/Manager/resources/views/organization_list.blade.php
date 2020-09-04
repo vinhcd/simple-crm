@@ -51,7 +51,7 @@
                                     <td>{{$organization->getDescription()}}</td>
                                     <td>
                                         @if($permissionChecker->canEditOrganizations())
-                                        <a href="{{ route('manager_organization_create_update', $organization->getId()) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                                        <a href="{{ route('manager_organization_edit', $organization->getId()) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
                                         <a href="{{ route('manager_organization_delete', $organization->getId()) }}" title="{{__('Delete')}}" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash-alt"></i>
                                         </a>
@@ -67,7 +67,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <a href="{{route('manager_organization_create_update')}}">
+                    <a href="{{route('manager_organization_edit')}}">
                         <button class="btn btn-dark">{{__('Create organization')}}</button>
                     </a>
                 </div>

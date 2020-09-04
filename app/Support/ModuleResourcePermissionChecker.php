@@ -4,6 +4,7 @@ namespace App\Support;
 
 use App\Module\Contract\Api\Data\ContractInterface;
 use App\Module\Contract\ContractServiceProvider;
+use App\Module\Manager\Api\Data\OrderInterface;
 use App\Module\Manager\Api\Data\OrganizationInterface;
 use App\Module\Manager\Api\Data\PlanInterface;
 use App\Module\Manager\ManagerServiceProvider;
@@ -59,6 +60,22 @@ class ModuleResourcePermissionChecker
      * @return bool
      */
     public function canEditPlans()
+    {
+        return Auth::user()->isSuperAdmin() && Config::get('app.neos_subdomain') == SUBDOMAIN;
+    }
+
+    /**
+     * @return bool
+     */
+    public function canReadOrders()
+    {
+        return $this->userPermissionChecker->canRead(OrderInterface::RESOURCE_ID, ManagerServiceProvider::MODULE_NAME);
+    }
+
+    /**
+     * @return bool
+     */
+    public function canEditOrders()
     {
         return Auth::user()->isSuperAdmin() && Config::get('app.neos_subdomain') == SUBDOMAIN;
     }

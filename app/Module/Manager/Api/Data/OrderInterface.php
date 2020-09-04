@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Module\Manager\Models\Data;
+namespace App\Module\Manager\Api\Data;
 
 /**
  * @method int getId()
@@ -12,16 +12,10 @@ namespace App\Module\Manager\Models\Data;
  * @method $this setStart(string $value)
  * @method string getEnd()
  * @method $this setEnd(string $value)
+ * @method float getMonthlyPrice()
+ * @method $this setMonthlyPrice(float $value)
  */
-class OrganizationPlan
+interface OrderInterface
 {
-    /**
-     * @var string
-     */
-    protected $table = 'organization_plan';
-
-    /**
-     * @var string[]
-     */
-    protected $properties = ['organization_id', 'plan_id', 'start', 'end'];
+    const RESOURCE_ID = 'plan_order';
 }

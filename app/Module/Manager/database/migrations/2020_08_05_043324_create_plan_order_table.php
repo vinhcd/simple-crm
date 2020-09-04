@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrganizationPlanTable extends Migration
+class CreatePlanOrderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateOrganizationPlanTable extends Migration
      */
     public function up()
     {
-        Schema::create('organization_plan', function (Blueprint $table) {
+        Schema::create('plan_order', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('organization_id');
             $table->unsignedBigInteger('plan_id');
+            $table->unsignedBigInteger('organization_id');
             $table->date('start');
             $table->date('end');
+            $table->decimal('monthly_price');
 
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
@@ -38,6 +39,6 @@ class CreateOrganizationPlanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('organization_plan');
+        Schema::dropIfExists('plan_order');
     }
 }

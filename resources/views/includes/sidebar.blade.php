@@ -51,6 +51,14 @@ $user = \Illuminate\Support\Facades\Auth::user();
                             </a>
                         </li>
                         @endif
+                        @if($permissionChecker->canReadOrders())
+                            <li class="nav-item">
+                                <a href="{{route('manager_order_list')}}" class="nav-link" id="nav-manager-order">
+                                    <i class="nav-icon fa fa-money-check"></i>
+                                    <p>{{__('Orders')}}</p>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </li>
                 @endif

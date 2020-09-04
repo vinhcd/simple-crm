@@ -6,6 +6,7 @@ use App\Models\AbstractModel;
 use App\Module\Manager\Api\Data\OrganizationInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method integer getId()
@@ -40,27 +41,35 @@ class Organization extends AbstractModel implements OrganizationInterface
     protected $properties = ['name', 'uuid', 'domain', 'email', 'phone_number', 'register_date', 'tax_number', 'address', 'description'];
 
     /**
+     * @var Plan
+     */
+    protected $plan;
+
+    /**
      * @var Collection
      */
-    protected $plans;
+    protected $orders;
 
     /**
      * @return Plan | null
      */
     public function getPlan()
     {
-        return $this->getPlanHistory()->last();
+        if (!$this->plan) {
+            $this->plan = $this->plans()->get()->last();
+        }
+        return $this->plan;
     }
 
     /**
      * @return Collection
      */
-    public function getPlanHistory()
+    public function getOrders()
     {
-        if (!$this->plans) {
-            $this->plans = $this->plans()->get();
+        if (!$this->orders) {
+            $this->orders = $this->orders()->get();
         }
-        return $this->plans;
+        return $this->orders;
     }
 
     /**
@@ -75,10 +84,18 @@ class Organization extends AbstractModel implements OrganizationInterface
     }
 
     /**
+     * @return HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany(PlanOrder::class, 'plan_order');
+    }
+
+    /**
      * @return BelongsToMany
      */
     public function plans()
     {
-        return $this->belongsToMany(Plan::class, 'organization_plan');
+        return $this->belongsToMany(Plan::class, 'plan_order');
     }
 }

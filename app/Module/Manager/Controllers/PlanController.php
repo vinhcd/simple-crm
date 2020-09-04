@@ -41,7 +41,7 @@ class PlanController extends Controller
      * @param string $id
      * @return RedirectResponse|View
      */
-    public function createOrUpdate(Request $request, $id = '')
+    public function edit(Request $request, $id = '')
     {
         $plan = $id ? $this->repository->getById($id) : $this->repository->create();
 
@@ -49,9 +49,9 @@ class PlanController extends Controller
         if ($posts = $request->post()) {
             $request->validate([
                 'name' => 'required|max:255',
-                'price' => 'required|numeric',
-                'max_staff' => 'required|integer',
-                'trial_days' => 'required|integer',
+                'monthly_price' => 'required|numeric|min:0',
+                'max_staff' => 'required|integer|min:0',
+                'trial_days' => 'required|integer|min:0',
             ]);
             try {
                 $planEditBlock->update();
@@ -62,7 +62,7 @@ class PlanController extends Controller
 
             return redirect()->route('manager_plan_list');
         }
-        return view('manager::plan_create', ['planEditBlock' => $planEditBlock]);
+        return view('manager::plan_edit', ['planEditBlock' => $planEditBlock]);
     }
 
     /**

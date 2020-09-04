@@ -35,7 +35,7 @@ interface OrganizationInterface
     public function getPlan();
 
     /**
-     * @return Collection of PlanInterface
+     * @return OrderInterface[]|Collection
      */
-    public function getPlanHistory();
+    public function getOrders();
 }

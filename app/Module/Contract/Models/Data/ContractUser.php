@@ -17,7 +17,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method string getUsername()
  * @method $this setUsername(string $value)
  * @method string getStart()
+ * @method $this setStart(string $value)
  * @method string getEnd()
+ * @method $this setEnd(string $value)
  * @method int getActive()
  * @method $this setActive(int $value)
  */
@@ -42,28 +44,6 @@ class ContractUser extends AbstractModel implements ContractUserInterface
      * @var ContractTemplate
      */
     protected $template;
-
-    /**
-     * @param string $date
-     * @return $this
-     */
-    public function setStart($date)
-    {
-        $this->start = !empty($date) ? $date : null;
-
-        return $this;
-    }
-
-    /**
-     * @param string $date
-     * @return $this
-     */
-    public function setEnd($date)
-    {
-        $this->end = !empty($date) ? $date : null;
-
-        return $this;
-    }
 
     /**
      * @return Contract

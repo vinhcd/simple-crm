@@ -4,11 +4,33 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('manager')->middleware('auth')->group(function () {
 
-    Route::get('/plan', 'PlanController@index')->name('manager_plan_list');
-    Route::get('/plan/delete/{id}', 'PlanController@delete')->name('manager_plan_delete');
-    Route::match(['get', 'post'], '/plan/createOrUpdate/{id?}', 'PlanController@createOrUpdate')->name('manager_plan_create_update');
+    // Plan
+    Route::prefix('plan')->group(function () {
+        Route::get('/', 'PlanController@index')
+            ->name('manager_plan_list');
+        Route::match(['get', 'post'], '/plan/createOrUpdate/{id?}', 'PlanController@edit')
+            ->name('manager_plan_edit');
+        Route::get('/plan/delete/{id}', 'PlanController@delete')
+            ->name('manager_plan_delete');
+    });
 
-    Route::get('/organization', 'OrganizationController@index')->name('manager_organization_list');
-    Route::get('/organization/delete/{id}', 'OrganizationController@delete')->name('manager_organization_delete');
-    Route::match(['get', 'post'], '/organization/createOrUpdate/{id?}', 'OrganizationController@createOrUpdate')->name('manager_organization_create_update');
+    // Organization
+    Route::prefix('organization')->group(function () {
+        Route::get('/', 'OrganizationController@index')
+            ->name('manager_organization_list');
+        Route::match(['get', 'post'], '/createOrUpdate/{id?}', 'OrganizationController@edit')
+            ->name('manager_organization_edit');
+        Route::get('/delete/{id}', 'OrganizationController@delete')
+            ->name('manager_organization_delete');
+    });
+
+    // Order
+    Route::prefix('order')->group(function () {
+        Route::get('/', 'OrderController@index')
+            ->name('manager_order_list');
+        Route::match(['get', 'post'], '/edit/{id?}', 'OrderController@edit')
+            ->name('manager_order_edit');
+        Route::get('/delete/{id}', 'OrderController@delete')
+            ->name('manager_order_delete');
+    });
 });

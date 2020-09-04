@@ -26,7 +26,7 @@
                                 <tr>
                                     <th style="width: 3%">ID</th>
                                     <th>Plan name</th>
-                                    <th>Price</th>
+                                    <th>Monthly price</th>
                                     <th>Max staffs</th>
                                     <th>Trial days</th>
                                     <th style="width: 5%">Edit</th>
@@ -38,12 +38,12 @@
                                 <tr>
                                     <td>{{$plan->getId()}}</td>
                                     <td>{{$plan->getName()}}</td>
-                                    <td>{{$plan->getPrice()}}</td>
+                                    <td>{{$plan->getMonthlyPrice()}}</td>
                                     <td>{{$plan->getMaxStaff()}}</td>
                                     <td>{{$plan->getTrialDays()}}</td>
                                     <td>
                                         @if($permissionChecker->canEditPlans())
-                                        <a href="{{ route('manager_plan_create_update', $plan->getId()) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
+                                        <a href="{{ route('manager_plan_edit', $plan->getId()) }}"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;
                                         <a href="{{ route('manager_plan_delete', $plan->getId()) }}" title="{{__('Delete')}}" onclick="return confirm('Are you sure?')">
                                             <i class="fa fa-trash-alt"></i>
                                         </a>
@@ -59,7 +59,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <a href="{{route('manager_plan_create_update')}}">
+                    <a href="{{route('manager_plan_edit')}}">
                         <button class="btn btn-dark">{{__('Create plan')}}</button>
                     </a>
                 </div>
