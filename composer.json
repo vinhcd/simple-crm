@@ -1,12 +1,13 @@
 {
-    "name": "laravel/laravel",
+    "name": "vinhcd/simple-crm",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Multi-domain simple CRM project",
     "keywords": [
-        "framework",
-        "laravel"
+        "laravel",
+        "vinhcd",
+        "crm"
     ],
-    "license": "MIT",
+    "license": "proprietary",
     "require": {
         "php": "^7.2.5",
         "fideloper/proxy": "^4.2",
