@@ -3,7 +3,7 @@
 namespace App\Support;
 
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Storage;
 
 class FileUpload extends Filesystem
 {
@@ -13,7 +13,9 @@ class FileUpload extends Filesystem
      */
     public function deleteFromPublicUpload($path)
     {
-        $realPath = Config::get('filesystems.disks.public.root') . '/' . $path;
+        /* @var \Illuminate\Filesystem\FilesystemAdapter $fileSystem */
+        $fileSystem = Storage::disk('public');
+        $realPath = $fileSystem->path($path);
         if ($this->exists($realPath)) {
             return $this->delete($realPath);
         }

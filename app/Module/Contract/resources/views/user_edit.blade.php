@@ -73,6 +73,12 @@ $contractData = $contractUserEditBlock->getContractData();
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="salary">{{__('Salary')}}</label>
+                                    <input type="text" class="form-control" name="salary" id="salary"
+                                           value="{{ old('salary', $contractUser->getSalary()) }}"
+                                           placeholder="Enter salary">
+                                </div>
+                                <div class="form-group">
                                     <label for="status">{{__('Status')}}</label>
                                     <select class="form-control" name="status" id="status">
                                         <option value="1" @if($contractUser->getActive()) selected @endif>{{__('Active')}}</option>
@@ -122,6 +128,9 @@ $contractData = $contractUserEditBlock->getContractData();
                     required: true,
                     date: true,
                     dateGreaterThan: '#start'
+                },
+                salary: {
+                    integer: true,
                 },
             },
             messages: {},

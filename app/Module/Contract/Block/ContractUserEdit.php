@@ -108,6 +108,7 @@ class ContractUserEdit extends AbstractBlock
         $userContract->setUsername($this->userRepository->getById($posts['user'])->getFullName());
         $userContract->setStart($posts['start']);
         $userContract->setEnd($posts['end']);
+        if (!empty($posts['salary'])) $userContract->setSalary($posts['salary']);
         $userContract->setActive($posts['status']);
 
         $this->repository->save($userContract);

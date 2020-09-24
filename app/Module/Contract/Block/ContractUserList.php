@@ -40,6 +40,7 @@ class ContractUserList extends AbstractBlock
             $usersData[$item->getId()]['id'] = $item->getId();
             $usersData[$item->getId()]['start'] = $item->getStart();
             $usersData[$item->getId()]['end'] = $item->getEnd();
+            $usersData[$item->getId()]['salary'] = $item->getSalary();
             $usersData[$item->getId()]['active'] = $item->getActive();
             $usersData[$item->getId()]['username'] = $item->getUsername();
             $usersData[$item->getId()]['contract'] = $item->contract->getName();

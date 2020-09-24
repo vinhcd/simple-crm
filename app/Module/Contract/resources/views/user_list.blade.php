@@ -33,6 +33,7 @@ $userData = $userListBlock->getUsersData();
                                     <th>{{__('Template')}}</th>
                                     <th>{{__('Start')}}</th>
                                     <th>{{__('End')}}</th>
+                                    <th>{{__('Salary')}}</th>
                                     <th>{{__('Status')}}</th>
                                     <th style="width: 5%">{{__('Edit')}}</th>
                                 </tr>
@@ -46,6 +47,7 @@ $userData = $userListBlock->getUsersData();
                                     <td>{{ $contractUser['template'] }}</td>
                                     <td>{{ $contractUser['start'] }}</td>
                                     <td>{{ $contractUser['end'] }}</td>
+                                    <td>{{ $contractUser['salary'] }}</td>
                                     @if($contractUser['active'] == 1)
                                     <td class = "bg-olive color-palette">{{__('Active')}}</td>
                                     @else

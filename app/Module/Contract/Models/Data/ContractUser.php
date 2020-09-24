@@ -4,7 +4,9 @@ namespace App\Module\Contract\Models\Data;
 
 use App\Models\AbstractModel;
 use App\Module\Contract\Api\Data\ContractUserInterface;
+use App\Support\Encryption;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Log;
 
 /**
  * @method int getId()
@@ -65,6 +67,31 @@ class ContractUser extends AbstractModel implements ContractUserInterface
             $this->template = $this->template()->first();
         }
         return $this->template;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSalary()
+    {
+        if ($this->salary) {
+            try {
+                return (new Encryption())->decrypt($this->salary);
+            } catch (\Exception $e) {
+                Log::error($e->getMessage());
+            }
+        }
+        return '';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setSalary($value)
+    {
+        $this->salary = (new Encryption())->encrypt($value);
+
+        return $this;
     }
 
     /**

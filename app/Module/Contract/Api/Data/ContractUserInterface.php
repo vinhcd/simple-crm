@@ -32,4 +32,16 @@ interface ContractUserInterface
      * @return ContractTemplateInterface
      */
     public function getTemplate();
+
+    /**
+     * @return string
+     */
+    public function getSalary();
+
+    /**
+     * @param string $value
+     * @return string
+     * @throws \Exception
+     */
+    public function setSalary($value);
 }
