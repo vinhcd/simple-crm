@@ -7,6 +7,7 @@ use App\Module\Manager\Api\Data\OrganizationInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Date;
 
 /**
  * @method integer getId()
@@ -56,7 +57,9 @@ class Organization extends AbstractModel implements OrganizationInterface
     public function getPlan()
     {
         if (!$this->plan) {
-            $this->plan = $this->plans()->get()->last();
+            $this->plan = $this->plans()
+                ->where('end', '>=', Date::now()->toDateString())
+                ->get()->last();
         }
         return $this->plan;
     }

@@ -60,6 +60,8 @@ $plan = $planEditBlock->getPlan();
 
 @section('custom-scripts')
     @include('manager::includes.sidebar_script')
+    <script src="{{url('plugins/jquery-validation/jquery.validate.min.js')}}"></script>
+    <script src="{{url('plugins/jquery-validation/additional-methods.min.js')}}"></script>
     <script>
         $('#nav-manager-plan').addClass('active');
 

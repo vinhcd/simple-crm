@@ -33,6 +33,11 @@ interface UserInterface
     public function getDepartments();
 
     /**
+     * @return PositionInterface[] | Collection
+     */
+    public function getPositions();
+
+    /**
      * @return bool
      */
     public function isSuperAdmin();

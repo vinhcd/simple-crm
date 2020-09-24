@@ -87,7 +87,7 @@ $order = $orderEditBlock->getOrder();
 @stop
 
 @section('custom-scripts')
-    @include('contract::includes.sidebar_script')
+    @include('manager::includes.sidebar_script')
     <script src="{{url('plugins/jquery-validation/jquery.validate.min.js')}}"></script>
     <script src="{{url('plugins/jquery-validation/additional-methods.min.js')}}"></script>
     <script src="{{url('plugins/select2/js/select2.full.min.js')}}"></script>
@@ -95,7 +95,7 @@ $order = $orderEditBlock->getOrder();
     @include('contract::includes.js_validate')
 
     <script>
-        $('#nav-contract-user').addClass('active');
+        $('#nav-manager-order').addClass('active');
 
         $('#form-order').validate({
             rules: {
